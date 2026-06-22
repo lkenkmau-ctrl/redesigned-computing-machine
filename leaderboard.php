@@ -1,20 +1,30 @@
 <?php require_once 'config.php';
-$db = getDb();
-$leaderboard = $db->query("
-    SELECT u.id, u.username, u.minecraft_nick, u.points,
-        COALESCE(s.snake_levels, 0) as snake_levels,
-        COALESCE(s.tetris_levels, 0) as tetris_levels,
-        COALESCE(s.total_games, 0) as total_games
-    FROM users u
-    LEFT JOIN (
-        SELECT user_id,
-            SUM(CASE WHEN game='snake' THEN level ELSE 0 END) as snake_levels,
-            SUM(CASE WHEN game='tetris' THEN level ELSE 0 END) as tetris_levels,
-            COUNT(*) as total_games
-        FROM scores GROUP BY user_id
-    ) s ON u.id = s.user_id
-    ORDER BY u.points DESC LIMIT 50
-")->fetchAll(PDO::FETCH_ASSOC);
+
+$users = supabaseSelect('users', ['select' => 'id,username,minecraft_nick,points']);
+$all_scores = supabaseSelect('scores', ['select' => 'user_id,game,level']);
+
+$stats = [];
+foreach ($users as $u) {
+    $stats[$u['id']] = [
+        'username' => $u['username'],
+        'minecraft_nick' => $u['minecraft_nick'],
+        'points' => (int)$u['points'],
+        'snake_levels' => 0,
+        'tetris_levels' => 0,
+        'total_games' => 0,
+    ];
+}
+foreach ($all_scores as $s) {
+    $uid = $s['user_id'];
+    if (isset($stats[$uid])) {
+        if ($s['game'] === 'snake') $stats[$uid]['snake_levels'] += (int)$s['level'];
+        if ($s['game'] === 'tetris') $stats[$uid]['tetris_levels'] += (int)$s['level'];
+        $stats[$uid]['total_games']++;
+    }
+}
+
+usort($stats, fn($a, $b) => $b['points'] - $a['points']);
+$stats = array_slice($stats, 0, 50);
 $rank = 1;
 ?>
 <!DOCTYPE html>
@@ -56,7 +66,7 @@ $rank = 1;
                 <th>Тетрис</th>
                 <th>Игр</th>
             </tr>
-            <?php foreach ($leaderboard as $u): ?>
+            <?php foreach ($stats as $u): ?>
             <tr>
                 <td class="rank rank-<?= $rank ?>">
                     <?php if ($rank === 1): ?><span class="leader-medal">🥇</span>
@@ -73,7 +83,7 @@ $rank = 1;
                 <td><?= (int)$u['total_games'] ?></td>
             </tr>
             <?php $rank++; endforeach; ?>
-            <?php if (count($leaderboard) === 0): ?>
+            <?php if (count($stats) === 0): ?>
             <tr><td colspan="7" style="text-align:center;color:#666;padding:30px;">Пока никто не играл. Будь первым!</td></tr>
             <?php endif; ?>
         </table>

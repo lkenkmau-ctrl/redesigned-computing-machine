@@ -3,19 +3,23 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once 'config.php';
 
-$db_status = '❌';
-$db_msg = '';
+$supa_status = '❌';
+$supa_msg = '';
 try {
-    $db = getDb();
-    $db_status = '✅';
-    $db_msg = 'SQLite работает';
-    $count = $db->query("SELECT COUNT(*) FROM users")->fetchColumn();
-    $db_msg .= ", пользователей: $count";
+    $result = supabaseSelect('users', ['select' => 'id', 'limit' => 1]);
+    if (!isset($result['error'])) {
+        $supa_status = '✅';
+        $count_resp = supabaseSelect('users', ['select' => 'id']);
+        $count = is_array($count_resp) ? count($count_resp) : 0;
+        $supa_msg = "Supabase работает, пользователей: $count";
+    } else {
+        $supa_msg = $result['error'];
+    }
 } catch (Exception $e) {
-    $db_msg = $e->getMessage();
+    $supa_msg = $e->getMessage();
 }
 
-$pdo_drivers = class_exists('PDO') ? implode(', ', PDO::getAvailableDrivers()) : 'PDO не найден';
+$curl_ok = function_exists('curl_version') ? '✅ curl ' . curl_version()['version'] : '❌ curl не найден';
 $sess_path = session_save_path() ?: 'по умолчанию';
 $php_ver = phpversion();
 ?>
@@ -39,8 +43,10 @@ $php_ver = phpversion();
         <table>
             <tr><th>Параметр</th><th>Статус</th></tr>
             <tr><td>PHP версия</td><td><?= $php_ver ?></td></tr>
-            <tr><td>PDO драйверы</td><td><?= $pdo_drivers ?></td></tr>
-            <tr><td>База данных</td><td><?= $db_status ?> <?= $db_msg ?></td></tr>
+            <tr><td>cURL</td><td><?= $curl_ok ?></td></tr>
+            <tr><td>Supabase</td><td><?= $supa_status ?> <?= $supa_msg ?></td></tr>
+            <tr><td>SUPABASE_URL</td><td><?= defined('SUPABASE_URL') ? htmlspecialchars(SUPABASE_URL) : '❌ не задан' ?></td></tr>
+            <tr><td>SUPABASE_KEY</td><td><?= defined('SUPABASE_KEY') && SUPABASE_KEY ? '✅ задан' : '❌ не задан' ?></td></tr>
             <tr><td>Директория сессий</td><td><?= $sess_path ?></td></tr>
             <tr><td>Папка с сайтом</td><td><?= __DIR__ ?> (<?= is_writable(__DIR__) ? '✅ запись' : '❌ нет записи' ?>)</td></tr>
         </table>

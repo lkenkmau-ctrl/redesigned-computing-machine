@@ -8,27 +8,58 @@ if (!isset($_SESSION['admin']) && (!isset($_POST['apass']) || $_POST['apass'] !=
     exit;
 }
 $_SESSION['admin'] = true;
-$db = getDb();
-if (isset($_GET['complete'])) { $db->prepare("UPDATE donations SET status = 'completed' WHERE id = ?")->execute([(int)$_GET['complete']]); header('Location: admin.php'); exit; }
+
+if (isset($_GET['complete'])) {
+    supabaseUpdate('donations', ['status' => 'completed'], 'id=eq.' . (int)$_GET['complete']);
+    header('Location: admin.php'); exit;
+}
 if (isset($_GET['cancel'])) {
-    $stmt = $db->prepare("SELECT user_id, item_key FROM donations WHERE id = ? AND status = 'pending'");
-    $stmt->execute([(int)$_GET['cancel']]);
-    $don = $stmt->fetch(PDO::FETCH_ASSOC);
+    $dons = supabaseSelect('donations', [
+        'select' => 'user_id,item_key,cost',
+        'where' => 'id=eq.' . (int)$_GET['cancel'] . '&status=eq.pending'
+    ]);
+    $don = $dons[0] ?? null;
     if ($don) {
-        $db->prepare("UPDATE donations SET status = 'cancelled' WHERE id = ?")->execute([(int)$_GET['cancel']]);
-        $item = $donate_items[$don['item_key']] ?? null;
-        if ($item) $db->prepare("UPDATE users SET points = points + ? WHERE id = ?")->execute([$item['cost'], $don['user_id']]);
+        supabaseUpdate('donations', ['status' => 'cancelled'], 'id=eq.' . (int)$_GET['cancel']);
+        $user_resp = supabaseSelect('users', [
+            'select' => 'points',
+            'where' => 'id=eq.' . $don['user_id']
+        ]);
+        $current = !empty($user_resp) ? (int)$user_resp[0]['points'] : 0;
+        supabaseUpdate('users', ['points' => $current + (int)$don['cost']], 'id=eq.' . $don['user_id']);
     }
     header('Location: admin.php'); exit;
 }
-if (isset($_POST['add_points'])) { $db->prepare("UPDATE users SET points = points + ? WHERE id = ?")->execute([(int)$_POST['points'], (int)$_POST['uid']]); header('Location: admin.php'); exit; }
+if (isset($_POST['add_points'])) {
+    $uid = (int)$_POST['uid'];
+    $pts = (int)$_POST['points'];
+    $user_resp = supabaseSelect('users', [
+        'select' => 'points',
+        'where' => 'id=eq.' . $uid
+    ]);
+    $current = !empty($user_resp) ? (int)$user_resp[0]['points'] : 0;
+    supabaseUpdate('users', ['points' => $current + $pts], 'id=eq.' . $uid);
+    header('Location: admin.php'); exit;
+}
 
-$pending = $db->query("SELECT d.*, u.username FROM donations d JOIN users u ON d.user_id = u.id WHERE d.status = 'pending' ORDER BY d.created_at DESC")->fetchAll(PDO::FETCH_ASSOC);
-$allDons = $db->query("SELECT d.*, u.username FROM donations d JOIN users u ON d.user_id = u.id ORDER BY d.created_at DESC LIMIT 30")->fetchAll(PDO::FETCH_ASSOC);
-$users = $db->query("SELECT id, username, minecraft_nick, points FROM users ORDER BY points DESC")->fetchAll(PDO::FETCH_ASSOC);
-$total_users = $db->query("SELECT COUNT(*) FROM users")->fetchColumn();
-$total_donations = $db->query("SELECT COUNT(*) FROM donations")->fetchColumn();
-$completed_donations = $db->query("SELECT COUNT(*) FROM donations WHERE status='completed'")->fetchColumn();
+$pending = supabaseSelect('donations', [
+    'select' => '*',
+    'where' => 'status=eq.pending',
+    'order' => 'created_at.desc'
+]);
+$allDons = supabaseSelect('donations', [
+    'select' => '*',
+    'order' => 'created_at.desc',
+    'limit' => 30
+]);
+$users = supabaseSelect('users', [
+    'select' => 'id,username,minecraft_nick,points',
+    'order' => 'points.desc'
+]);
+$total_users = count($users);
+$total_donations = count(supabaseSelect('donations', ['select' => 'id']));
+$completed = supabaseSelect('donations', ['select' => 'id', 'where' => 'status=eq.completed']);
+$completed_donations = count($completed);
 $pending_count = count($pending);
 ?>
 <!DOCTYPE html>
@@ -68,8 +99,7 @@ $pending_count = count($pending);
         <div class="admin-card">
             <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
                 <div>
-                    <strong style="color:#00ff00;"><?= htmlspecialchars($d['username']) ?></strong>
-                    <span style="color:#888;">(<?= htmlspecialchars($d['minecraft_nick']) ?>)</span>
+                    <strong style="color:#00ff00;"><?= htmlspecialchars($d['minecraft_nick']) ?></strong>
                     <span style="color:#ffd700;"> — <?= htmlspecialchars($d['item_name']) ?></span>
                 </div>
                 <div style="display:flex;gap:6px;">
@@ -113,7 +143,7 @@ $pending_count = count($pending);
                 <tr><th>Пользователь</th><th>Ник</th><th>Предмет</th><th>Статус</th><th>Дата</th></tr>
                 <?php foreach ($allDons as $d): ?>
                 <tr>
-                    <td><?= htmlspecialchars($d['username']) ?></td>
+                    <td><?= htmlspecialchars($d['minecraft_nick']) ?></td>
                     <td><?= htmlspecialchars($d['minecraft_nick']) ?></td>
                     <td><?= htmlspecialchars($d['item_name']) ?></td>
                     <td class="status-<?= $d['status'] ?>">

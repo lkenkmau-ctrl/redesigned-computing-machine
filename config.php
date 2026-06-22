@@ -7,7 +7,9 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 $site_name = "DonateCraft";
-$db_path = __DIR__ . '/database.sqlite';
+
+define('SUPABASE_URL', getenv('SUPABASE_URL') ?: 'https://pnpqqxmtfjdcdczuespj.supabase.co');
+define('SUPABASE_KEY', getenv('SUPABASE_KEY') ?: 'sb_publishable_rY50-AF1plRO5v54Rl_FBA_jcG77JX9');
 
 $points_per_snake_level = 100;
 $points_per_tetris_level = 100;
@@ -89,51 +91,73 @@ $donate_items = [
     'деньги_50000' => ['name' => '50000 Монет', 'cost' => 3000, 'category' => 'currency', 'description' => '50000 игровых монет — джекпот!', 'command' => 'eco give %player% 50000'],
 ];
 
-function getDb() {
-    global $db_path;
-    if (!class_exists('PDO')) {
-        die('Ошибка: PDO не установлен на сервере. Включите extension=pdo и extension=pdo_sqlite в php.ini');
+function supabase($method, $table, $options = []) {
+    $url = SUPABASE_URL . '/rest/v1/' . $table;
+    $headers = [
+        'apikey: ' . SUPABASE_KEY,
+        'Authorization: Bearer ' . SUPABASE_KEY,
+        'Content-Type: application/json',
+    ];
+
+    $hasQuery = false;
+    if (!empty($options['select'])) {
+        $url .= '?select=' . $options['select'];
+        $hasQuery = true;
     }
-    if (!in_array('sqlite', PDO::getAvailableDrivers())) {
-        die('Ошибка: SQLite драйвер PDO не найден. Включите extension=pdo_sqlite в php.ini');
+    if (!empty($options['where'])) {
+        $url .= ($hasQuery ? '&' : '?') . $options['where'];
+        $hasQuery = true;
     }
-    try {
-        $db = new PDO("sqlite:$db_path");
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $db->exec("CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT UNIQUE NOT NULL,
-            password TEXT NOT NULL,
-            minecraft_nick TEXT NOT NULL,
-            points INTEGER DEFAULT 0,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        )");
-        $db->exec("CREATE TABLE IF NOT EXISTS scores (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER NOT NULL,
-            game TEXT NOT NULL,
-            level INTEGER DEFAULT 0,
-            points INTEGER DEFAULT 0,
-            played_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY(user_id) REFERENCES users(id)
-        )");
-        $db->exec("CREATE TABLE IF NOT EXISTS donations (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER NOT NULL,
-            item_key TEXT NOT NULL,
-            item_name TEXT NOT NULL,
-            cost INTEGER DEFAULT 0,
-            command TEXT NOT NULL,
-            minecraft_nick TEXT NOT NULL,
-            status TEXT DEFAULT 'pending',
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-            FOREIGN KEY(user_id) REFERENCES users(id)
-        )");
-        try { $db->exec("ALTER TABLE donations ADD COLUMN cost INTEGER DEFAULT 0"); } catch (Exception $e) {} // колонка может уже существовать
-        return $db;
-    } catch (Exception $e) {
-        die('Ошибка базы данных: ' . $e->getMessage() . '. Убедитесь, что папка с сайтом доступна для записи.');
+    if (!empty($options['order'])) {
+        $url .= ($hasQuery ? '&' : '?') . 'order=' . urlencode($options['order']);
+        $hasQuery = true;
     }
+    if (!empty($options['limit'])) {
+        $url .= ($hasQuery ? '&' : '?') . 'limit=' . (int)$options['limit'];
+    }
+
+    $ch = curl_init();
+    curl_setopt_array($ch, [
+        CURLOPT_URL => $url,
+        CURLOPT_CUSTOMREQUEST => strtoupper($method),
+        CURLOPT_HTTPHEADER => $headers,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 10,
+    ]);
+
+    if (in_array(strtoupper($method), ['POST', 'PATCH', 'PUT'])) {
+        $body = !empty($options['body']) ? json_encode($options['body']) : '{}';
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+        $headers[] = 'Prefer: return=representation';
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    }
+
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($response === false) {
+        return ['error' => 'Supabase connection failed'];
+    }
+
+    $data = json_decode($response, true);
+    if ($httpCode >= 400) {
+        return ['error' => $data['message'] ?? $data['error'] ?? "HTTP $httpCode"];
+    }
+
+    return $data;
+}
+
+function supabaseSelect($table, $options = []) {
+    return supabase('GET', $table, $options);
+}
+
+function supabaseInsert($table, $data) {
+    return supabase('POST', $table, ['body' => $data]);
+}
+
+function supabaseUpdate($table, $data, $where) {
+    return supabase('PATCH', $table, ['body' => $data, 'where' => $where]);
 }
 
 function isAuth() {

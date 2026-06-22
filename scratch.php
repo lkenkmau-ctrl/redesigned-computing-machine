@@ -1,14 +1,21 @@
 <?php require_once 'config.php'; requireAuth();
-$db = getDb();
 $user_id = $_SESSION['user_id'];
 $today = date('Y-m-d');
-$stmt = $db->prepare("SELECT COALESCE(SUM(level), 0) FROM scores WHERE user_id = ? AND game = 'scratch' AND date(played_at) = ?");
-$stmt->execute([$user_id, $today]);
-$cards_today = (int)$stmt->fetchColumn();
+$next_day = date('Y-m-d', strtotime('+1 day'));
+
+$today_scores = supabaseSelect('scores', [
+    'select' => '*',
+    'where' => "user_id=eq.$user_id&game=eq.scratch&played_at=gte.{$today}T00:00:00&played_at=lt.{$next_day}T00:00:00"
+]);
+$cards_today = count($today_scores);
 $cards_left = max(0, $scratch_max_daily - $cards_today);
-$total_earned = $db->prepare("SELECT COALESCE(SUM(points), 0) FROM scores WHERE user_id = ? AND game = 'scratch'");
-$total_earned->execute([$user_id]);
-$total_won = (int)$total_earned->fetchColumn();
+
+$all_scratch = supabaseSelect('scores', [
+    'select' => 'points',
+    'where' => "user_id=eq.$user_id&game=eq.scratch"
+]);
+$total_won = 0;
+foreach ($all_scratch as $s) { $total_won += (int)$s['points']; }
 $scratch_prizes_json = json_encode($scratch_prizes);
 ?>
 <!DOCTYPE html>

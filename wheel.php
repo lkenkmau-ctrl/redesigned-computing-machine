@@ -1,14 +1,21 @@
 <?php require_once 'config.php'; requireAuth();
-$db = getDb();
 $user_id = $_SESSION['user_id'];
 $today = date('Y-m-d');
-$stmt = $db->prepare("SELECT COALESCE(SUM(level), 0) FROM scores WHERE user_id = ? AND game = 'wheel' AND date(played_at) = ?");
-$stmt->execute([$user_id, $today]);
-$spins_today = (int)$stmt->fetchColumn();
+$next_day = date('Y-m-d', strtotime('+1 day'));
+
+$today_scores = supabaseSelect('scores', [
+    'select' => '*',
+    'where' => "user_id=eq.$user_id&game=eq.wheel&played_at=gte.{$today}T00:00:00&played_at=lt.{$next_day}T00:00:00"
+]);
+$spins_today = count($today_scores);
 $spins_left = max(0, $wheel_max_daily - $spins_today);
-$total_earned = $db->prepare("SELECT COALESCE(SUM(points), 0) FROM scores WHERE user_id = ? AND game = 'wheel'");
-$total_earned->execute([$user_id]);
-$total_won = (int)$total_earned->fetchColumn();
+
+$all_wheel = supabaseSelect('scores', [
+    'select' => 'points',
+    'where' => "user_id=eq.$user_id&game=eq.wheel"
+]);
+$total_won = 0;
+foreach ($all_wheel as $s) { $total_won += (int)$s['points']; }
 ?>
 <!DOCTYPE html>
 <html lang="ru">

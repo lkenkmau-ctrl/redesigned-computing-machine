@@ -1,34 +1,44 @@
 <?php require_once 'config.php'; requireAuth();
-$db = getDb();
 $user_id = $_SESSION['user_id'];
-$user = $db->prepare("SELECT * FROM users WHERE id = ?");
-$user->execute([$user_id]);
-$userData = $user->fetch(PDO::FETCH_ASSOC);
 
-$stmt = $db->prepare("SELECT SUM(level) as total_levels, SUM(points) as total_points, COUNT(*) as games_count, game FROM scores WHERE user_id = ? GROUP BY game");
-$stmt->execute([$user_id]);
-$score_stats = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$user_resp = supabaseSelect('users', [
+    'select' => '*',
+    'where' => 'id=eq.' . $user_id
+]);
+$userData = $user_resp[0] ?? null;
+if (!$userData) { header('Location: logout.php'); exit; }
+
+$all_scores = supabaseSelect('scores', [
+    'select' => '*',
+    'where' => 'user_id=eq.' . $user_id
+]);
 
 $snake_levels = 0; $tetris_levels = 0;
 $snake_points = 0; $tetris_points = 0;
 $snake_games = 0; $tetris_games = 0;
 $wheel_points = 0; $wheel_games = 0;
 $scratch_points = 0; $scratch_games = 0;
-foreach ($score_stats as $s) {
-    if ($s['game'] === 'snake') { $snake_levels = (int)$s['total_levels']; $snake_points = (int)$s['total_points']; $snake_games = (int)$s['games_count']; }
-    if ($s['game'] === 'tetris') { $tetris_levels = (int)$s['total_levels']; $tetris_points = (int)$s['total_points']; $tetris_games = (int)$s['games_count']; }
-    if ($s['game'] === 'wheel') { $wheel_points = (int)$s['total_points']; $wheel_games = (int)$s['games_count']; }
-    if ($s['game'] === 'scratch') { $scratch_points = (int)$s['total_points']; $scratch_games = (int)$s['games_count']; }
+foreach ($all_scores as $s) {
+    if ($s['game'] === 'snake') { $snake_levels += (int)$s['level']; $snake_points += (int)$s['points']; $snake_games++; }
+    if ($s['game'] === 'tetris') { $tetris_levels += (int)$s['level']; $tetris_points += (int)$s['points']; $tetris_games++; }
+    if ($s['game'] === 'wheel') { $wheel_points += (int)$s['points']; $wheel_games++; }
+    if ($s['game'] === 'scratch') { $scratch_points += (int)$s['points']; $scratch_games++; }
 }
 $total_levels = $snake_levels + $tetris_levels;
 $total_games = $snake_games + $tetris_games + $wheel_games + $scratch_games;
-$spent = $db->prepare("SELECT COALESCE(SUM(cost), 0) FROM donations WHERE user_id = ? AND status IN ('completed','pending')");
-$spent->execute([$user_id]);
-$total_spent = (int)$spent->fetchColumn();
 
-$stmt = $db->prepare("SELECT * FROM donations WHERE user_id = ? ORDER BY created_at DESC LIMIT 10");
-$stmt->execute([$user_id]);
-$donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$all_dons = supabaseSelect('donations', [
+    'select' => '*',
+    'where' => 'user_id=eq.' . $user_id
+]);
+$total_spent = 0;
+foreach ($all_dons as $d) {
+    if (in_array($d['status'], ['completed', 'pending'])) {
+        $total_spent += (int)$d['cost'];
+    }
+}
+
+$donations = array_slice($all_dons, 0, 10);
 ?>
 <!DOCTYPE html>
 <html lang="ru">

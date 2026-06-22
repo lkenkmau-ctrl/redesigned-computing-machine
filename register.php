@@ -10,19 +10,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (empty($minecraft_nick)) {
         $error = 'Укажите Minecraft ник';
     } else {
-        $db = getDb();
-        $stmt = $db->prepare("SELECT id FROM users WHERE username = ?");
-        $stmt->execute([$username]);
-        if ($stmt->fetch()) {
+        $existing = supabaseSelect('users', [
+            'select' => 'id',
+            'where' => 'username=eq.' . urlencode($username)
+        ]);
+        if (!empty($existing)) {
             $error = 'Такой логин уже занят';
         } else {
             $hash = password_hash($password, PASSWORD_DEFAULT);
-            $stmt = $db->prepare("INSERT INTO users (username, password, minecraft_nick) VALUES (?, ?, ?)");
-            $stmt->execute([$username, $hash, $minecraft_nick]);
-            $_SESSION['user_id'] = $db->lastInsertId();
-            $_SESSION['username'] = $username;
-            header('Location: profile.php');
-            exit;
+            $result = supabaseInsert('users', [
+                'username' => $username,
+                'password' => $hash,
+                'minecraft_nick' => $minecraft_nick
+            ]);
+            if (!empty($result) && !isset($result['error'])) {
+                $_SESSION['user_id'] = $result[0]['id'];
+                $_SESSION['username'] = $username;
+                header('Location: profile.php');
+                exit;
+            }
+            $error = 'Ошибка регистрации: ' . ($result['error'] ?? 'неизвестная');
         }
     }
 }

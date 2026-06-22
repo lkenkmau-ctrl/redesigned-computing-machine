@@ -1,7 +1,11 @@
 <?php require_once 'config.php';
-$db = getDb();
-$user_count = $db->query("SELECT COUNT(*) FROM users")->fetchColumn();
-$total_donations = $db->query("SELECT COUNT(*) FROM donations WHERE status='completed'")->fetchColumn();
+$users_resp = supabaseSelect('users', ['select' => 'id']);
+$user_count = count($users_resp);
+$dons_resp = supabaseSelect('donations', [
+    'select' => 'id',
+    'where' => 'status=eq.completed'
+]);
+$total_donations = count($dons_resp);
 ?>
 <!DOCTYPE html>
 <html lang="ru">

@@ -1,9 +1,12 @@
 <?php require_once 'config.php'; requireAuth();
-$db = getDb();
 $user_id = $_SESSION['user_id'];
-$user = $db->prepare("SELECT * FROM users WHERE id = ?");
-$user->execute([$user_id]);
-$userData = $user->fetch(PDO::FETCH_ASSOC);
+
+$user_resp = supabaseSelect('users', [
+    'select' => '*',
+    'where' => 'id=eq.' . $user_id
+]);
+$userData = $user_resp[0] ?? null;
+if (!$userData) { header('Location: logout.php'); exit; }
 
 $success = '';
 $error = '';
@@ -14,9 +17,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buy'])) {
         $item = $donate_items[$item_key];
         if ((int)$userData['points'] >= $item['cost']) {
             $newPoints = (int)$userData['points'] - $item['cost'];
-            $db->prepare("UPDATE users SET points = ? WHERE id = ?")->execute([$newPoints, $user_id]);
-            $db->prepare("INSERT INTO donations (user_id, item_key, item_name, cost, command, minecraft_nick) VALUES (?, ?, ?, ?, ?, ?)")
-                ->execute([$user_id, $item_key, $item['name'], $item['cost'], $item['command'], $userData['minecraft_nick']]);
+            supabaseUpdate('users', ['points' => $newPoints], 'id=eq.' . $user_id);
+
+            supabaseInsert('donations', [
+                'user_id' => $user_id,
+                'item_key' => $item_key,
+                'item_name' => $item['name'],
+                'cost' => $item['cost'],
+                'command' => $item['command'],
+                'minecraft_nick' => $userData['minecraft_nick']
+            ]);
+
             $userData['points'] = $newPoints;
             $success = '✅ Покупка оформлена! Ожидайте выдачи на сервере.';
         } else {

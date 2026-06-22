@@ -5,10 +5,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
     if (!empty($username) && !empty($password)) {
-        $db = getDb();
-        $stmt = $db->prepare("SELECT id, username, password FROM users WHERE username = ?");
-        $stmt->execute([$username]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $result = supabaseSelect('users', [
+            'select' => 'id,username,password',
+            'where' => 'username=eq.' . urlencode($username)
+        ]);
+        $user = $result[0] ?? null;
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
