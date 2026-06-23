@@ -17,11 +17,17 @@
 <header>
     <div class="header-inner">
         <a href="index.php" class="logo-link"><?= $site_name ?></a>
-        <nav class="nav">
+        <nav class="nav" style="overflow-x:auto;white-space:nowrap;">
             <a href="profile.php" class="btn btn-sm btn-outline">Профиль</a>
             <a href="snake.php" class="btn btn-sm btn-outline">Змейка</a>
+            <a href="2048.php" class="btn btn-sm btn-outline">2048</a>
             <a href="wheel.php" class="btn btn-sm btn-outline">Колесо</a>
             <a href="scratch.php" class="btn btn-sm btn-outline">Скретч</a>
+            <a href="tictactoe.php" class="btn btn-sm btn-outline">Крестики</a>
+            <a href="guess.php" class="btn btn-sm btn-outline">Число</a>
+            <a href="memory.php" class="btn btn-sm btn-outline">Память</a>
+            <a href="clicker.php" class="btn btn-sm btn-outline">Кликер</a>
+            <a href="quiz.php" class="btn btn-sm btn-outline">Квиз</a>
             <a href="donate.php" class="btn btn-sm">Магазин</a>
             <a href="index.php" class="btn btn-sm btn-outline">Главная</a>
         </nav>
@@ -30,7 +36,7 @@
 <div class="container">
     <div class="game-wrapper animate-in">
         <h1>🧊 Тетрис</h1>
-        <p style="color:#888;margin-bottom:16px;">Складывай блоки, собирай линии и зарабатывай очки!</p>
+        <p style="color:#888;margin-bottom:16px;">Складывай блоки, собирай линии и зарабатывай очки! Блоки проходят сквозь стены.</p>
 
         <div class="game-info-bar">
             <div class="game-info-item"><span class="lbl">Уровень</span><span class="val" id="levelDisplay">1</span></div>
@@ -62,7 +68,7 @@
         <div id="result" style="font-size:18px;font-weight:600;min-height:30px;"></div>
 
         <div style="margin-top:16px;background:rgba(22,33,62,0.5);border-radius:10px;padding:16px;text-align:left;font-size:13px;color:#888;">
-            <strong style="color:#aaa;">Правила:</strong> Каждые 10 собранных линий = новый уровень. За каждый уровень начисляется <strong style="color:#4488ff;">+100 очков</strong>. С каждым уровнем скорость падения растёт!
+            <strong style="color:#aaa;">Правила:</strong> Каждые 10 собранных линий = новый уровень. За каждый уровень начисляется <strong style="color:#4488ff;">+100 очков</strong>. С каждым уровнем скорость падения растёт! Блоки проходят сквозь стены.
         </div>
     </div>
 </div>
@@ -92,13 +98,17 @@ const PIECES = [
 const COLORS = ['#00f0f0','#f0f000','#a000f0','#0000f0','#f0a000','#00f000','#f00000'];
 
 let board, currentPiece, currentX, currentY, currentColor, nextPiece, nextColor;
-let level, lines, score, gameRunning, gameLoop, saved, dropInterval, dropTimer;
+let level, lines, score, gameRunning, gameLoop, saved, dropTimer, dropInterval;
+
+function wrapX(x) {
+    return ((x % COLS) + COLS) % COLS;
+}
 
 function init() {
     board = Array.from({length: ROWS}, () => Array(COLS).fill(0));
     nextPiece = PIECES[Math.floor(Math.random() * PIECES.length)];
     nextColor = Math.floor(Math.random() * COLORS.length);
-    level = 1; lines = 0; score = 0; gameRunning = false; saved = false;
+    level = 1; lines = 0; score = 0; saved = false;
     dropTimer = 0; dropInterval = 1000;
     spawnPiece();
     updateDisplay();
@@ -113,21 +123,21 @@ function spawnPiece() {
     nextColor = Math.floor(Math.random() * COLORS.length);
     currentX = Math.floor((COLS - currentPiece[0].length) / 2);
     currentY = 0;
-    if (collides()) gameOver();
+    if (collides(currentX, currentY, currentPiece)) {
+        gameOver();
+        return;
+    }
     drawNext();
 }
 
 function collides(px, py, piece) {
-    if (!piece) piece = currentPiece;
-    if (px === undefined) px = currentX;
-    if (py === undefined) py = currentY;
     for (let r = 0; r < piece.length; r++) {
         for (let c = 0; c < piece[r].length; c++) {
-            if (piece[r][c]) {
-                let nx = px + c, ny = py + r;
-                if (nx < 0 || nx >= COLS || ny >= ROWS) return true;
-                if (ny >= 0 && board[ny][nx]) return true;
-            }
+            if (!piece[r][c]) continue;
+            let nx = wrapX(px + c);
+            let ny = py + r;
+            if (ny >= ROWS) return true;
+            if (ny >= 0 && board[ny][nx]) return true;
         }
     }
     return false;
@@ -136,10 +146,10 @@ function collides(px, py, piece) {
 function lockPiece() {
     for (let r = 0; r < currentPiece.length; r++) {
         for (let c = 0; c < currentPiece[r].length; c++) {
-            if (currentPiece[r][c]) {
-                let ny = currentY + r;
-                if (ny >= 0) board[ny][currentX + c] = currentColor + 1;
-            }
+            if (!currentPiece[r][c]) continue;
+            let nx = wrapX(currentX + c);
+            let ny = currentY + r;
+            if (ny >= 0 && ny < ROWS) board[ny][nx] = currentColor + 1;
         }
     }
     clearLines();
@@ -192,16 +202,16 @@ function draw() {
 
     for (let r = 0; r < currentPiece.length; r++) {
         for (let c = 0; c < currentPiece[r].length; c++) {
-            if (currentPiece[r][c]) {
-                let x = (currentX + c) * BLOCK, y = (currentY + r) * BLOCK;
-                if (currentY + r >= 0) {
-                    ctx.fillStyle = COLORS[currentColor];
-                    ctx.shadowColor = COLORS[currentColor];
-                    ctx.shadowBlur = 6;
-                    ctx.fillRect(x + 1, y + 1, BLOCK - 2, BLOCK - 2);
-                    ctx.shadowBlur = 0;
-                }
-            }
+            if (!currentPiece[r][c]) continue;
+            let nx = wrapX(currentX + c);
+            let ny = currentY + r;
+            if (ny < 0) continue;
+            let drawX = ((nx - currentX % COLS + COLS) % COLS) * BLOCK;
+            ctx.fillStyle = COLORS[currentColor];
+            ctx.shadowColor = COLORS[currentColor];
+            ctx.shadowBlur = 6;
+            ctx.fillRect(nx * BLOCK + 1, ny * BLOCK + 1, BLOCK - 2, BLOCK - 2);
+            ctx.shadowBlur = 0;
         }
     }
 }
@@ -226,19 +236,30 @@ function drawNext() {
 
 function move(dx, dy) {
     if (!gameRunning) return;
-    if (!collides(currentX + dx, currentY + dy)) { currentX += dx; currentY += dy; draw(); }
-    else if (dy === 1) { lockPiece(); draw(); }
+    let newX = currentX + dx;
+    let newY = currentY + dy;
+    if (!collides(newX, newY, currentPiece)) {
+        currentX = newX;
+        currentY = newY;
+        draw();
+    } else if (dy === 1) {
+        lockPiece();
+        draw();
+    }
 }
 
 function rotate() {
     if (!gameRunning) return;
     let rotated = currentPiece[0].map((_, i) => currentPiece.map(r => r[i]).reverse());
-    if (!collides(currentX, currentY, rotated)) { currentPiece = rotated; draw(); }
+    if (!collides(currentX, currentY, rotated)) {
+        currentPiece = rotated;
+        draw();
+    }
 }
 
 function gameOver() {
     gameRunning = false;
-    clearInterval(gameLoop);
+    if (gameLoop) { clearInterval(gameLoop); gameLoop = null; }
     if (!saved) {
         saved = true;
         fetch('api.php?action=save_score&game=tetris&level=' + level + '&points=' + score)
@@ -262,16 +283,16 @@ document.addEventListener('keydown', e => {
         case 'ArrowRight': case 'd': case 'D': move(1, 0); break;
         case 'ArrowDown': case 's': case 'S': move(0, 1); break;
         case 'ArrowUp': case 'w': case 'W': rotate(); break;
-        case ' ': while(!collides(currentX, currentY + 1)) { currentY++; } lockPiece(); draw(); break;
+        case ' ': while(!collides(currentX, currentY + 1, currentPiece)) { currentY++; } lockPiece(); draw(); break;
     }
 });
 
 startBtn.addEventListener('click', () => {
+    if (gameLoop) { clearInterval(gameLoop); gameLoop = null; }
     init();
     gameRunning = true;
     startBtn.textContent = '▶ Игра...';
     resultDiv.innerHTML = '';
-    if (gameLoop) clearInterval(gameLoop);
     gameLoop = setInterval(updateTetris, 50);
 });
 

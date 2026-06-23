@@ -16,7 +16,6 @@ $all_scratch = supabaseSelect('scores', [
 ]);
 $total_won = 0;
 foreach ($all_scratch as $s) { $total_won += (int)$s['points']; }
-$scratch_prizes_json = json_encode($scratch_prizes);
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -26,29 +25,45 @@ $scratch_prizes_json = json_encode($scratch_prizes);
 <title>Скретч Карта</title>
 <link rel="stylesheet" href="style.css">
 <style>
-.scratch-grid { display: grid; grid-template-columns: repeat(3, 100px); gap: 8px; justify-content: center; margin: 20px auto; }
-.scratch-cell {
-    width: 100px; height: 100px; background: linear-gradient(135deg, #888, #555);
-    border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-    font-size: 36px; color: #fff; transition: all 0.4s ease;
-    border: 2px solid rgba(255,255,255,0.1); user-select: none;
+.scratch-card-wrap { text-align: center; margin: 20px 0; position: relative; }
+#scratchCanvas {
+    display: block; margin: 0 auto; border-radius: 16px;
+    cursor: crosshair; touch-action: none;
+    background: linear-gradient(135deg, #1a1a2e, #2a1a3e);
+    border: 2px solid rgba(255,215,0,0.3);
+    box-shadow: 0 0 30px rgba(255,215,0,0.1);
 }
-.scratch-cell:hover { transform: scale(1.05); border-color: rgba(255,255,255,0.3); }
-.scratch-cell.revealed { cursor: default; transform: none; }
-.scratch-cell.revealed:hover { transform: none; }
-.scratch-cell.win { animation: pulse 0.6s ease; border-color: #ffd700; box-shadow: 0 0 20px rgba(255,215,0,0.5); }
-@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+.card-prize-text {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    font-size: 48px; font-weight: 900; color: #ffd700;
+    text-shadow: 0 0 20px rgba(255,215,0,0.3);
+    pointer-events: none; z-index: 0;
+}
+.scratch-overlay {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    border-radius: 16px;
+}
+#progressBar {
+    width: 200px; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; margin: 10px auto; overflow: hidden;
+}
+#progressFill { height: 100%; width: 0%; background: linear-gradient(90deg, #ffd700, #ffaa00); border-radius: 3px; transition: width 0.2s; }
 </style>
 </head>
 <body>
 <header>
     <div class="header-inner">
         <a href="index.php" class="logo-link"><?= $site_name ?></a>
-        <nav class="nav">
+        <nav class="nav" style="overflow-x:auto;white-space:nowrap;">
             <a href="profile.php" class="btn btn-sm btn-outline">Профиль</a>
             <a href="snake.php" class="btn btn-sm btn-outline">Змейка</a>
             <a href="tetris.php" class="btn btn-sm btn-outline">Тетрис</a>
+            <a href="2048.php" class="btn btn-sm btn-outline">2048</a>
             <a href="wheel.php" class="btn btn-sm btn-outline">Колесо</a>
+            <a href="tictactoe.php" class="btn btn-sm btn-outline">Крестики</a>
+            <a href="guess.php" class="btn btn-sm btn-outline">Число</a>
+            <a href="memory.php" class="btn btn-sm btn-outline">Память</a>
+            <a href="clicker.php" class="btn btn-sm btn-outline">Кликер</a>
+            <a href="quiz.php" class="btn btn-sm btn-outline">Квиз</a>
             <a href="donate.php" class="btn btn-sm">Магазин</a>
             <a href="index.php" class="btn btn-sm btn-outline">Главная</a>
         </nav>
@@ -57,15 +72,20 @@ $scratch_prizes_json = json_encode($scratch_prizes);
 <div class="container">
     <div class="game-wrapper animate-in">
         <h1>🎰 Скретч Карта</h1>
-        <p style="color:#888;">Открой 3 одинаковых символа и выиграй приз! <strong style="color:#ffd700;"><?= $cards_left ?></strong> карт сегодня</p>
+        <p style="color:#888;">Стирай покрытие мышкой и забери приз! <strong style="color:#ffd700;"><?= $cards_left ?></strong> карт сегодня</p>
 
         <div class="game-info-bar">
             <div class="game-info-item"><span class="lbl">Карт сегодня</span><span class="val" id="cardsLeft"><?= $cards_left ?></span></div>
             <div class="game-info-item"><span class="lbl">Всего выиграно</span><span class="val" id="totalWon"><?= $total_won ?></span></div>
-            <div class="game-info-item"><span class="lbl">Последний выигрыш</span><span class="val" id="lastWin">-</span></div>
+            <div class="game-info-item"><span class="lbl">Приз</span><span class="val" id="lastWin">-</span></div>
         </div>
 
-        <div class="scratch-grid" id="scratchGrid"></div>
+        <div class="scratch-card-wrap" id="scratchWrap" style="position:relative;">
+            <div id="prizeText" class="card-prize-text">?</div>
+            <canvas id="scratchCanvas" width="320" height="240"></canvas>
+        </div>
+
+        <div id="progressBar"><div id="progressFill"></div></div>
 
         <div class="game-controls">
             <button id="newCardBtn" class="btn" <?= $cards_left <= 0 ? 'disabled' : '' ?>>
@@ -78,99 +98,97 @@ $scratch_prizes_json = json_encode($scratch_prizes);
 </div>
 
 <script>
-const prizes = <?= $scratch_prizes_json ?>;
-const symbols = ['🍎','🍊','🍋','🍇','🍒','💎','7️⃣','⭐','🔔'];
-let cells, revealed, canPlay, cardsLeft = <?= $cards_left ?>;
-const grid = document.getElementById('scratchGrid');
+const prizes = [0, 50, 100, 200, 300, 500];
+const canvas = document.getElementById('scratchCanvas');
+const ctx = canvas.getContext('2d');
+const prizeText = document.getElementById('prideText');
+const progressFill = document.getElementById('progressFill');
 const resultDiv = document.getElementById('result');
 const newCardBtn = document.getElementById('newCardBtn');
 const cardsLeftSpan = document.getElementById('cardsLeft');
 const lastWinSpan = document.getElementById('lastWin');
 
-function generateCard() {
-    const targetSymbol = symbols[Math.floor(Math.random() * symbols.length)];
-    const targetCount = 2 + Math.floor(Math.random() * 2);
-    const card = [];
-    for (let i = 0; i < 9; i++) {
-        card.push(i < targetCount ? targetSymbol : symbols[Math.floor(Math.random() * symbols.length)]);
-    }
-    for (let i = card.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [card[i], card[j]] = [card[j], card[i]];
-    }
-    return { card, targetSymbol, targetCount };
-}
+let cardsLeft = <?= $cards_left ?>;
+let isScratching = false;
+let revealed = false;
+let savedPrize = false;
+let currentPrize = 0;
+let pixelsCleared = 0;
+let totalPixels = 320 * 240;
 
-let currentCard = null;
-
-function renderCard() {
-    grid.innerHTML = '';
-    revealed = Array(9).fill(false);
-    canPlay = true;
-    currentCard = generateCard();
+function initCard() {
+    currentPrize = prizes[Math.floor(Math.random() * prizes.length)];
+    revealed = false;
+    savedPrize = false;
+    pixelsCleared = 0;
+    progressFill.style.width = '0%';
     resultDiv.innerHTML = '';
+    prizeText.textContent = currentPrize > 0 ? '+' + currentPrize : '0';
+    prizeText.style.opacity = '0.3';
+    drawCoating();
+}
 
-    for (let i = 0; i < 9; i++) {
-        const cell = document.createElement('div');
-        cell.className = 'scratch-cell';
-        cell.dataset.index = i;
-        cell.textContent = '❓';
-        cell.addEventListener('click', () => revealCell(i));
-        grid.appendChild(cell);
+function drawCoating() {
+    ctx.fillStyle = '#aaa';
+    ctx.fillRect(0, 0, 320, 240);
+
+    ctx.fillStyle = '#999';
+    for (let y = 0; y < 240; y += 8) {
+        ctx.fillRect(0, y, 320, 4);
+    }
+
+    ctx.fillStyle = 'rgba(255,255,255,0.05)';
+    for (let i = 0; i < 20; i++) {
+        let x = Math.random() * 320, y = Math.random() * 240;
+        ctx.beginPath();
+        ctx.arc(x, y, 2 + Math.random() * 4, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    ctx.fillStyle = 'rgba(200,180,150,0.3)';
+    ctx.font = 'bold 48px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('🎰', 160, 120);
+}
+
+function scratch(x, y) {
+    if (revealed || cardsLeft <= 0) return;
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.beginPath();
+    ctx.arc(x, y, 18, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalCompositeOperation = 'source-over';
+
+    let imageData = ctx.getImageData(0, 0, 320, 240);
+    let transparent = 0;
+    for (let i = 3; i < imageData.data.length; i += 4) {
+        if (imageData.data[i] === 0) transparent++;
+    }
+    pixelsCleared = transparent;
+    let percent = (transparent / totalPixels) * 100;
+    progressFill.style.width = Math.min(percent, 100) + '%';
+
+    if (percent >= 45 && !revealed) {
+        revealPrize();
     }
 }
 
-function revealCell(index) {
-    if (!canPlay || revealed[index]) return;
-    const cells = grid.children;
-    revealed[index] = true;
-    const cell = cells[index];
-    cell.textContent = currentCard.card[index];
-    cell.classList.add('revealed');
+function revealPrize() {
+    revealed = true;
+    ctx.clearRect(0, 0, 320, 240);
+    prizeText.style.opacity = '1';
 
-    const revealedCount = revealed.filter(r => r).length;
-    if (revealedCount >= 3) {
-        canPlay = false;
-        checkWin();
-    }
-}
-
-function checkWin() {
-    const counts = {};
-    for (let i = 0; i < 9; i++) {
-        if (revealed[i]) {
-            const sym = currentCard.card[i];
-            counts[sym] = (counts[sym] || 0) + 1;
-        }
-    }
-    let maxMatch = 0;
-    let bestSym = '';
-    for (const [sym, count] of Object.entries(counts)) {
-        if (count > maxMatch) { maxMatch = count; bestSym = sym; }
-    }
-
-    const cells = grid.children;
-    if (maxMatch >= 3) {
-        const prizeIdx = Math.min(maxMatch - 3, prizes.length - 1);
-        const points = prizes[prizeIdx];
-        for (let i = 0; i < 9; i++) {
-            if (currentCard.card[i] === bestSym) {
-                cells[i].classList.add('win');
-            }
-        }
-
-        if (points > 0 && cardsLeft > 0) {
-            fetch('api.php?action=save_score&game=scratch&level=1&points=' + points)
-                .then(r => r.text())
-                .then(t => {
-                    resultDiv.innerHTML = '🎉 <strong style="color:#ffd700;">+' + points + '</strong> очков! (' + maxMatch + 'x ' + bestSym + ')';
-                    lastWinSpan.textContent = '+' + points;
-                });
-        } else {
-            resultDiv.innerHTML = maxMatch + 'x ' + bestSym + ' — но приз 0 😅';
-        }
-    } else {
-        resultDiv.innerHTML = '😔 Не хватило. Нужно 3 одинаковых!';
+    if (!savedPrize && currentPrize > 0 && cardsLeft > 0) {
+        savedPrize = true;
+        fetch('api.php?action=save_score&game=scratch&level=1&points=' + currentPrize)
+            .then(r => r.text())
+            .then(t => {
+                resultDiv.innerHTML = '🎉 <strong style="color:#ffd700;">+' + currentPrize + '</strong> очков!';
+                lastWinSpan.textContent = '+' + currentPrize;
+            });
+    } else if (currentPrize === 0) {
+        resultDiv.innerHTML = '😔 В этот раз ничего. Повезёт в следующий раз!';
     }
 
     setTimeout(() => {
@@ -185,13 +203,33 @@ function checkWin() {
     }, 500);
 }
 
+canvas.addEventListener('mousedown', e => { isScratching = true; scratch(e.offsetX, e.offsetY); });
+canvas.addEventListener('mousemove', e => { if (isScratching) scratch(e.offsetX, e.offsetY); });
+canvas.addEventListener('mouseup', () => { isScratching = false; });
+canvas.addEventListener('mouseleave', () => { isScratching = false; });
+canvas.addEventListener('touchstart', e => {
+    e.preventDefault();
+    let rect = canvas.getBoundingClientRect();
+    let touch = e.touches[0];
+    isScratching = true;
+    scratch(touch.clientX - rect.left, touch.clientY - rect.top);
+});
+canvas.addEventListener('touchmove', e => {
+    e.preventDefault();
+    if (!isScratching) return;
+    let rect = canvas.getBoundingClientRect();
+    let touch = e.touches[0];
+    scratch(touch.clientX - rect.left, touch.clientY - rect.top);
+});
+canvas.addEventListener('touchend', () => { isScratching = false; });
+
 newCardBtn.addEventListener('click', () => {
     if (cardsLeft <= 0) return;
     newCardBtn.disabled = true;
-    renderCard();
+    initCard();
 });
 
-renderCard();
+initCard();
 </script>
 <footer><p><?= $site_name ?> &copy; 2026</p></footer>
 </body>

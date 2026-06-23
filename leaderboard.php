@@ -39,9 +39,19 @@ $rank = 1;
 <header>
     <div class="header-inner">
         <a href="index.php" class="logo-link"><?= $site_name ?></a>
-        <nav class="nav">
+        <nav class="nav" style="overflow-x:auto;white-space:nowrap;">
             <?php if (isAuth()): ?>
                 <a href="profile.php" class="btn btn-sm btn-outline">Профиль</a>
+                <a href="snake.php" class="btn btn-sm btn-outline">Змейка</a>
+                <a href="tetris.php" class="btn btn-sm btn-outline">Тетрис</a>
+                <a href="2048.php" class="btn btn-sm btn-outline">2048</a>
+                <a href="wheel.php" class="btn btn-sm btn-outline">Колесо</a>
+                <a href="scratch.php" class="btn btn-sm btn-outline">Скретч</a>
+                <a href="tictactoe.php" class="btn btn-sm btn-outline">Крестики</a>
+                <a href="guess.php" class="btn btn-sm btn-outline">Число</a>
+                <a href="memory.php" class="btn btn-sm btn-outline">Память</a>
+                <a href="clicker.php" class="btn btn-sm btn-outline">Кликер</a>
+                <a href="quiz.php" class="btn btn-sm btn-outline">Квиз</a>
                 <a href="donate.php" class="btn btn-sm">Магазин</a>
                 <a href="index.php" class="btn btn-sm btn-outline">Главная</a>
             <?php else: ?>

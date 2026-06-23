@@ -19,13 +19,15 @@ $total_donations = count($dons_resp);
 <header>
     <div class="header-inner">
         <a href="index.php" class="logo-link"><?= $site_name ?></a>
-        <nav class="nav">
+        <nav class="nav" style="overflow-x:auto;white-space:nowrap;">
             <?php if (isAuth()): ?>
                 <a href="profile.php" class="btn btn-sm btn-outline">Профиль</a>
                 <a href="snake.php" class="btn btn-sm btn-outline">Змейка</a>
                 <a href="tetris.php" class="btn btn-sm btn-outline">Тетрис</a>
+                <a href="2048.php" class="btn btn-sm btn-outline">2048</a>
                 <a href="wheel.php" class="btn btn-sm btn-outline">Колесо</a>
                 <a href="scratch.php" class="btn btn-sm btn-outline">Скретч</a>
+                <a href="tictactoe.php" class="btn btn-sm btn-outline">Крестики</a>
                 <a href="donate.php" class="btn btn-sm">Магазин</a>
                 <a href="leaderboard.php" class="btn btn-sm btn-outline">Лидеры</a>
                 <a href="logout.php" class="btn btn-sm btn-red">Выход</a>
@@ -102,7 +104,7 @@ $total_donations = count($dons_resp);
             <div class="game-preview game-tetris">🧊</div>
             <div class="game-body">
                 <h3>Тетрис</h3>
-                <p>Складывай падающие блоки, собирай линии и зарабатывай очки. Каждые 10 линий — новый уровень!</p>
+                <p>Складывай падающие блоки, собирай линии. Блоки проходят сквозь стены! Каждые 10 линий — новый уровень.</p>
                 <div class="game-stats"><span>🎯 +100 очков за уровень</span></div>
                 <?php if (isAuth()): ?><a href="tetris.php" class="btn">Играть</a><?php endif; ?>
             </div>
@@ -120,9 +122,63 @@ $total_donations = count($dons_resp);
             <div class="game-preview" style="background:linear-gradient(135deg,#2a003a,#4a005a);">🎰</div>
             <div class="game-body">
                 <h3>Скретч Карта</h3>
-                <p>Открывай карты, собирай 3 одинаковых символа и получай приз! <strong style="color:#ffd700;">10 карт</strong> в день.</p>
+                <p>Стирай покрытие мышкой и забери приз! <strong style="color:#ffd700;">10 карт</strong> в день. До 500 очков.</p>
                 <div class="game-stats"><span>🎯 До 500 очков</span></div>
                 <?php if (isAuth()): ?><a href="scratch.php" class="btn btn-purple">Открыть</a><?php endif; ?>
+            </div>
+        </div>
+        <div class="game-card animate-in delay-1">
+            <div class="game-preview" style="background:linear-gradient(135deg,#1a3a1a,#2a5a2a);">🔢</div>
+            <div class="game-body">
+                <h3>2048</h3>
+                <p>Складывай плитки с одинаковыми числами, чтобы получить 2048! Классическая головоломка.</p>
+                <div class="game-stats"><span>🎯 Очки за слияния</span></div>
+                <?php if (isAuth()): ?><a href="2048.php" class="btn">Играть</a><?php endif; ?>
+            </div>
+        </div>
+        <div class="game-card animate-in delay-2">
+            <div class="game-preview" style="background:linear-gradient(135deg,#1a1a3a,#2a2a5a);">❌</div>
+            <div class="game-body">
+                <h3>Крестики-нолики</h3>
+                <p>Сражайся против ИИ в классической игре. Победа = 100 очков!</p>
+                <div class="game-stats"><span>🎯 +100 за победу</span></div>
+                <?php if (isAuth()): ?><a href="tictactoe.php" class="btn">Играть</a><?php endif; ?>
+            </div>
+        </div>
+        <div class="game-card animate-in delay-3">
+            <div class="game-preview" style="background:linear-gradient(135deg,#3a2a1a,#5a3a2a);">❓</div>
+            <div class="game-body">
+                <h3>Угадай число</h3>
+                <p>Компьютер загадал число от 1 до 100. Угадай его! Меньше попыток — больше очков.</p>
+                <div class="game-stats"><span>🎯 До 100 очков</span></div>
+                <?php if (isAuth()): ?><a href="guess.php" class="btn">Играть</a><?php endif; ?>
+            </div>
+        </div>
+        <div class="game-card animate-in delay-4">
+            <div class="game-preview" style="background:linear-gradient(135deg,#1a2a3a,#2a3a5a);">🃏</div>
+            <div class="game-body">
+                <h3>Память</h3>
+                <p>Найди все пары карточек. Чем меньше ходов — тем больше очков!</p>
+                <div class="game-stats"><span>🎯 Очки за пары</span></div>
+                <?php if (isAuth()): ?><a href="memory.php" class="btn">Играть</a><?php endif; ?>
+            </div>
+        </div>
+        <div class="game-card animate-in delay-1">
+            <div class="game-preview" style="background:linear-gradient(135deg,#3a1a1a,#5a2a2a);">🖱️</div>
+            <div class="game-body">
+                <h3>Кликер</h3>
+                <p>Кликни как можно больше раз за 10 секунд! 1 клик = 10 очков.</p>
+                <div class="game-stats"><span>🎯 До 500+ очков</span></div>
+                <?php if (isAuth()): ?><a href="clicker.php" class="btn">Играть</a><?php endif; ?>
+            </div>
+        </div>
+        <div class="game-card animate-in delay-2">
+            <div class="game-preview" style="background:linear-gradient(135deg,#2a2a1a,#4a4a2a);">📝</div>
+            <div class="game-body">
+                <h3>Викторина</h3>
+                <p>Ответь на 10 вопросов из разных категорий. Каждый правильный ответ = 10 очков!</p>
+                <div class="game-stats"><span>🎯 До 100 очков</span></div>
+                <?php if (isAuth()): ?><a href="quiz.php" class="btn">Играть</a><?php endif; ?>
             </div>
         </div>
     </div>

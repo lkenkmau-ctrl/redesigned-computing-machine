@@ -52,14 +52,19 @@ $donations = array_slice($all_dons, 0, 10);
 <header>
     <div class="header-inner">
         <a href="index.php" class="logo-link"><?= $site_name ?></a>
-        <nav class="nav">
+        <nav class="nav" style="overflow-x:auto;white-space:nowrap;">
             <a href="snake.php" class="btn btn-sm btn-outline">Змейка</a>
             <a href="tetris.php" class="btn btn-sm btn-outline">Тетрис</a>
+            <a href="2048.php" class="btn btn-sm btn-outline">2048</a>
             <a href="wheel.php" class="btn btn-sm btn-outline">Колесо</a>
             <a href="scratch.php" class="btn btn-sm btn-outline">Скретч</a>
+            <a href="tictactoe.php" class="btn btn-sm btn-outline">Крестики</a>
+            <a href="guess.php" class="btn btn-sm btn-outline">Число</a>
+            <a href="memory.php" class="btn btn-sm btn-outline">Память</a>
+            <a href="clicker.php" class="btn btn-sm btn-outline">Кликер</a>
+            <a href="quiz.php" class="btn btn-sm btn-outline">Квиз</a>
             <a href="donate.php" class="btn btn-sm">Магазин</a>
             <a href="leaderboard.php" class="btn btn-sm btn-outline">Лидеры</a>
-            <a href="index.php" class="btn btn-sm btn-outline">Главная</a>
             <a href="logout.php" class="btn btn-sm btn-red">Выход</a>
         </nav>
     </div>
@@ -74,12 +79,18 @@ $donations = array_slice($all_dons, 0, 10);
                 <div class="bal-item"><span class="val"><?= (int)$userData['points'] ?></span><span class="lbl">⭐ Очков</span></div>
                 <div class="bal-item"><span class="val"><?= $total_spent ?></span><span class="lbl">🎁 Потрачено</span></div>
             </div>
-            <div style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
-                <a href="snake.php" class="btn btn-sm">🐍 Змейка</a>
-                <a href="tetris.php" class="btn btn-sm btn-blue">🧊 Тетрис</a>
-                <a href="wheel.php" class="btn btn-sm btn-gold">🎡 Колесо</a>
-                <a href="scratch.php" class="btn btn-sm btn-purple">🎰 Скретч</a>
-                <a href="donate.php" class="btn btn-sm">🛒 Магазин</a>
+            <div style="margin-top:16px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;">
+                <a href="snake.php" class="btn btn-sm">🐍</a>
+                <a href="tetris.php" class="btn btn-sm btn-blue">🧊</a>
+                <a href="2048.php" class="btn btn-sm" style="background:#3a5a3a;">🔢</a>
+                <a href="wheel.php" class="btn btn-sm btn-gold">🎡</a>
+                <a href="scratch.php" class="btn btn-sm btn-purple">🎰</a>
+                <a href="tictactoe.php" class="btn btn-sm" style="background:#2a2a5a;">❌</a>
+                <a href="guess.php" class="btn btn-sm" style="background:#5a3a2a;">❓</a>
+                <a href="memory.php" class="btn btn-sm" style="background:#2a3a5a;">🃏</a>
+                <a href="clicker.php" class="btn btn-sm" style="background:#5a2a2a;">🖱️</a>
+                <a href="quiz.php" class="btn btn-sm" style="background:#4a4a2a;">📝</a>
+                <a href="donate.php" class="btn btn-sm">🛒</a>
             </div>
         </div>
 
