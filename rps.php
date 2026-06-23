@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.rps", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Камень-Ножницы-Бумага — DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>������-�������-������ � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
 .rps-score { display: flex; gap: 30px; justify-content: center; align-items: center; margin: 16px 0; }
 .rps-score-item { text-align: center; }
 .rps-score-item .lbl { font-size: 13px; color: #6b5a40; }
@@ -36,65 +36,66 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
 .rps-choice.picked { animation: choicePop 0.3s ease; }
 </style></head><body>
 <header><div class="header-inner"><a href="index.php" class="logo-link"><?= $site_name ?></a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button><div class="dropdown-content">
-                    <a href="snake.php">рџђЌ Р—РјРµР№РєР°</a>
-                    <a href="tetris.php">рџ§Љ РўРµС‚СЂРёСЃ</a>
-                    <a href="2048.php">рџ”ў 2048</a>
-                    <a href="tictactoe.php">в­• РљСЂРµСЃС‚РёРєРё-РЅРѕР»РёРєРё</a>
-                    <a href="guess.php">вќ“ РЈРіР°РґР°Р№ С‡РёСЃР»Рѕ</a>
-                    <a href="memory.php">рџѓЏ РџР°РјСЏС‚СЊ</a>
-                    <a href="clicker.php">рџ‘† РљР»РёРєРµСЂ</a>
-                    <a href="quiz.php">рџ“ќ Р’РёРєС‚РѕСЂРёРЅР°</a>
-                    <a href="flappy.php">рџђ¦ Flappy Bird</a>
-                    <a href="reaction.php">вљЎ Reaction Test</a>
-                    <a href="minesweeper.php">рџ’Ј РЎР°РїС‘СЂ</a>
-                    <a href="hangman.php">рџ‘» Р’РёСЃРµР»РёС†Р°</a>
-                    <a href="simon.php">рџ”ґ РЎР°Р№РјРѕРЅ</a>
-                    <a href="pong.php">рџЏ“ РџРѕРЅРі</a>
-                    <a href="invaders.php">рџ‘ѕ РРЅРІРµР№РґРµСЂС‹</a>
-                    <a href="breakout.php">рџ§± РђСЂРєР°РЅРѕРёРґ</a>
-                    <a href="sudoku.php">рџ§© РЎСѓРґРѕРєСѓ</a>
-                    <a href="wordle.php">рџ”¤ Р’РѕСЂРґР»Рё</a>
-                    <a href="dino.php">рџ¦– Р”РёРЅРѕР·Р°РІСЂРёРє</a>
-                    <a href="rps.php">вњЉ РљР°РјРµРЅСЊ-РќРѕР¶РЅРёС†С‹</a>
-                    <a href="typing.php">вЊЁпёЏ РџРµС‡Р°С‚СЊ</a>
-                    <a href="color_match.php">рџЋЁ Р¦РІРµС‚</a>
-                    <a href="balloon.php">рџЋ€ РЁР°СЂРёРєРё</a>
-                    <a href="whack.php">рџ”Ё РљСЂРѕС‚</a>
-                    <a href="hanoi.php">рџ—ј РҐР°РЅРѕР№</a>
-                    <a href="connect4.php">рџ”ґ 4 РІ СЂСЏРґ</a>
-                    <a href="math.php">рџ§® РњР°С‚РµРјР°С‚РёРєР°</a>
-                    <a href="fifteen.php">рџ§© РџСЏС‚РЅР°С€РєРё</a>
-                    <a href="asteroids.php">в„пёЏ РђСЃС‚РµСЂРѕРёРґС‹</a>
-                    <a href="pacman.php">рџ‘ѕ РџР°РєРјР°РЅ</a></div></div><a href="donate.php" class="btn btn-sm">💰 Магазин</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
+                    <a href="snake.php">🐍 Змейка</a>
+                    <a href="tetris.php">🧊 Тетрис</a>
+                    <a href="2048.php">🔢 2048</a>
+                    <a href="tictactoe.php">⭕ Крестики-нолики</a>
+                    <a href="guess.php">❓ Угадай число</a>
+                    <a href="memory.php">🃏 Память</a>
+                    <a href="clicker.php">👆 Кликер</a>
+                    <a href="quiz.php">📝 Викторина</a>
+                    <a href="flappy.php">🐦 Flappy Bird</a>
+                    <a href="reaction.php">⚡ Reaction Test</a>
+                    <a href="minesweeper.php">💣 Сапёр</a>
+                    <a href="hangman.php">👻 Виселица</a>
+                    <a href="simon.php">🔴 Саймон</a>
+                    <a href="pong.php">🏓 Понг</a>
+                    <a href="invaders.php">👾 Инвейдеры</a>
+                    <a href="breakout.php">🧱 Арканоид</a>
+                    <a href="sudoku.php">🧩 Судоку</a>
+                    <a href="wordle.php">🔤 Вордли</a>
+                    <a href="dino.php">🦖 Динозаврик</a>
+                    <a href="rps.php">✊ Камень-Ножницы</a>
+                    <a href="typing.php">⌨️ Печать</a>
+                    <a href="color_match.php">🎨 Цвет</a>
+                    <a href="balloon.php">🎈 Шарики</a>
+                    <a href="whack.php">🔨 Крот</a>
+                    <a href="hanoi.php">🗼 Ханой</a>
+                    <a href="connect4.php">🔴 4 в ряд</a>
+                    <a href="math.php">🧮 Математика</a>
+                    <a href="fifteen.php">🧩 Пятнашки</a>
+                    <a href="asteroids.php">☄️ Астероиды</a>
+                    <a href="pacman.php">👾 Пакман</a></div><
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
 <div class="container"><div class="game-wrapper">
-<h1>✊ Камень-Ножницы-Бумага</h1>
+<h1>? ������-�������-������</h1>
 <div class="game-info-bar">
-<div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div>
-<div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
+<div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div>
+<div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
 </div>
 <div class="rps-score">
-<div class="rps-score-item player"><span class="lbl">Вы</span><span class="val" id="playerScore">0</span></div>
-<div class="rps-score-item"><span class="lbl">Раунд</span><span class="val" id="roundDisplay">1</span></div>
-<div class="rps-score-item computer"><span class="lbl">Компьютер</span><span class="val" id="computerScore">0</span></div>
+<div class="rps-score-item player"><span class="lbl">��</span><span class="val" id="playerScore">0</span></div>
+<div class="rps-score-item"><span class="lbl">�����</span><span class="val" id="roundDisplay">1</span></div>
+<div class="rps-score-item computer"><span class="lbl">���������</span><span class="val" id="computerScore">0</span></div>
 </div>
 <div class="rps-choices">
-<div class="rps-choice" id="playerChoice">❓</div>
+<div class="rps-choice" id="playerChoice">?</div>
 <div class="rps-vs">VS</div>
-<div class="rps-choice" id="computerChoice">❓</div>
+<div class="rps-choice" id="computerChoice">?</div>
 </div>
-<div class="rps-result" id="resultDisplay">Нажмите кнопку, чтобы сделать ход</div>
+<div class="rps-result" id="resultDisplay">������� ������, ����� ������� ���</div>
 <div class="rps-buttons">
-<button class="btn rps-btn" onclick="play('камень')">✊ Камень</button>
-<button class="btn rps-btn" onclick="play('бумага')">✋ Бумага</button>
-<button class="btn rps-btn" onclick="play('ножницы')">✌️ Ножницы</button>
+<button class="btn rps-btn" onclick="play('������')">? ������</button>
+<button class="btn rps-btn" onclick="play('������')">? ������</button>
+<button class="btn rps-btn" onclick="play('�������')">?? �������</button>
 </div>
 <div id="statusMsg"></div>
-<div class="game-controls"><button class="btn" onclick="resetGame()">🔄 Новая игра</button></div>
+<div class="game-controls"><button class="btn" onclick="resetGame()">?? ����� ����</button></div>
 </div></div>
-<footer><p>DonateCraft — зарабатывай донатные поинты за мини-игры</p></footer>
+<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
 <script>
-const icons = { 'камень': '✊', 'бумага': '✋', 'ножницы': '✌️' };
-const beats = { 'камень': 'ножницы', 'бумага': 'камень', 'ножницы': 'бумага' };
+const icons = { '������': '?', '������': '?', '�������': '??' };
+const beats = { '������': '�������', '������': '������', '�������': '������' };
 
 let playerWins = 0;
 let computerWins = 0;
@@ -111,21 +112,21 @@ function resetGame() {
     document.getElementById('computerScore').textContent = '0';
     document.getElementById('roundDisplay').textContent = '1';
     document.getElementById('scoreDisplay').textContent = '0';
-    document.getElementById('resultDisplay').textContent = 'Нажмите кнопку, чтобы сделать ход';
+    document.getElementById('resultDisplay').textContent = '������� ������, ����� ������� ���';
     document.getElementById('statusMsg').textContent = '';
-    document.getElementById('playerChoice').textContent = '❓';
+    document.getElementById('playerChoice').textContent = '?';
     document.getElementById('playerChoice').className = 'rps-choice';
-    document.getElementById('computerChoice').textContent = '❓';
+    document.getElementById('computerChoice').textContent = '?';
     document.getElementById('computerChoice').className = 'rps-choice';
 }
 
 function play(player) {
     if (gameFinished) {
-        document.getElementById('statusMsg').textContent = '⚠️ Игра завершена. Начните новую.';
+        document.getElementById('statusMsg').textContent = '?? ���� ���������. ������� �����.';
         return;
     }
 
-    const choices = ['камень', 'бумага', 'ножницы'];
+    const choices = ['������', '������', '�������'];
     const computer = choices[Math.floor(Math.random() * 3)];
 
     document.getElementById('playerChoice').textContent = icons[player];
@@ -149,16 +150,16 @@ function play(player) {
         pEl.classList.add('win');
         cEl.classList.add('lose');
         playerWins++;
-        document.getElementById('resultDisplay').textContent = '✅ Вы выиграли раунд! ' + icons[player] + ' бьёт ' + icons[computer];
+        document.getElementById('resultDisplay').textContent = '? �� �������� �����! ' + icons[player] + ' ���� ' + icons[computer];
     } else if (result === 'lose') {
         pEl.classList.add('lose');
         cEl.classList.add('win');
         computerWins++;
-        document.getElementById('resultDisplay').textContent = '❌ Вы проиграли раунд! ' + icons[computer] + ' бьёт ' + icons[player];
+        document.getElementById('resultDisplay').textContent = '? �� ��������� �����! ' + icons[computer] + ' ���� ' + icons[player];
     } else {
         pEl.classList.add('draw');
         cEl.classList.add('draw');
-        document.getElementById('resultDisplay').textContent = '🤝 Ничья!';
+        document.getElementById('resultDisplay').textContent = '?? �����!';
     }
 
     roundsPlayed++;
@@ -171,9 +172,9 @@ function play(player) {
         const score = playerWins * 100;
         document.getElementById('scoreDisplay').textContent = score;
         if (playerWins > computerWins) {
-            document.getElementById('resultDisplay').textContent = '🎉 Победа! ' + playerWins + ':' + computerWins + ' — +' + score + ' очков';
+            document.getElementById('resultDisplay').textContent = '?? ������! ' + playerWins + ':' + computerWins + ' � +' + score + ' �����';
         } else {
-            document.getElementById('resultDisplay').textContent = '😞 Поражение ' + playerWins + ':' + computerWins;
+            document.getElementById('resultDisplay').textContent = '?? ��������� ' + playerWins + ':' + computerWins;
         }
         const formData = new FormData();
         formData.append('score', score);

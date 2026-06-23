@@ -13,52 +13,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.asteroids", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Астероиды — DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>��������� � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
 #gameCanvas { border: 2px solid rgba(255,136,0,0.25); background: #050a10; border-radius: 8px; }
 .controls-hint { display: flex; gap: 4px; justify-content: center; margin: 12px 0; flex-wrap: wrap; }
 .key { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 6px 12px; font-size: 12px; color: #888; font-family: monospace; }
 </style></head><body>
 <header><div class="header-inner"><a href="index.php" class="logo-link">DonateCraft</a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button><div class="dropdown-content">
-                    <a href="snake.php">рџђЌ Р—РјРµР№РєР°</a>
-                    <a href="tetris.php">рџ§Љ РўРµС‚СЂРёСЃ</a>
-                    <a href="2048.php">рџ”ў 2048</a>
-                    <a href="tictactoe.php">в­• РљСЂРµСЃС‚РёРєРё-РЅРѕР»РёРєРё</a>
-                    <a href="guess.php">вќ“ РЈРіР°РґР°Р№ С‡РёСЃР»Рѕ</a>
-                    <a href="memory.php">рџѓЏ РџР°РјСЏС‚СЊ</a>
-                    <a href="clicker.php">рџ‘† РљР»РёРєРµСЂ</a>
-                    <a href="quiz.php">рџ“ќ Р’РёРєС‚РѕСЂРёРЅР°</a>
-                    <a href="flappy.php">рџђ¦ Flappy Bird</a>
-                    <a href="reaction.php">вљЎ Reaction Test</a>
-                    <a href="minesweeper.php">рџ’Ј РЎР°РїС‘СЂ</a>
-                    <a href="hangman.php">рџ‘» Р’РёСЃРµР»РёС†Р°</a>
-                    <a href="simon.php">рџ”ґ РЎР°Р№РјРѕРЅ</a>
-                    <a href="pong.php">рџЏ“ РџРѕРЅРі</a>
-                    <a href="invaders.php">рџ‘ѕ РРЅРІРµР№РґРµСЂС‹</a>
-                    <a href="breakout.php">рџ§± РђСЂРєР°РЅРѕРёРґ</a>
-                    <a href="sudoku.php">рџ§© РЎСѓРґРѕРєСѓ</a>
-                    <a href="wordle.php">рџ”¤ Р’РѕСЂРґР»Рё</a>
-                    <a href="dino.php">рџ¦– Р”РёРЅРѕР·Р°РІСЂРёРє</a>
-                    <a href="rps.php">вњЉ РљР°РјРµРЅСЊ-РќРѕР¶РЅРёС†С‹</a>
-                    <a href="typing.php">вЊЁпёЏ РџРµС‡Р°С‚СЊ</a>
-                    <a href="color_match.php">рџЋЁ Р¦РІРµС‚</a>
-                    <a href="balloon.php">рџЋ€ РЁР°СЂРёРєРё</a>
-                    <a href="whack.php">рџ”Ё РљСЂРѕС‚</a>
-                    <a href="hanoi.php">рџ—ј РҐР°РЅРѕР№</a>
-                    <a href="connect4.php">рџ”ґ 4 РІ СЂСЏРґ</a>
-                    <a href="math.php">рџ§® РњР°С‚РµРјР°С‚РёРєР°</a>
-                    <a href="fifteen.php">рџ§© РџСЏС‚РЅР°С€РєРё</a>
-                    <a href="asteroids.php">в„пёЏ РђСЃС‚РµСЂРѕРёРґС‹</a>
-                    <a href="pacman.php">рџ‘ѕ РџР°РєРјР°РЅ</a></div></div><a href="donate.php" class="btn btn-sm">💰 Магазин</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
+                    <a href="snake.php">🐍 Змейка</a>
+                    <a href="tetris.php">🧊 Тетрис</a>
+                    <a href="2048.php">🔢 2048</a>
+                    <a href="tictactoe.php">⭕ Крестики-нолики</a>
+                    <a href="guess.php">❓ Угадай число</a>
+                    <a href="memory.php">🃏 Память</a>
+                    <a href="clicker.php">👆 Кликер</a>
+                    <a href="quiz.php">📝 Викторина</a>
+                    <a href="flappy.php">🐦 Flappy Bird</a>
+                    <a href="reaction.php">⚡ Reaction Test</a>
+                    <a href="minesweeper.php">💣 Сапёр</a>
+                    <a href="hangman.php">👻 Виселица</a>
+                    <a href="simon.php">🔴 Саймон</a>
+                    <a href="pong.php">🏓 Понг</a>
+                    <a href="invaders.php">👾 Инвейдеры</a>
+                    <a href="breakout.php">🧱 Арканоид</a>
+                    <a href="sudoku.php">🧩 Судоку</a>
+                    <a href="wordle.php">🔤 Вордли</a>
+                    <a href="dino.php">🦖 Динозаврик</a>
+                    <a href="rps.php">✊ Камень-Ножницы</a>
+                    <a href="typing.php">⌨️ Печать</a>
+                    <a href="color_match.php">🎨 Цвет</a>
+                    <a href="balloon.php">🎈 Шарики</a>
+                    <a href="whack.php">🔨 Крот</a>
+                    <a href="hanoi.php">🗼 Ханой</a>
+                    <a href="connect4.php">🔴 4 в ряд</a>
+                    <a href="math.php">🧮 Математика</a>
+                    <a href="fifteen.php">🧩 Пятнашки</a>
+                    <a href="asteroids.php">☄️ Астероиды</a>
+                    <a href="pacman.php">👾 Пакман</a></div><
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
 <div class="container"><div class="game-wrapper">
-<h1>☄️ Астероиды</h1>
-<div class="game-info-bar"><div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div><div class="game-info-item"><span class="lbl">Волна</span><span class="val" id="waveDisplay">1</span></div></div>
+<h1>?? ���������</h1>
+<div class="game-info-bar"><div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div><div class="game-info-item"><span class="lbl">�����</span><span class="val" id="waveDisplay">1</span></div></div>
 <div class="game-area"><canvas id="gameCanvas" width="500" height="500"></canvas></div>
 <div class="controls-hint">
-<span class="key">W / ↑</span><span class="key">A / ←</span><span class="key">S / ↓</span><span class="key">D / →</span><span class="key">Пробел — огонь</span>
+<span class="key">W / ^</span><span class="key">A / <</span><span class="key">S / v</span><span class="key">D / ></span><span class="key">������ � �����</span>
 </div>
-<div class="game-controls"><button class="btn" onclick="resetGame()">🔄 Новая игра</button></div>
+<div class="game-controls"><button class="btn" onclick="resetGame()">?? ����� ����</button></div>
 </div></div>
-<footer><p>DonateCraft — зарабатывай донатные поинты за мини-игры</p></footer>
+<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
 <script>
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
@@ -254,10 +255,10 @@ function draw() {
         ctx.fillStyle = '#ff4444';
         ctx.font = 'bold 36px Inter, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('💥 Игра окончена!', W/2, H/2 - 20);
+        ctx.fillText('?? ���� ��������!', W/2, H/2 - 20);
         ctx.fillStyle = '#ffaa33';
         ctx.font = '20px Inter, sans-serif';
-        ctx.fillText('Счёт: ' + score, W/2, H/2 + 30);
+        ctx.fillText('����: ' + score, W/2, H/2 + 30);
     }
 }
 

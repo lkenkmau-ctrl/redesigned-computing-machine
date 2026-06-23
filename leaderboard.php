@@ -32,7 +32,7 @@ $rank = 1;
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Таблица лидеров</title>
+<title>������� �������</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -43,68 +43,69 @@ $rank = 1;
             <div class="dropdown">
                 <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
                 <div class="dropdown-content">
-                    <a href="snake.php">рџђЌ Р—РјРµР№РєР°</a>
-                    <a href="tetris.php">рџ§Љ РўРµС‚СЂРёСЃ</a>
-                    <a href="2048.php">рџ”ў 2048</a>
-                    <a href="tictactoe.php">в­• РљСЂРµСЃС‚РёРєРё-РЅРѕР»РёРєРё</a>
-                    <a href="guess.php">вќ“ РЈРіР°РґР°Р№ С‡РёСЃР»Рѕ</a>
-                    <a href="memory.php">рџѓЏ РџР°РјСЏС‚СЊ</a>
-                    <a href="clicker.php">рџ‘† РљР»РёРєРµСЂ</a>
-                    <a href="quiz.php">рџ“ќ Р’РёРєС‚РѕСЂРёРЅР°</a>
-                    <a href="flappy.php">рџђ¦ Flappy Bird</a>
-                    <a href="reaction.php">вљЎ Reaction Test</a>
-                    <a href="minesweeper.php">рџ’Ј РЎР°РїС‘СЂ</a>
-                    <a href="hangman.php">рџ‘» Р’РёСЃРµР»РёС†Р°</a>
-                    <a href="simon.php">рџ”ґ РЎР°Р№РјРѕРЅ</a>
-                    <a href="pong.php">рџЏ“ РџРѕРЅРі</a>
-                    <a href="invaders.php">рџ‘ѕ РРЅРІРµР№РґРµСЂС‹</a>
-                    <a href="breakout.php">рџ§± РђСЂРєР°РЅРѕРёРґ</a>
-                    <a href="sudoku.php">рџ§© РЎСѓРґРѕРєСѓ</a>
-                    <a href="wordle.php">рџ”¤ Р’РѕСЂРґР»Рё</a>
-                    <a href="dino.php">рџ¦– Р”РёРЅРѕР·Р°РІСЂРёРє</a>
-                    <a href="rps.php">вњЉ РљР°РјРµРЅСЊ-РќРѕР¶РЅРёС†С‹</a>
-                    <a href="typing.php">вЊЁпёЏ РџРµС‡Р°С‚СЊ</a>
-                    <a href="color_match.php">рџЋЁ Р¦РІРµС‚</a>
-                    <a href="balloon.php">рџЋ€ РЁР°СЂРёРєРё</a>
-                    <a href="whack.php">рџ”Ё РљСЂРѕС‚</a>
-                    <a href="hanoi.php">рџ—ј РҐР°РЅРѕР№</a>
-                    <a href="connect4.php">рџ”ґ 4 РІ СЂСЏРґ</a>
-                    <a href="math.php">рџ§® РњР°С‚РµРјР°С‚РёРєР°</a>
-                    <a href="fifteen.php">рџ§© РџСЏС‚РЅР°С€РєРё</a>
-                    <a href="asteroids.php">в„пёЏ РђСЃС‚РµСЂРѕРёРґС‹</a>
-                    <a href="pacman.php">рџ‘ѕ РџР°РєРјР°РЅ</a></div>
+                    <a href="snake.php">🐍 Змейка</a>
+                    <a href="tetris.php">🧊 Тетрис</a>
+                    <a href="2048.php">🔢 2048</a>
+                    <a href="tictactoe.php">⭕ Крестики-нолики</a>
+                    <a href="guess.php">❓ Угадай число</a>
+                    <a href="memory.php">🃏 Память</a>
+                    <a href="clicker.php">👆 Кликер</a>
+                    <a href="quiz.php">📝 Викторина</a>
+                    <a href="flappy.php">🐦 Flappy Bird</a>
+                    <a href="reaction.php">⚡ Reaction Test</a>
+                    <a href="minesweeper.php">💣 Сапёр</a>
+                    <a href="hangman.php">👻 Виселица</a>
+                    <a href="simon.php">🔴 Саймон</a>
+                    <a href="pong.php">🏓 Понг</a>
+                    <a href="invaders.php">👾 Инвейдеры</a>
+                    <a href="breakout.php">🧱 Арканоид</a>
+                    <a href="sudoku.php">🧩 Судоку</a>
+                    <a href="wordle.php">🔤 Вордли</a>
+                    <a href="dino.php">🦖 Динозаврик</a>
+                    <a href="rps.php">✊ Камень-Ножницы</a>
+                    <a href="typing.php">⌨️ Печать</a>
+                    <a href="color_match.php">🎨 Цвет</a>
+                    <a href="balloon.php">🎈 Шарики</a>
+                    <a href="whack.php">🔨 Крот</a>
+                    <a href="hanoi.php">🗼 Ханой</a>
+                    <a href="connect4.php">🔴 4 в ряд</a>
+                    <a href="math.php">🧮 Математика</a>
+                    <a href="fifteen.php">🧩 Пятнашки</a>
+                    <a href="asteroids.php">☄️ Астероиды</a>
+                    <a href="pacman.php">👾 Пакман</a></div>
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
             </div>
             <?php if (isAuth()): ?>
-            <a href="donate.php" class="btn btn-sm">💰 Магазин</a>
+            <a href="donate.php" class="btn btn-sm">💰 Донат</a>
             <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
             <?php else: ?>
-            <a href="login.php" class="btn btn-sm btn-outline">Вход</a>
+            <a href="login.php" class="btn btn-sm btn-outline">Войти</a>
             <a href="register.php" class="btn btn-sm">Регистрация</a>
             <?php endif; ?>
         </nav>
     </div>
 </header>
 <div class="container">
-    <h1>Таблица лидеров</h1>
-    <p style="text-align:center;color:#888;margin-bottom:20px;">🏆 Топ-50 игроков по заработанным очкам</p>
+    <h1>������� �������</h1>
+    <p style="text-align:center;color:#888;margin-bottom:20px;">?? ���-50 ������� �� ������������ �����</p>
 
     <div class="table-wrap animate-in">
         <table class="leader-table">
             <tr>
                 <th>#</th>
-                <th>Игрок</th>
-                <th>Minecraft ник</th>
-                <th>Очки</th>
-                <th>Змейка</th>
-                <th>Тетрис</th>
-                <th>Игр</th>
+                <th>�����</th>
+                <th>Minecraft ���</th>
+                <th>����</th>
+                <th>������</th>
+                <th>������</th>
+                <th>���</th>
             </tr>
             <?php foreach ($stats as $u): ?>
             <tr>
                 <td class="rank rank-<?= $rank ?>">
-                    <?php if ($rank === 1): ?><span class="leader-medal">🥇</span>
-                    <?php elseif ($rank === 2): ?><span class="leader-medal">🥈</span>
-                    <?php elseif ($rank === 3): ?><span class="leader-medal">🥉</span>
+                    <?php if ($rank === 1): ?><span class="leader-medal">??</span>
+                    <?php elseif ($rank === 2): ?><span class="leader-medal">??</span>
+                    <?php elseif ($rank === 3): ?><span class="leader-medal">??</span>
                     <?php else: ?><?= $rank ?>
                     <?php endif; ?>
                 </td>
@@ -117,7 +118,7 @@ $rank = 1;
             </tr>
             <?php $rank++; endforeach; ?>
             <?php if (count($stats) === 0): ?>
-            <tr><td colspan="7" style="text-align:center;color:#666;padding:30px;">Пока никто не играл. Будь первым!</td></tr>
+            <tr><td colspan="7" style="text-align:center;color:#666;padding:30px;">���� ����� �� �����. ���� ������!</td></tr>
             <?php endif; ?>
         </table>
     </div>

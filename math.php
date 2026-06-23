@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.math", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Математика — DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>���������� � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
 .math-equation { font-size: 48px; font-weight: 800; color: #ffcc33; margin: 20px 0; letter-spacing: 4px; }
 .math-input { width: 160px; font-size: 32px; text-align: center; padding: 12px; margin: 10px 0; }
 .timer-bar { height: 8px; background: rgba(255,136,0,0.15); border-radius: 4px; margin: 15px 0; overflow: hidden; }
@@ -21,50 +21,51 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
 .progress-text { font-size: 14px; color: #8a7a5a; margin: 10px 0; }
 </style></head><body>
 <header><div class="header-inner"><a href="index.php" class="logo-link">DonateCraft</a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button><div class="dropdown-content">
-                    <a href="snake.php">рџђЌ Р—РјРµР№РєР°</a>
-                    <a href="tetris.php">рџ§Љ РўРµС‚СЂРёСЃ</a>
-                    <a href="2048.php">рџ”ў 2048</a>
-                    <a href="tictactoe.php">в­• РљСЂРµСЃС‚РёРєРё-РЅРѕР»РёРєРё</a>
-                    <a href="guess.php">вќ“ РЈРіР°РґР°Р№ С‡РёСЃР»Рѕ</a>
-                    <a href="memory.php">рџѓЏ РџР°РјСЏС‚СЊ</a>
-                    <a href="clicker.php">рџ‘† РљР»РёРєРµСЂ</a>
-                    <a href="quiz.php">рџ“ќ Р’РёРєС‚РѕСЂРёРЅР°</a>
-                    <a href="flappy.php">рџђ¦ Flappy Bird</a>
-                    <a href="reaction.php">вљЎ Reaction Test</a>
-                    <a href="minesweeper.php">рџ’Ј РЎР°РїС‘СЂ</a>
-                    <a href="hangman.php">рџ‘» Р’РёСЃРµР»РёС†Р°</a>
-                    <a href="simon.php">рџ”ґ РЎР°Р№РјРѕРЅ</a>
-                    <a href="pong.php">рџЏ“ РџРѕРЅРі</a>
-                    <a href="invaders.php">рџ‘ѕ РРЅРІРµР№РґРµСЂС‹</a>
-                    <a href="breakout.php">рџ§± РђСЂРєР°РЅРѕРёРґ</a>
-                    <a href="sudoku.php">рџ§© РЎСѓРґРѕРєСѓ</a>
-                    <a href="wordle.php">рџ”¤ Р’РѕСЂРґР»Рё</a>
-                    <a href="dino.php">рџ¦– Р”РёРЅРѕР·Р°РІСЂРёРє</a>
-                    <a href="rps.php">вњЉ РљР°РјРµРЅСЊ-РќРѕР¶РЅРёС†С‹</a>
-                    <a href="typing.php">вЊЁпёЏ РџРµС‡Р°С‚СЊ</a>
-                    <a href="color_match.php">рџЋЁ Р¦РІРµС‚</a>
-                    <a href="balloon.php">рџЋ€ РЁР°СЂРёРєРё</a>
-                    <a href="whack.php">рџ”Ё РљСЂРѕС‚</a>
-                    <a href="hanoi.php">рџ—ј РҐР°РЅРѕР№</a>
-                    <a href="connect4.php">рџ”ґ 4 РІ СЂСЏРґ</a>
-                    <a href="math.php">рџ§® РњР°С‚РµРјР°С‚РёРєР°</a>
-                    <a href="fifteen.php">рџ§© РџСЏС‚РЅР°С€РєРё</a>
-                    <a href="asteroids.php">в„пёЏ РђСЃС‚РµСЂРѕРёРґС‹</a>
-                    <a href="pacman.php">рџ‘ѕ РџР°РєРјР°РЅ</a></div></div><a href="donate.php" class="btn btn-sm">💰 Магазин</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
+                    <a href="snake.php">🐍 Змейка</a>
+                    <a href="tetris.php">🧊 Тетрис</a>
+                    <a href="2048.php">🔢 2048</a>
+                    <a href="tictactoe.php">⭕ Крестики-нолики</a>
+                    <a href="guess.php">❓ Угадай число</a>
+                    <a href="memory.php">🃏 Память</a>
+                    <a href="clicker.php">👆 Кликер</a>
+                    <a href="quiz.php">📝 Викторина</a>
+                    <a href="flappy.php">🐦 Flappy Bird</a>
+                    <a href="reaction.php">⚡ Reaction Test</a>
+                    <a href="minesweeper.php">💣 Сапёр</a>
+                    <a href="hangman.php">👻 Виселица</a>
+                    <a href="simon.php">🔴 Саймон</a>
+                    <a href="pong.php">🏓 Понг</a>
+                    <a href="invaders.php">👾 Инвейдеры</a>
+                    <a href="breakout.php">🧱 Арканоид</a>
+                    <a href="sudoku.php">🧩 Судоку</a>
+                    <a href="wordle.php">🔤 Вордли</a>
+                    <a href="dino.php">🦖 Динозаврик</a>
+                    <a href="rps.php">✊ Камень-Ножницы</a>
+                    <a href="typing.php">⌨️ Печать</a>
+                    <a href="color_match.php">🎨 Цвет</a>
+                    <a href="balloon.php">🎈 Шарики</a>
+                    <a href="whack.php">🔨 Крот</a>
+                    <a href="hanoi.php">🗼 Ханой</a>
+                    <a href="connect4.php">🔴 4 в ряд</a>
+                    <a href="math.php">🧮 Математика</a>
+                    <a href="fifteen.php">🧩 Пятнашки</a>
+                    <a href="asteroids.php">☄️ Астероиды</a>
+                    <a href="pacman.php">👾 Пакман</a></div><
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
 <div class="container"><div class="game-wrapper">
-<h1>🧮 Математический тренажёр</h1>
-<div class="game-info-bar"><div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div><div class="game-info-item"><span class="lbl">Правильно</span><span class="val" id="correctDisplay">0 / 20</span></div></div>
-<div class="progress-text" id="progressText">Пример 1 из 20</div>
+<h1>?? �������������� �������</h1>
+<div class="game-info-bar"><div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div><div class="game-info-item"><span class="lbl">���������</span><span class="val" id="correctDisplay">0 / 20</span></div></div>
+<div class="progress-text" id="progressText">������ 1 �� 20</div>
 <div class="timer-bar"><div class="timer-fill" id="timerFill" style="width:100%"></div></div>
 <div class="math-equation" id="equationDisplay">23 + 17</div>
 <input class="math-input" id="answerInput" type="number" placeholder="?" autofocus>
 <div class="game-controls">
-<button class="btn" id="submitBtn">✅ Ответить</button>
-<button class="btn" onclick="resetGame()">🔄 Новая игра</button>
+<button class="btn" id="submitBtn">? ��������</button>
+<button class="btn" onclick="resetGame()">?? ����� ����</button>
 </div>
 <div class="game-status" id="statusDisplay" style="font-size:16px;min-height:24px;margin-top:10px;color:#8a7a5a;"></div>
 </div></div>
-<footer><p>DonateCraft — зарабатывай донатные поинты за мини-игры</p></footer>
+<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
 <script>
 const scoreDisplay = document.getElementById('scoreDisplay');
 const bestDisplay = document.getElementById('bestDisplay');
@@ -114,9 +115,9 @@ function resetGame() {
 function showProblem() {
     if (currentIndex >= TOTAL) { endGame(); return; }
     const p = problems[currentIndex];
-    const opSymbol = p.op === '*' ? '×' : p.op;
+    const opSymbol = p.op === '*' ? '?' : p.op;
     equationDisplay.textContent = `${p.a} ${opSymbol} ${p.b}`;
-    progressText.textContent = `Пример ${currentIndex + 1} из ${TOTAL}`;
+    progressText.textContent = `������ ${currentIndex + 1} �� ${TOTAL}`;
     correctDisplay.textContent = `${correctCount} / ${TOTAL}`;
     answerInput.value = '';
     answerInput.focus();
@@ -128,7 +129,7 @@ function showProblem() {
         timerFill.style.width = (timeLeft / 10 * 100) + '%';
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
-            statusDisplay.textContent = '⏰ Время вышло! Правильный ответ: ' + problems[currentIndex].ans;
+            statusDisplay.textContent = '? ����� �����! ���������� �����: ' + problems[currentIndex].ans;
             currentIndex++;
             setTimeout(showProblem, 1200);
         }
@@ -144,9 +145,9 @@ function submitAnswer() {
         correctCount++;
         score += 25;
         scoreDisplay.textContent = score;
-        statusDisplay.textContent = '✅ Верно!';
+        statusDisplay.textContent = '? �����!';
     } else {
-        statusDisplay.textContent = '❌ Неверно! Правильный ответ: ' + p.ans;
+        statusDisplay.textContent = '? �������! ���������� �����: ' + p.ans;
     }
     correctDisplay.textContent = `${correctCount} / ${TOTAL}`;
     currentIndex++;
@@ -158,9 +159,9 @@ function endGame() {
     clearInterval(timerInterval);
     answerInput.disabled = true;
     submitBtn.disabled = true;
-    equationDisplay.textContent = '🏁 Тренировка завершена!';
-    statusDisplay.textContent = `Правильно: ${correctCount} из ${TOTAL} | Счёт: ${score}`;
-    progressText.textContent = 'Готово!';
+    equationDisplay.textContent = '?? ���������� ���������!';
+    statusDisplay.textContent = `���������: ${correctCount} �� ${TOTAL} | ����: ${score}`;
+    progressText.textContent = '������!';
     if (!saved) {
         saved = true;
         const formData = new FormData();

@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Меморина</title>
+<title>��������</title>
 <link rel="stylesheet" href="style.css">
 <style>
 .memory-grid { display: grid; grid-template-columns: repeat(4, 90px); gap: 8px; justify-content: center; margin: 20px auto; }
@@ -33,57 +33,58 @@
             <div class="dropdown">
                 <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
                 <div class="dropdown-content">
-                    <a href="snake.php">рџђЌ Р—РјРµР№РєР°</a>
-                    <a href="tetris.php">рџ§Љ РўРµС‚СЂРёСЃ</a>
-                    <a href="2048.php">рџ”ў 2048</a>
-                    <a href="tictactoe.php">в­• РљСЂРµСЃС‚РёРєРё-РЅРѕР»РёРєРё</a>
-                    <a href="guess.php">вќ“ РЈРіР°РґР°Р№ С‡РёСЃР»Рѕ</a>
-                    <a href="memory.php">рџѓЏ РџР°РјСЏС‚СЊ</a>
-                    <a href="clicker.php">рџ‘† РљР»РёРєРµСЂ</a>
-                    <a href="quiz.php">рџ“ќ Р’РёРєС‚РѕСЂРёРЅР°</a>
-                    <a href="flappy.php">рџђ¦ Flappy Bird</a>
-                    <a href="reaction.php">вљЎ Reaction Test</a>
-                    <a href="minesweeper.php">рџ’Ј РЎР°РїС‘СЂ</a>
-                    <a href="hangman.php">рџ‘» Р’РёСЃРµР»РёС†Р°</a>
-                    <a href="simon.php">рџ”ґ РЎР°Р№РјРѕРЅ</a>
-                    <a href="pong.php">рџЏ“ РџРѕРЅРі</a>
-                    <a href="invaders.php">рџ‘ѕ РРЅРІРµР№РґРµСЂС‹</a>
-                    <a href="breakout.php">рџ§± РђСЂРєР°РЅРѕРёРґ</a>
-                    <a href="sudoku.php">рџ§© РЎСѓРґРѕРєСѓ</a>
-                    <a href="wordle.php">рџ”¤ Р’РѕСЂРґР»Рё</a>
-                    <a href="dino.php">рџ¦– Р”РёРЅРѕР·Р°РІСЂРёРє</a>
-                    <a href="rps.php">вњЉ РљР°РјРµРЅСЊ-РќРѕР¶РЅРёС†С‹</a>
-                    <a href="typing.php">вЊЁпёЏ РџРµС‡Р°С‚СЊ</a>
-                    <a href="color_match.php">рџЋЁ Р¦РІРµС‚</a>
-                    <a href="balloon.php">рџЋ€ РЁР°СЂРёРєРё</a>
-                    <a href="whack.php">рџ”Ё РљСЂРѕС‚</a>
-                    <a href="hanoi.php">рџ—ј РҐР°РЅРѕР№</a>
-                    <a href="connect4.php">рџ”ґ 4 РІ СЂСЏРґ</a>
-                    <a href="math.php">рџ§® РњР°С‚РµРјР°С‚РёРєР°</a>
-                    <a href="fifteen.php">рџ§© РџСЏС‚РЅР°С€РєРё</a>
-                    <a href="asteroids.php">в„пёЏ РђСЃС‚РµСЂРѕРёРґС‹</a>
-                    <a href="pacman.php">рџ‘ѕ РџР°РєРјР°РЅ</a></div>
+                    <a href="snake.php">🐍 Змейка</a>
+                    <a href="tetris.php">🧊 Тетрис</a>
+                    <a href="2048.php">🔢 2048</a>
+                    <a href="tictactoe.php">⭕ Крестики-нолики</a>
+                    <a href="guess.php">❓ Угадай число</a>
+                    <a href="memory.php">🃏 Память</a>
+                    <a href="clicker.php">👆 Кликер</a>
+                    <a href="quiz.php">📝 Викторина</a>
+                    <a href="flappy.php">🐦 Flappy Bird</a>
+                    <a href="reaction.php">⚡ Reaction Test</a>
+                    <a href="minesweeper.php">💣 Сапёр</a>
+                    <a href="hangman.php">👻 Виселица</a>
+                    <a href="simon.php">🔴 Саймон</a>
+                    <a href="pong.php">🏓 Понг</a>
+                    <a href="invaders.php">👾 Инвейдеры</a>
+                    <a href="breakout.php">🧱 Арканоид</a>
+                    <a href="sudoku.php">🧩 Судоку</a>
+                    <a href="wordle.php">🔤 Вордли</a>
+                    <a href="dino.php">🦖 Динозаврик</a>
+                    <a href="rps.php">✊ Камень-Ножницы</a>
+                    <a href="typing.php">⌨️ Печать</a>
+                    <a href="color_match.php">🎨 Цвет</a>
+                    <a href="balloon.php">🎈 Шарики</a>
+                    <a href="whack.php">🔨 Крот</a>
+                    <a href="hanoi.php">🗼 Ханой</a>
+                    <a href="connect4.php">🔴 4 в ряд</a>
+                    <a href="math.php">🧮 Математика</a>
+                    <a href="fifteen.php">🧩 Пятнашки</a>
+                    <a href="asteroids.php">☄️ Астероиды</a>
+                    <a href="pacman.php">👾 Пакман</a></div>
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
             </div>
-            <a href="donate.php" class="btn btn-sm">💰 Магазин</a>
+            <a href="donate.php" class="btn btn-sm">💰 Донат</a>
             <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
         </nav>
     </div>
 </header>
 <div class="container">
     <div class="game-wrapper animate-in">
-        <h1>🧠 Меморина</h1>
-        <p style="color:#888;margin-bottom:16px;">Найди все пары одинаковых карт!</p>
+        <h1>?? ��������</h1>
+        <p style="color:#888;margin-bottom:16px;">����� ��� ���� ���������� ����!</p>
 
         <div class="game-info-bar">
-            <div class="game-info-item"><span class="lbl">Ходы</span><span class="val" id="movesDisplay">0</span></div>
-            <div class="game-info-item"><span class="lbl">Найдено пар</span><span class="val" id="pairsDisplay">0 / 8</span></div>
-            <div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">����</span><span class="val" id="movesDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">������� ���</span><span class="val" id="pairsDisplay">0 / 8</span></div>
+            <div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div>
         </div>
 
         <div class="memory-grid" id="memoryGrid"></div>
 
         <div class="game-controls">
-            <button id="newGameBtn" class="btn">🔄 Новая игра</button>
+            <button id="newGameBtn" class="btn">?? ����� ����</button>
         </div>
 
         <div id="result" style="font-size:18px;font-weight:600;min-height:30px;"></div>
@@ -98,7 +99,7 @@ const scoreDisplay = document.getElementById('scoreDisplay');
 const newGameBtn = document.getElementById('newGameBtn');
 const resultDiv = document.getElementById('result');
 
-const emojis = ['🍎','🍊','🍋','🍇','🍒','🍓','🍑','🍐'];
+const emojis = ['??','??','??','??','??','??','??','??'];
 let cards, flippedIndices, matchedPairs, moves, locked, saved;
 
 function shuffle(arr) {
@@ -128,7 +129,7 @@ function renderGrid() {
         const div = document.createElement('div');
         div.className = 'memory-card';
         div.dataset.index = i;
-        div.innerHTML = '<span class="card-back">❓</span>';
+        div.innerHTML = '<span class="card-back">?</span>';
         div.addEventListener('click', () => flipCard(i));
         grid.appendChild(div);
     });
@@ -177,8 +178,8 @@ function checkMatch() {
             setTimeout(() => {
                 grid.children[i1].classList.remove('flipped', 'wrong');
                 grid.children[i2].classList.remove('flipped', 'wrong');
-                grid.children[i1].innerHTML = '<span class="card-back">❓</span>';
-                grid.children[i2].innerHTML = '<span class="card-back">❓</span>';
+                grid.children[i1].innerHTML = '<span class="card-back">?</span>';
+                grid.children[i2].innerHTML = '<span class="card-back">?</span>';
                 flippedIndices = [];
                 locked = false;
                 updateStats();
@@ -201,10 +202,10 @@ function gameOver() {
         fetch('api.php?action=save_score&game=memory&level=1&points=' + score)
             .then(r => r.text())
             .then(t => {
-                resultDiv.innerHTML = '🎉 Все пары найдены! +<strong style="color:#ffd700;">' + score + '</strong> очков зачислено';
+                resultDiv.innerHTML = '?? ��� ���� �������! +<strong style="color:#ffd700;">' + score + '</strong> ����� ���������';
             })
             .catch(() => {
-                resultDiv.innerHTML = '🎉 Все пары найдены! ⚠️ Ошибка сохранения.';
+                resultDiv.innerHTML = '?? ��� ���� �������! ?? ������ ����������.';
             });
     }
 }

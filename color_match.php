@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.color_match", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Цветовая реакция — DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>�������� ������� � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
 .color-word{font-size:60px;font-weight:800;margin:30px 0;min-height:80px;text-shadow:0 0 30px rgba(255,255,255,0.08);transition:all .3s}
 .color-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:20px 0}
 .color-btn{width:90px;height:90px;border-radius:16px;border:3px solid transparent;cursor:pointer;transition:all .2s;position:relative;font-size:13px;font-weight:600;color:rgba(255,255,255,0.85);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
@@ -26,58 +26,59 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
 .timer-bar-fill{height:100%;background:linear-gradient(90deg,#ff8800,#ffcc33);border-radius:3px;transition:width .1s linear;width:100%}
 </style></head><body>
 <header><div class="header-inner"><a href="index.php" class="logo-link">DonateCraft</a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button><div class="dropdown-content">
-                    <a href="snake.php">рџђЌ Р—РјРµР№РєР°</a>
-                    <a href="tetris.php">рџ§Љ РўРµС‚СЂРёСЃ</a>
-                    <a href="2048.php">рџ”ў 2048</a>
-                    <a href="tictactoe.php">в­• РљСЂРµСЃС‚РёРєРё-РЅРѕР»РёРєРё</a>
-                    <a href="guess.php">вќ“ РЈРіР°РґР°Р№ С‡РёСЃР»Рѕ</a>
-                    <a href="memory.php">рџѓЏ РџР°РјСЏС‚СЊ</a>
-                    <a href="clicker.php">рџ‘† РљР»РёРєРµСЂ</a>
-                    <a href="quiz.php">рџ“ќ Р’РёРєС‚РѕСЂРёРЅР°</a>
-                    <a href="flappy.php">рџђ¦ Flappy Bird</a>
-                    <a href="reaction.php">вљЎ Reaction Test</a>
-                    <a href="minesweeper.php">рџ’Ј РЎР°РїС‘СЂ</a>
-                    <a href="hangman.php">рџ‘» Р’РёСЃРµР»РёС†Р°</a>
-                    <a href="simon.php">рџ”ґ РЎР°Р№РјРѕРЅ</a>
-                    <a href="pong.php">рџЏ“ РџРѕРЅРі</a>
-                    <a href="invaders.php">рџ‘ѕ РРЅРІРµР№РґРµСЂС‹</a>
-                    <a href="breakout.php">рџ§± РђСЂРєР°РЅРѕРёРґ</a>
-                    <a href="sudoku.php">рџ§© РЎСѓРґРѕРєСѓ</a>
-                    <a href="wordle.php">рџ”¤ Р’РѕСЂРґР»Рё</a>
-                    <a href="dino.php">рџ¦– Р”РёРЅРѕР·Р°РІСЂРёРє</a>
-                    <a href="rps.php">вњЉ РљР°РјРµРЅСЊ-РќРѕР¶РЅРёС†С‹</a>
-                    <a href="typing.php">вЊЁпёЏ РџРµС‡Р°С‚СЊ</a>
-                    <a href="color_match.php">рџЋЁ Р¦РІРµС‚</a>
-                    <a href="balloon.php">рџЋ€ РЁР°СЂРёРєРё</a>
-                    <a href="whack.php">рџ”Ё РљСЂРѕС‚</a>
-                    <a href="hanoi.php">рџ—ј РҐР°РЅРѕР№</a>
-                    <a href="connect4.php">рџ”ґ 4 РІ СЂСЏРґ</a>
-                    <a href="math.php">рџ§® РњР°С‚РµРјР°С‚РёРєР°</a>
-                    <a href="fifteen.php">рџ§© РџСЏС‚РЅР°С€РєРё</a>
-                    <a href="asteroids.php">в„пёЏ РђСЃС‚РµСЂРѕРёРґС‹</a>
-                    <a href="pacman.php">рџ‘ѕ РџР°РєРјР°РЅ</a></div></div><a href="donate.php" class="btn btn-sm">💰 Магазин</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
+                    <a href="snake.php">🐍 Змейка</a>
+                    <a href="tetris.php">🧊 Тетрис</a>
+                    <a href="2048.php">🔢 2048</a>
+                    <a href="tictactoe.php">⭕ Крестики-нолики</a>
+                    <a href="guess.php">❓ Угадай число</a>
+                    <a href="memory.php">🃏 Память</a>
+                    <a href="clicker.php">👆 Кликер</a>
+                    <a href="quiz.php">📝 Викторина</a>
+                    <a href="flappy.php">🐦 Flappy Bird</a>
+                    <a href="reaction.php">⚡ Reaction Test</a>
+                    <a href="minesweeper.php">💣 Сапёр</a>
+                    <a href="hangman.php">👻 Виселица</a>
+                    <a href="simon.php">🔴 Саймон</a>
+                    <a href="pong.php">🏓 Понг</a>
+                    <a href="invaders.php">👾 Инвейдеры</a>
+                    <a href="breakout.php">🧱 Арканоид</a>
+                    <a href="sudoku.php">🧩 Судоку</a>
+                    <a href="wordle.php">🔤 Вордли</a>
+                    <a href="dino.php">🦖 Динозаврик</a>
+                    <a href="rps.php">✊ Камень-Ножницы</a>
+                    <a href="typing.php">⌨️ Печать</a>
+                    <a href="color_match.php">🎨 Цвет</a>
+                    <a href="balloon.php">🎈 Шарики</a>
+                    <a href="whack.php">🔨 Крот</a>
+                    <a href="hanoi.php">🗼 Ханой</a>
+                    <a href="connect4.php">🔴 4 в ряд</a>
+                    <a href="math.php">🧮 Математика</a>
+                    <a href="fifteen.php">🧩 Пятнашки</a>
+                    <a href="asteroids.php">☄️ Астероиды</a>
+                    <a href="pacman.php">👾 Пакман</a></div><
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
 <div class="container"><div class="game-wrapper">
-<h1>🎨 Цветовая реакция</h1>
-<div class="game-info-bar"><div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div></div>
+<h1>?? �������� �������</h1>
+<div class="game-info-bar"><div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div></div>
 <div class="game-area">
 <div>
-<div class="round-info">Раунд <span id="roundDisplay">0</span>/20</div>
-<div class="color-word" id="colorWordDisplay">Нажми старт</div>
+<div class="round-info">����� <span id="roundDisplay">0</span>/20</div>
+<div class="color-word" id="colorWordDisplay">����� �����</div>
 <div class="timer-bar"><div class="timer-bar-fill" id="timerBarFill"></div></div>
 <div class="feedback" id="feedbackDisplay"></div>
 <div class="color-btns" id="colorBtns"></div>
 </div>
 </div>
-<div class="game-controls"><button class="btn" onclick="resetGame()">🔄 Новая игра</button></div>
+<div class="game-controls"><button class="btn" onclick="resetGame()">?? ����� ����</button></div>
 </div></div>
-<footer><p>DonateCraft — зарабатывай донатные поинты за мини-игры</p></footer>
+<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
 <script>
 const COLORS = [
-  { name: 'КРАСНЫЙ', value: '#ff2222', emoji: '🔴' },
-  { name: 'СИНИЙ', value: '#2288ff', emoji: '🔵' },
-  { name: 'ЗЕЛЁНЫЙ', value: '#22cc44', emoji: '🟢' },
-  { name: 'ЖЁЛТЫЙ', value: '#ffdd22', emoji: '🟡' },
-  { name: 'ФИОЛЕТОВЫЙ', value: '#bb44ff', emoji: '🟣' },
+  { name: '�������', value: '#ff2222', emoji: '??' },
+  { name: '�����', value: '#2288ff', emoji: '??' },
+  { name: '��˨���', value: '#22cc44', emoji: '??' },
+  { name: 'ƨ����', value: '#ffdd22', emoji: '??' },
+  { name: '����������', value: '#bb44ff', emoji: '??' },
 ];
 const TOTAL_ROUNDS = 20;
 const ROUND_TIME = 3000;
@@ -159,7 +160,7 @@ function nextRound() {
     const pct = Math.max(0, 100 - (elapsed / ROUND_TIME) * 100);
     timerBarFill.style.width = pct + '%';
     if (pct <= 0) {
-      feedbackDisplay.textContent = '⏰ Время вышло!';
+      feedbackDisplay.textContent = '? ����� �����!';
       feedbackDisplay.style.color = '#ff4455';
       setTimeout(nextRound, 500);
     } else {
@@ -175,12 +176,12 @@ function handleClick(color) {
   if (color === currentWordColor) {
     score += 50;
     correctAnswers++;
-    feedbackDisplay.textContent = '✅ +50';
+    feedbackDisplay.textContent = '? +50';
     feedbackDisplay.style.color = '#44dd66';
   } else {
     score -= 20;
     wrongAnswers++;
-    feedbackDisplay.textContent = '❌ -20';
+    feedbackDisplay.textContent = '? -20';
     feedbackDisplay.style.color = '#ff4455';
   }
   if (score < 0) score = 0;
@@ -190,7 +191,7 @@ function handleClick(color) {
 
 function endGame() {
   gameActive = false;
-  colorWordDisplay.textContent = 'Игра окончена!';
+  colorWordDisplay.textContent = '���� ��������!';
   colorWordDisplay.style.color = '#ffaa33';
   const formData = new FormData();
   formData.append('score', score);
