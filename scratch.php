@@ -113,39 +113,39 @@ let isScratching = false;
 let revealed = false;
 let savedPrize = false;
 let currentPrize = 0;
-let pixelsCleared = 0;
 let totalPixels = 320 * 240;
+let lastX = -1, lastY = -1;
 
 function initCard() {
     currentPrize = prizes[Math.floor(Math.random() * prizes.length)];
     revealed = false;
     savedPrize = false;
-    pixelsCleared = 0;
     progressFill.style.width = '0%';
     resultDiv.innerHTML = '';
     prizeText.textContent = currentPrize > 0 ? '+' + currentPrize : '0';
     prizeText.style.opacity = '0.3';
+    lastX = -1; lastY = -1;
     drawCoating();
 }
 
 function drawCoating() {
-    ctx.fillStyle = '#aaa';
+    ctx.fillStyle = '#b0b0b0';
     ctx.fillRect(0, 0, 320, 240);
 
-    ctx.fillStyle = '#999';
-    for (let y = 0; y < 240; y += 8) {
-        ctx.fillRect(0, y, 320, 4);
+    ctx.fillStyle = '#c0c0c0';
+    for (let y = 0; y < 240; y += 6) {
+        ctx.fillRect(0, y, 320, 3);
     }
 
-    ctx.fillStyle = 'rgba(255,255,255,0.05)';
-    for (let i = 0; i < 20; i++) {
+    ctx.fillStyle = 'rgba(255,255,255,0.08)';
+    for (let i = 0; i < 30; i++) {
         let x = Math.random() * 320, y = Math.random() * 240;
         ctx.beginPath();
-        ctx.arc(x, y, 2 + Math.random() * 4, 0, Math.PI * 2);
+        ctx.arc(x, y, 1 + Math.random() * 3, 0, Math.PI * 2);
         ctx.fill();
     }
 
-    ctx.fillStyle = 'rgba(200,180,150,0.3)';
+    ctx.fillStyle = 'rgba(180,160,130,0.4)';
     ctx.font = 'bold 48px sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
@@ -155,9 +155,20 @@ function drawCoating() {
 function scratch(x, y) {
     if (revealed || cardsLeft <= 0) return;
     ctx.globalCompositeOperation = 'destination-out';
-    ctx.beginPath();
-    ctx.arc(x, y, 18, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.lineWidth = 36;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    if (lastX >= 0 && lastY >= 0) {
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+    } else {
+        ctx.beginPath();
+        ctx.arc(x, y, 18, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    lastX = x; lastY = y;
     ctx.globalCompositeOperation = 'source-over';
 
     let imageData = ctx.getImageData(0, 0, 320, 240);
@@ -165,11 +176,10 @@ function scratch(x, y) {
     for (let i = 3; i < imageData.data.length; i += 4) {
         if (imageData.data[i] === 0) transparent++;
     }
-    pixelsCleared = transparent;
     let percent = (transparent / totalPixels) * 100;
     progressFill.style.width = Math.min(percent, 100) + '%';
 
-    if (percent >= 45 && !revealed) {
+    if (percent >= 40 && !revealed) {
         revealPrize();
     }
 }
@@ -179,16 +189,18 @@ function revealPrize() {
     ctx.clearRect(0, 0, 320, 240);
     prizeText.style.opacity = '1';
 
-    if (!savedPrize && currentPrize > 0 && cardsLeft > 0) {
+    if (!savedPrize && cardsLeft > 0) {
         savedPrize = true;
-        fetch('api.php?action=save_score&game=scratch&level=1&points=' + currentPrize)
-            .then(r => r.text())
-            .then(t => {
-                resultDiv.innerHTML = '🎉 <strong style="color:#ffd700;">+' + currentPrize + '</strong> очков!';
-                lastWinSpan.textContent = '+' + currentPrize;
-            });
-    } else if (currentPrize === 0) {
-        resultDiv.innerHTML = '😔 В этот раз ничего. Повезёт в следующий раз!';
+        if (currentPrize > 0) {
+            fetch('api.php?action=save_score&game=scratch&level=1&points=' + currentPrize)
+                .then(r => r.text())
+                .then(t => {
+                    resultDiv.innerHTML = '🎉 <strong style="color:#ffd700;">+' + currentPrize + '</strong> очков!';
+                    lastWinSpan.textContent = '+' + currentPrize;
+                });
+        } else {
+            resultDiv.innerHTML = '😔 В этот раз ничего. Повезёт в следующий раз!';
+        }
     }
 
     setTimeout(() => {
@@ -203,15 +215,16 @@ function revealPrize() {
     }, 500);
 }
 
-canvas.addEventListener('mousedown', e => { isScratching = true; scratch(e.offsetX, e.offsetY); });
+canvas.addEventListener('mousedown', e => { isScratching = true; lastX = -1; scratch(e.offsetX, e.offsetY); });
 canvas.addEventListener('mousemove', e => { if (isScratching) scratch(e.offsetX, e.offsetY); });
-canvas.addEventListener('mouseup', () => { isScratching = false; });
-canvas.addEventListener('mouseleave', () => { isScratching = false; });
+canvas.addEventListener('mouseup', () => { isScratching = false; lastX = -1; });
+canvas.addEventListener('mouseleave', () => { isScratching = false; lastX = -1; });
 canvas.addEventListener('touchstart', e => {
     e.preventDefault();
     let rect = canvas.getBoundingClientRect();
     let touch = e.touches[0];
     isScratching = true;
+    lastX = -1;
     scratch(touch.clientX - rect.left, touch.clientY - rect.top);
 });
 canvas.addEventListener('touchmove', e => {
@@ -221,7 +234,7 @@ canvas.addEventListener('touchmove', e => {
     let touch = e.touches[0];
     scratch(touch.clientX - rect.left, touch.clientY - rect.top);
 });
-canvas.addEventListener('touchend', () => { isScratching = false; });
+canvas.addEventListener('touchend', () => { isScratching = false; lastX = -1; });
 
 newCardBtn.addEventListener('click', () => {
     if (cardsLeft <= 0) return;
