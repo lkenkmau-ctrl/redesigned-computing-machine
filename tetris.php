@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Тетрис</title>
+<title>РўРµС‚СЂРёСЃ</title>
 <link rel="stylesheet" href="style.css">
 <style>
 #gameCanvas { border: 2px solid rgba(68,136,255,0.3); background: #0a0a15; border-radius: 8px; }
@@ -19,7 +19,7 @@
         <a href="index.php" class="logo-link"><?= $site_name ?></a>
         <nav class="nav">
             <div class="dropdown">
-                <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+                <button class="btn btn-sm dropdown-btn">рџЋ® РРіСЂС‹ в–ѕ</button>
                 <div class="dropdown-content">
                     <a href="snake.php">🐍 Змейка</a>
                     <a href="tetris.php">🧊 Тетрис</a>
@@ -29,49 +29,71 @@
                     <a href="memory.php">🃏 Память</a>
                     <a href="clicker.php">👆 Кликер</a>
                     <a href="quiz.php">📝 Викторина</a>
+                    <a href="flappy.php">🐦 Flappy Bird</a>
+                    <a href="reaction.php">⚡ Reaction Test</a>
+                    <a href="minesweeper.php">💣 Сапёр</a>
+                    <a href="hangman.php">👻 Виселица</a>
+                    <a href="simon.php">🔴 Саймон</a>
+                    <a href="pong.php">🏓 Понг</a>
+                    <a href="invaders.php">👾 Инвейдеры</a>
+                    <a href="breakout.php">🧱 Арканоид</a>
+                    <a href="sudoku.php">🧩 Судоку</a>
+                    <a href="wordle.php">🔤 Вордли</a>
+                    <a href="dino.php">🦖 Динозаврик</a>
+                    <a href="rps.php">✊ Камень-Ножницы</a>
+                    <a href="typing.php">⌨️ Печать</a>
+                    <a href="color_match.php">🎨 Цвет</a>
+                    <a href="balloon.php">🎈 Шарики</a>
+                    <a href="whack.php">🔨 Крот</a>
+                    <a href="hanoi.php">🗼 Ханой</a>
+                    <a href="connect4.php">🔴 4 в ряд</a>
+                    <a href="math.php">🧮 Математика</a>
+                    <a href="fifteen.php">🧩 Пятнашки</a>
+                    <a href="asteroids.php">☄️ Астероиды</a>
+                    <a href="pacman.php">👾 Пакман</a>
                 </div>
             </div>
-            <a href="donate.php" class="btn btn-sm">💰 Магазин</a>
-            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+            <a href="donate.php" class="btn btn-sm">рџ’° РњР°РіР°Р·РёРЅ</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">рџ‘¤ РџСЂРѕС„РёР»СЊ</a>
         </nav>
     </div>
 </header>
 <div class="container">
     <div class="game-wrapper animate-in">
-        <h1>🧊 Тетрис</h1>
-        <p style="color:#888;margin-bottom:16px;">Складывай блоки, собирай линии и зарабатывай очки! Блоки проходят сквозь стены.</p>
+        <h1>рџ§Љ РўРµС‚СЂРёСЃ</h1>
+        <p style="color:#888;margin-bottom:16px;">РЎРєР»Р°РґС‹РІР°Р№ Р±Р»РѕРєРё, СЃРѕР±РёСЂР°Р№ Р»РёРЅРёРё Рё Р·Р°СЂР°Р±Р°С‚С‹РІР°Р№ РѕС‡РєРё! Р‘Р»РѕРєРё РїСЂРѕС…РѕРґСЏС‚ СЃРєРІРѕР·СЊ СЃС‚РµРЅС‹.</p>
 
         <div class="game-info-bar">
-            <div class="game-info-item"><span class="lbl">Уровень</span><span class="val" id="levelDisplay">1</span></div>
-            <div class="game-info-item"><span class="lbl">Линии</span><span class="val" id="linesDisplay">0</span></div>
-            <div class="game-info-item"><span class="lbl">Заработано</span><span class="val" id="pointsDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">РЈСЂРѕРІРµРЅСЊ</span><span class="val" id="levelDisplay">1</span></div>
+            <div class="game-info-item"><span class="lbl">Р›РёРЅРёРё</span><span class="val" id="linesDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Р—Р°СЂР°Р±РѕС‚Р°РЅРѕ</span><span class="val" id="pointsDisplay">0</span></div>
         </div>
 
         <div class="game-area">
             <canvas id="gameCanvas" width="300" height="600"></canvas>
             <div class="game-side">
-                <p style="color:#888;margin-bottom:8px;">Следующая:</p>
+                <p style="color:#888;margin-bottom:8px;">РЎР»РµРґСѓСЋС‰Р°СЏ:</p>
                 <canvas id="nextCanvas" width="120" height="120"></canvas>
             </div>
         </div>
 
         <div class="controls-hint">
-            <span class="key">⬅</span>
-            <span class="key">➡</span>
-            <span class="key">⬇</span>
-            <span class="key">⬆ / W</span>
-            <span class="key" style="background:rgba(255,215,0,0.1);border-color:#ffd700;">Пробел</span>
+            <span class="key">в¬…</span>
+            <span class="key">вћЎ</span>
+            <span class="key">в¬‡</span>
+            <span class="key">в¬† / W</span>
+            <span class="key" style="background:rgba(255,215,0,0.1);border-color:#ffd700;">РџСЂРѕР±РµР»</span>
         </div>
 
         <div class="game-controls">
-            <button id="startBtn" class="btn btn-blue" style="min-width:140px;">▶ Старт</button>
-            <a href="profile.php" class="btn btn-outline">Профиль</a>
+            <button id="startBtn" class="btn btn-blue" style="min-width:140px;">в–¶ РЎС‚Р°СЂС‚</button>
+            <a href="profile.php" class="btn btn-outline">РџСЂРѕС„РёР»СЊ</a>
         </div>
 
         <div id="result" style="font-size:18px;font-weight:600;min-height:30px;"></div>
 
         <div style="margin-top:16px;background:rgba(22,33,62,0.5);border-radius:10px;padding:16px;text-align:left;font-size:13px;color:#888;">
-            <strong style="color:#aaa;">Правила:</strong> Каждые 10 собранных линий = новый уровень. За каждый уровень начисляется <strong style="color:#4488ff;">+100 очков</strong>. С каждым уровнем скорость падения растёт! Блоки проходят сквозь стены.
+            <strong style="color:#aaa;">РџСЂР°РІРёР»Р°:</strong> РљР°Р¶РґС‹Рµ 10 СЃРѕР±СЂР°РЅРЅС‹С… Р»РёРЅРёР№ = РЅРѕРІС‹Р№ СѓСЂРѕРІРµРЅСЊ. Р—Р° РєР°Р¶РґС‹Р№ СѓСЂРѕРІРµРЅСЊ РЅР°С‡РёСЃР»СЏРµС‚СЃСЏ <strong style="color:#4488ff;">+100 РѕС‡РєРѕРІ</strong>. РЎ РєР°Р¶РґС‹Рј СѓСЂРѕРІРЅРµРј СЃРєРѕСЂРѕСЃС‚СЊ РїР°РґРµРЅРёСЏ СЂР°СЃС‚С‘С‚! Р‘Р»РѕРєРё РїСЂРѕС…РѕРґСЏС‚ СЃРєРІРѕР·СЊ СЃС‚РµРЅС‹.
         </div>
     </div>
 </div>
@@ -267,10 +289,10 @@ function gameOver() {
         saved = true;
         fetch('api.php?action=save_score&game=tetris&level=' + level + '&points=' + score)
             .then(r => r.text())
-            .then(t => { resultDiv.innerHTML = '🎮 Игра окончена! Уровень: <strong style="color:#4488ff;">' + level + '</strong> | +<strong style="color:#ffd700;">' + score + '</strong> очков зачислено'; })
-            .catch(() => { resultDiv.innerHTML = '⚠️ Игра окончена! Ошибка сохранения.'; });
+            .then(t => { resultDiv.innerHTML = 'рџЋ® РРіСЂР° РѕРєРѕРЅС‡РµРЅР°! РЈСЂРѕРІРµРЅСЊ: <strong style="color:#4488ff;">' + level + '</strong> | +<strong style="color:#ffd700;">' + score + '</strong> РѕС‡РєРѕРІ Р·Р°С‡РёСЃР»РµРЅРѕ'; })
+            .catch(() => { resultDiv.innerHTML = 'вљ пёЏ РРіСЂР° РѕРєРѕРЅС‡РµРЅР°! РћС€РёР±РєР° СЃРѕС…СЂР°РЅРµРЅРёСЏ.'; });
     }
-    startBtn.textContent = '🔄 Заново';
+    startBtn.textContent = 'рџ”„ Р—Р°РЅРѕРІРѕ';
 }
 
 function updateTetris() {
@@ -294,7 +316,7 @@ startBtn.addEventListener('click', () => {
     if (gameLoop) { clearInterval(gameLoop); gameLoop = null; }
     init();
     gameRunning = true;
-    startBtn.textContent = '▶ Игра...';
+    startBtn.textContent = 'в–¶ РРіСЂР°...';
     resultDiv.innerHTML = '';
     gameLoop = setInterval(updateTetris, 50);
 });

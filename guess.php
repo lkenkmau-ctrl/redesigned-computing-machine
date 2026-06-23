@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Угадай число</title>
+<title>РЈРіР°РґР°Р№ С‡РёСЃР»Рѕ</title>
 <link rel="stylesheet" href="style.css">
 <style>
 .guess-area { max-width: 500px; margin: 20px auto; }
@@ -25,7 +25,7 @@
         <a href="index.php" class="logo-link"><?= $site_name ?></a>
         <nav class="nav">
             <div class="dropdown">
-                <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+                <button class="btn btn-sm dropdown-btn">рџЋ® РРіСЂС‹ в–ѕ</button>
                 <div class="dropdown-content">
                     <a href="snake.php">🐍 Змейка</a>
                     <a href="tetris.php">🧊 Тетрис</a>
@@ -35,22 +35,44 @@
                     <a href="memory.php">🃏 Память</a>
                     <a href="clicker.php">👆 Кликер</a>
                     <a href="quiz.php">📝 Викторина</a>
+                    <a href="flappy.php">🐦 Flappy Bird</a>
+                    <a href="reaction.php">⚡ Reaction Test</a>
+                    <a href="minesweeper.php">💣 Сапёр</a>
+                    <a href="hangman.php">👻 Виселица</a>
+                    <a href="simon.php">🔴 Саймон</a>
+                    <a href="pong.php">🏓 Понг</a>
+                    <a href="invaders.php">👾 Инвейдеры</a>
+                    <a href="breakout.php">🧱 Арканоид</a>
+                    <a href="sudoku.php">🧩 Судоку</a>
+                    <a href="wordle.php">🔤 Вордли</a>
+                    <a href="dino.php">🦖 Динозаврик</a>
+                    <a href="rps.php">✊ Камень-Ножницы</a>
+                    <a href="typing.php">⌨️ Печать</a>
+                    <a href="color_match.php">🎨 Цвет</a>
+                    <a href="balloon.php">🎈 Шарики</a>
+                    <a href="whack.php">🔨 Крот</a>
+                    <a href="hanoi.php">🗼 Ханой</a>
+                    <a href="connect4.php">🔴 4 в ряд</a>
+                    <a href="math.php">🧮 Математика</a>
+                    <a href="fifteen.php">🧩 Пятнашки</a>
+                    <a href="asteroids.php">☄️ Астероиды</a>
+                    <a href="pacman.php">👾 Пакман</a>
                 </div>
             </div>
-            <a href="donate.php" class="btn btn-sm">💰 Магазин</a>
-            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+            <a href="donate.php" class="btn btn-sm">рџ’° РњР°РіР°Р·РёРЅ</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">рџ‘¤ РџСЂРѕС„РёР»СЊ</a>
         </nav>
     </div>
 </header>
 <div class="container">
     <div class="game-wrapper animate-in">
-        <h1>🔢 Угадай число</h1>
-        <p style="color:#888;margin-bottom:16px;">Я загадал число от 1 до 100. Попробуй угадать!</p>
+        <h1>рџ”ў РЈРіР°РґР°Р№ С‡РёСЃР»Рѕ</h1>
+        <p style="color:#888;margin-bottom:16px;">РЇ Р·Р°РіР°РґР°Р» С‡РёСЃР»Рѕ РѕС‚ 1 РґРѕ 100. РџРѕРїСЂРѕР±СѓР№ СѓРіР°РґР°С‚СЊ!</p>
 
         <div class="game-info-bar">
-            <div class="game-info-item"><span class="lbl">Попыток</span><span class="val" id="attemptsDisplay">0</span></div>
-            <div class="game-info-item"><span class="lbl">Осталось</span><span class="val" id="remainingDisplay">10</span></div>
-            <div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">100</span></div>
+            <div class="game-info-item"><span class="lbl">РџРѕРїС‹С‚РѕРє</span><span class="val" id="attemptsDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">РћСЃС‚Р°Р»РѕСЃСЊ</span><span class="val" id="remainingDisplay">10</span></div>
+            <div class="game-info-item"><span class="lbl">РЎС‡С‘С‚</span><span class="val" id="scoreDisplay">100</span></div>
         </div>
 
         <div class="guess-area">
@@ -60,8 +82,8 @@
             <div class="guess-history" id="historyDisplay"></div>
             <div class="guess-attempts" id="attemptsInfo"></div>
             <div class="game-controls">
-                <button id="guessBtn" class="btn">✅ Проверить</button>
-                <button id="newGameBtn" class="btn btn-outline">🔄 Новая игра</button>
+                <button id="guessBtn" class="btn">вњ… РџСЂРѕРІРµСЂРёС‚СЊ</button>
+                <button id="newGameBtn" class="btn btn-outline">рџ”„ РќРѕРІР°СЏ РёРіСЂР°</button>
             </div>
             <div id="result" style="font-size:18px;font-weight:600;min-height:30px;margin-top:12px;"></div>
         </div>
@@ -120,7 +142,7 @@ guessBtn.addEventListener('click', () => {
     if (gameOver) return;
     let val = parseInt(guessInput.value);
     if (isNaN(val) || val < 1 || val > 100) {
-        hintDisplay.innerHTML = '<span style="color:#ff6666;">Введите число от 1 до 100</span>';
+        hintDisplay.innerHTML = '<span style="color:#ff6666;">Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ РѕС‚ 1 РґРѕ 100</span>';
         return;
     }
     attempts++;
@@ -134,17 +156,17 @@ guessBtn.addEventListener('click', () => {
         guessDisplay.style.color = '#ffd700';
         addHistory(val, 'correct');
         let score = Math.max(0, 100 - attempts * 10);
-        hintDisplay.innerHTML = '🎉 <strong style="color:#00ff00;">Правильно!</strong> Это было число ' + target;
+        hintDisplay.innerHTML = 'рџЋ‰ <strong style="color:#00ff00;">РџСЂР°РІРёР»СЊРЅРѕ!</strong> Р­С‚Рѕ Р±С‹Р»Рѕ С‡РёСЃР»Рѕ ' + target;
 
         if (!saved) {
             saved = true;
             fetch('api.php?action=save_score&game=guess&level=1&points=' + score)
                 .then(r => r.text())
                 .then(t => {
-                    resultDiv.innerHTML = '✅ +<strong style="color:#ffd700;">' + score + '</strong> очков зачислено!';
+                    resultDiv.innerHTML = 'вњ… +<strong style="color:#ffd700;">' + score + '</strong> РѕС‡РєРѕРІ Р·Р°С‡РёСЃР»РµРЅРѕ!';
                 })
                 .catch(() => {
-                    resultDiv.innerHTML = '⚠️ Ошибка сохранения.';
+                    resultDiv.innerHTML = 'вљ пёЏ РћС€РёР±РєР° СЃРѕС…СЂР°РЅРµРЅРёСЏ.';
                 });
         }
         updateStats();
@@ -152,10 +174,10 @@ guessBtn.addEventListener('click', () => {
     }
 
     if (val < target) {
-        hintDisplay.innerHTML = '🔺 <strong>Больше!</strong> Загаданное число больше <strong style="color:#ff6666;">' + val + '</strong>';
+        hintDisplay.innerHTML = 'рџ”є <strong>Р‘РѕР»СЊС€Рµ!</strong> Р—Р°РіР°РґР°РЅРЅРѕРµ С‡РёСЃР»Рѕ Р±РѕР»СЊС€Рµ <strong style="color:#ff6666;">' + val + '</strong>';
         addHistory(val, 'low');
     } else {
-        hintDisplay.innerHTML = '🔻 <strong>Меньше!</strong> Загаданное число меньше <strong style="color:#6688ff;">' + val + '</strong>';
+        hintDisplay.innerHTML = 'рџ”» <strong>РњРµРЅСЊС€Рµ!</strong> Р—Р°РіР°РґР°РЅРЅРѕРµ С‡РёСЃР»Рѕ РјРµРЅСЊС€Рµ <strong style="color:#6688ff;">' + val + '</strong>';
         addHistory(val, 'high');
     }
 
@@ -164,8 +186,8 @@ guessBtn.addEventListener('click', () => {
         guessInput.disabled = true;
         guessBtn.disabled = true;
         guessDisplay.textContent = target;
-        hintDisplay.innerHTML = '😔 Попытки закончились. Было загадано <strong style="color:#ffd700;">' + target + '</strong>';
-        resultDiv.innerHTML = '💡 Начни новую игру!';
+        hintDisplay.innerHTML = 'рџ” РџРѕРїС‹С‚РєРё Р·Р°РєРѕРЅС‡РёР»РёСЃСЊ. Р‘С‹Р»Рѕ Р·Р°РіР°РґР°РЅРѕ <strong style="color:#ffd700;">' + target + '</strong>';
+        resultDiv.innerHTML = 'рџ’Ў РќР°С‡РЅРё РЅРѕРІСѓСЋ РёРіСЂСѓ!';
     }
 
     guessInput.value = '';

@@ -29,9 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buy'])) {
             ]);
 
             $userData['points'] = $newPoints;
-            $success = '✅ Покупка оформлена! Ожидайте выдачи на сервере.';
+            $success = 'вњ… РџРѕРєСѓРїРєР° РѕС„РѕСЂРјР»РµРЅР°! РћР¶РёРґР°Р№С‚Рµ РІС‹РґР°С‡Рё РЅР° СЃРµСЂРІРµСЂРµ.';
         } else {
-            $error = '❌ Недостаточно очков! Нужно ' . $item['cost'];
+            $error = 'вќЊ РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РѕС‡РєРѕРІ! РќСѓР¶РЅРѕ ' . $item['cost'];
         }
     }
 }
@@ -52,7 +52,7 @@ foreach ($shop_categories as $k => $c) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Магазин доната</title>
+<title>РњР°РіР°Р·РёРЅ РґРѕРЅР°С‚Р°</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -61,7 +61,7 @@ foreach ($shop_categories as $k => $c) {
         <a href="index.php" class="logo-link"><?= $site_name ?></a>
         <nav class="nav">
             <div class="dropdown">
-                <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+                <button class="btn btn-sm dropdown-btn">рџЋ® РРіСЂС‹ в–ѕ</button>
                 <div class="dropdown-content">
                     <a href="snake.php">🐍 Змейка</a>
                     <a href="tetris.php">🧊 Тетрис</a>
@@ -71,25 +71,47 @@ foreach ($shop_categories as $k => $c) {
                     <a href="memory.php">🃏 Память</a>
                     <a href="clicker.php">👆 Кликер</a>
                     <a href="quiz.php">📝 Викторина</a>
+                    <a href="flappy.php">🐦 Flappy Bird</a>
+                    <a href="reaction.php">⚡ Reaction Test</a>
+                    <a href="minesweeper.php">💣 Сапёр</a>
+                    <a href="hangman.php">👻 Виселица</a>
+                    <a href="simon.php">🔴 Саймон</a>
+                    <a href="pong.php">🏓 Понг</a>
+                    <a href="invaders.php">👾 Инвейдеры</a>
+                    <a href="breakout.php">🧱 Арканоид</a>
+                    <a href="sudoku.php">🧩 Судоку</a>
+                    <a href="wordle.php">🔤 Вордли</a>
+                    <a href="dino.php">🦖 Динозаврик</a>
+                    <a href="rps.php">✊ Камень-Ножницы</a>
+                    <a href="typing.php">⌨️ Печать</a>
+                    <a href="color_match.php">🎨 Цвет</a>
+                    <a href="balloon.php">🎈 Шарики</a>
+                    <a href="whack.php">🔨 Крот</a>
+                    <a href="hanoi.php">🗼 Ханой</a>
+                    <a href="connect4.php">🔴 4 в ряд</a>
+                    <a href="math.php">🧮 Математика</a>
+                    <a href="fifteen.php">🧩 Пятнашки</a>
+                    <a href="asteroids.php">☄️ Астероиды</a>
+                    <a href="pacman.php">👾 Пакман</a>
                 </div>
             </div>
-            <a href="donate.php" class="btn btn-sm">💰 Магазин</a>
-            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+            <a href="donate.php" class="btn btn-sm">рџ’° РњР°РіР°Р·РёРЅ</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">рџ‘¤ РџСЂРѕС„РёР»СЊ</a>
         </nav>
     </div>
 </header>
 <div class="container animate-in">
-    <h1>🛒 Магазин доната</h1>
+    <h1>рџ›’ РњР°РіР°Р·РёРЅ РґРѕРЅР°С‚Р°</h1>
 
     <div class="shop-header">
         <div class="balance-badge">
-            <span class="icon">⭐</span> <?= (int)$userData['points'] ?> очков
+            <span class="icon">в­ђ</span> <?= (int)$userData['points'] ?> РѕС‡РєРѕРІ
         </div>
         <div>
-            <a href="snake.php" class="btn btn-sm btn-outline">🐍 Змейка</a>
-            <a href="tetris.php" class="btn btn-sm btn-outline">🧊 Тетрис</a>
-            <a href="wheel.php" class="btn btn-sm btn-outline">🎡 Колесо</a>
-            <a href="scratch.php" class="btn btn-sm btn-outline">🎰 Скретч</a>
+            <a href="snake.php" class="btn btn-sm btn-outline">рџђЌ Р—РјРµР№РєР°</a>
+            <a href="tetris.php" class="btn btn-sm btn-outline">рџ§Љ РўРµС‚СЂРёСЃ</a>
+            <a href="wheel.php" class="btn btn-sm btn-outline">рџЋЎ РљРѕР»РµСЃРѕ</a>
+            <a href="scratch.php" class="btn btn-sm btn-outline">рџЋ° РЎРєСЂРµС‚С‡</a>
         </div>
     </div>
 
@@ -99,7 +121,7 @@ foreach ($shop_categories as $k => $c) {
     <div class="shop-layout">
         <aside class="shop-sidebar">
             <div class="shop-categories" id="categories">
-                <button class="cat-btn active" data-cat="all"><span class="icon">📋</span> Все</button>
+                <button class="cat-btn active" data-cat="all"><span class="icon">рџ“‹</span> Р’СЃРµ</button>
                 <?php foreach ($shop_categories as $key => $cat): ?>
                 <button class="cat-btn" data-cat="<?= $key ?>">
                     <span class="icon"><?= $cat['icon'] ?></span> <?= $cat['name'] ?>
@@ -120,12 +142,12 @@ foreach ($shop_categories as $k => $c) {
                         <div class="item-icon"><?= $cat['icon'] ?></div>
                         <h3><?= htmlspecialchars($item['name']) ?></h3>
                         <div class="desc"><?= htmlspecialchars($item['description'] ?? '') ?></div>
-                        <div class="cost"><?= $item['cost'] ?> <span class="pts">очков</span></div>
+                        <div class="cost"><?= $item['cost'] ?> <span class="pts">РѕС‡РєРѕРІ</span></div>
                         <form method="post">
                             <input type="hidden" name="item_key" value="<?= $key ?>">
                             <button type="submit" name="buy" class="btn btn-sm"
                                 <?= (int)$userData['points'] < $item['cost'] ? 'disabled' : '' ?>>
-                                <?= (int)$userData['points'] < $item['cost'] ? 'Не хватает' : 'Купить' ?>
+                                <?= (int)$userData['points'] < $item['cost'] ? 'РќРµ С…РІР°С‚Р°РµС‚' : 'РљСѓРїРёС‚СЊ' ?>
                             </button>
                         </form>
                     </div>
@@ -136,22 +158,22 @@ foreach ($shop_categories as $k => $c) {
             <?php endforeach; ?>
 
             <div class="shop-section" data-cat="all">
-                <h2>📋 Все товары</h2>
+                <h2>рџ“‹ Р’СЃРµ С‚РѕРІР°СЂС‹</h2>
                 <div class="shop-items">
                     <?php foreach ($donate_items as $key => $item): ?>
                     <?php $cat_color = $shop_categories[$item['category']]['color'] ?? '#888'; ?>
-                    <?php $cat_icon = $shop_categories[$item['category']]['icon'] ?? '📦'; ?>
+                    <?php $cat_icon = $shop_categories[$item['category']]['icon'] ?? 'рџ“¦'; ?>
                     <div class="shop-card cat-<?= $item['category'] ?>">
                         <span class="cat-tag"><?= $cat_icon ?></span>
                         <div class="item-icon"><?= $cat_icon ?></div>
                         <h3><?= htmlspecialchars($item['name']) ?></h3>
                         <div class="desc"><?= htmlspecialchars($item['description'] ?? '') ?></div>
-                        <div class="cost"><?= $item['cost'] ?> <span class="pts">очков</span></div>
+                        <div class="cost"><?= $item['cost'] ?> <span class="pts">РѕС‡РєРѕРІ</span></div>
                         <form method="post">
                             <input type="hidden" name="item_key" value="<?= $key ?>">
                             <button type="submit" name="buy" class="btn btn-sm"
                                 <?= (int)$userData['points'] < $item['cost'] ? 'disabled' : '' ?>>
-                                <?= (int)$userData['points'] < $item['cost'] ? 'Не хватает' : 'Купить' ?>
+                                <?= (int)$userData['points'] < $item['cost'] ? 'РќРµ С…РІР°С‚Р°РµС‚' : 'РљСѓРїРёС‚СЊ' ?>
                             </button>
                         </form>
                     </div>

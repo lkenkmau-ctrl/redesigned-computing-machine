@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Викторина</title>
+<title>Р’РёРєС‚РѕСЂРёРЅР°</title>
 <link rel="stylesheet" href="style.css">
 <style>
 .quiz-card { max-width: 600px; margin: 20px auto; text-align: left; }
@@ -37,7 +37,7 @@
         <a href="index.php" class="logo-link"><?= $site_name ?></a>
         <nav class="nav">
             <div class="dropdown">
-                <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+                <button class="btn btn-sm dropdown-btn">рџЋ® РРіСЂС‹ в–ѕ</button>
                 <div class="dropdown-content">
                     <a href="snake.php">🐍 Змейка</a>
                     <a href="tetris.php">🧊 Тетрис</a>
@@ -47,22 +47,44 @@
                     <a href="memory.php">🃏 Память</a>
                     <a href="clicker.php">👆 Кликер</a>
                     <a href="quiz.php">📝 Викторина</a>
+                    <a href="flappy.php">🐦 Flappy Bird</a>
+                    <a href="reaction.php">⚡ Reaction Test</a>
+                    <a href="minesweeper.php">💣 Сапёр</a>
+                    <a href="hangman.php">👻 Виселица</a>
+                    <a href="simon.php">🔴 Саймон</a>
+                    <a href="pong.php">🏓 Понг</a>
+                    <a href="invaders.php">👾 Инвейдеры</a>
+                    <a href="breakout.php">🧱 Арканоид</a>
+                    <a href="sudoku.php">🧩 Судоку</a>
+                    <a href="wordle.php">🔤 Вордли</a>
+                    <a href="dino.php">🦖 Динозаврик</a>
+                    <a href="rps.php">✊ Камень-Ножницы</a>
+                    <a href="typing.php">⌨️ Печать</a>
+                    <a href="color_match.php">🎨 Цвет</a>
+                    <a href="balloon.php">🎈 Шарики</a>
+                    <a href="whack.php">🔨 Крот</a>
+                    <a href="hanoi.php">🗼 Ханой</a>
+                    <a href="connect4.php">🔴 4 в ряд</a>
+                    <a href="math.php">🧮 Математика</a>
+                    <a href="fifteen.php">🧩 Пятнашки</a>
+                    <a href="asteroids.php">☄️ Астероиды</a>
+                    <a href="pacman.php">👾 Пакман</a>
                 </div>
             </div>
-            <a href="donate.php" class="btn btn-sm">💰 Магазин</a>
-            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+            <a href="donate.php" class="btn btn-sm">рџ’° РњР°РіР°Р·РёРЅ</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">рџ‘¤ РџСЂРѕС„РёР»СЊ</a>
         </nav>
     </div>
 </header>
 <div class="container">
     <div class="game-wrapper animate-in">
-        <h1>❓ Викторина</h1>
-        <p style="color:#888;margin-bottom:16px;">Ответь на 10 вопросов и заработай очки!</p>
+        <h1>вќ“ Р’РёРєС‚РѕСЂРёРЅР°</h1>
+        <p style="color:#888;margin-bottom:16px;">РћС‚РІРµС‚СЊ РЅР° 10 РІРѕРїСЂРѕСЃРѕРІ Рё Р·Р°СЂР°Р±РѕС‚Р°Р№ РѕС‡РєРё!</p>
 
         <div class="game-info-bar">
-            <div class="game-info-item"><span class="lbl">Вопрос</span><span class="val" id="questionNum">1 / 10</span></div>
-            <div class="game-info-item"><span class="lbl">Правильно</span><span class="val" id="correctDisplay">0</span></div>
-            <div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Р’РѕРїСЂРѕСЃ</span><span class="val" id="questionNum">1 / 10</span></div>
+            <div class="game-info-item"><span class="lbl">РџСЂР°РІРёР»СЊРЅРѕ</span><span class="val" id="correctDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">РЎС‡С‘С‚</span><span class="val" id="scoreDisplay">0</span></div>
         </div>
 
         <div class="quiz-progress" id="progressDots"></div>
@@ -71,8 +93,8 @@
             <div class="quiz-question" id="questionText"></div>
             <div id="optionsContainer"></div>
             <div class="game-controls" style="margin-top:16px;">
-                <button id="nextBtn" class="btn" style="display:none;">➡ Далее</button>
-                <button id="restartBtn" class="btn btn-outline" style="display:none;">🔄 Начать заново</button>
+                <button id="nextBtn" class="btn" style="display:none;">вћЎ Р”Р°Р»РµРµ</button>
+                <button id="restartBtn" class="btn btn-outline" style="display:none;">рџ”„ РќР°С‡Р°С‚СЊ Р·Р°РЅРѕРІРѕ</button>
             </div>
             <div id="result" style="font-size:18px;font-weight:600;min-height:30px;text-align:center;margin-top:12px;"></div>
         </div>
@@ -82,53 +104,53 @@
 <script>
 const questions = [
     {
-        q: 'Какая планета самая большая в Солнечной системе?',
-        opts: ['Марс', 'Юпитер', 'Сатурн', 'Нептун'],
+        q: 'РљР°РєР°СЏ РїР»Р°РЅРµС‚Р° СЃР°РјР°СЏ Р±РѕР»СЊС€Р°СЏ РІ РЎРѕР»РЅРµС‡РЅРѕР№ СЃРёСЃС‚РµРјРµ?',
+        opts: ['РњР°СЂСЃ', 'Р®РїРёС‚РµСЂ', 'РЎР°С‚СѓСЂРЅ', 'РќРµРїС‚СѓРЅ'],
         ans: 1
     },
     {
-        q: 'Сколько костей в теле взрослого человека?',
+        q: 'РЎРєРѕР»СЊРєРѕ РєРѕСЃС‚РµР№ РІ С‚РµР»Рµ РІР·СЂРѕСЃР»РѕРіРѕ С‡РµР»РѕРІРµРєР°?',
         opts: ['106', '206', '306', '406'],
         ans: 1
     },
     {
-        q: 'Какой блок в Minecraft самый прочный?',
-        opts: ['Обсидиан', 'Коренная порода', 'Алмазный блок', 'Незеритовый блок'],
+        q: 'РљР°РєРѕР№ Р±Р»РѕРє РІ Minecraft СЃР°РјС‹Р№ РїСЂРѕС‡РЅС‹Р№?',
+        opts: ['РћР±СЃРёРґРёР°РЅ', 'РљРѕСЂРµРЅРЅР°СЏ РїРѕСЂРѕРґР°', 'РђР»РјР°Р·РЅС‹Р№ Р±Р»РѕРє', 'РќРµР·РµСЂРёС‚РѕРІС‹Р№ Р±Р»РѕРє'],
         ans: 1
     },
     {
-        q: 'Какая самая длинная река в мире?',
-        opts: ['Амазонка', 'Нил', 'Миссисипи', 'Янцзы'],
+        q: 'РљР°РєР°СЏ СЃР°РјР°СЏ РґР»РёРЅРЅР°СЏ СЂРµРєР° РІ РјРёСЂРµ?',
+        opts: ['РђРјР°Р·РѕРЅРєР°', 'РќРёР»', 'РњРёСЃСЃРёСЃРёРїРё', 'РЇРЅС†Р·С‹'],
         ans: 0
     },
     {
-        q: 'Сколько хромосом у человека?',
+        q: 'РЎРєРѕР»СЊРєРѕ С…СЂРѕРјРѕСЃРѕРј Сѓ С‡РµР»РѕРІРµРєР°?',
         opts: ['23', '44', '46', '48'],
         ans: 2
     },
     {
-        q: 'Какой элемент обозначается символом "Fe"?',
-        opts: ['Фтор', 'Фермий', 'Железо', 'Фосфор'],
+        q: 'РљР°РєРѕР№ СЌР»РµРјРµРЅС‚ РѕР±РѕР·РЅР°С‡Р°РµС‚СЃСЏ СЃРёРјРІРѕР»РѕРј "Fe"?',
+        opts: ['Р¤С‚РѕСЂ', 'Р¤РµСЂРјРёР№', 'Р–РµР»РµР·Рѕ', 'Р¤РѕСЃС„РѕСЂ'],
         ans: 2
     },
     {
-        q: 'В каком году был изобретён Minecraft?',
+        q: 'Р’ РєР°РєРѕРј РіРѕРґСѓ Р±С‹Р» РёР·РѕР±СЂРµС‚С‘РЅ Minecraft?',
         opts: ['2009', '2010', '2011', '2012'],
         ans: 0
     },
     {
-        q: 'Какая самая высокая гора в мире?',
-        opts: ['К2', 'Эверест', 'Канченджанга', 'Лхоцзе'],
+        q: 'РљР°РєР°СЏ СЃР°РјР°СЏ РІС‹СЃРѕРєР°СЏ РіРѕСЂР° РІ РјРёСЂРµ?',
+        opts: ['Рљ2', 'Р­РІРµСЂРµСЃС‚', 'РљР°РЅС‡РµРЅРґР¶Р°РЅРіР°', 'Р›С…РѕС†Р·Рµ'],
         ans: 1
     },
     {
-        q: 'Сколько спутников у Марса?',
+        q: 'РЎРєРѕР»СЊРєРѕ СЃРїСѓС‚РЅРёРєРѕРІ Сѓ РњР°СЂСЃР°?',
         opts: ['1', '2', '3', '0'],
         ans: 1
     },
     {
-        q: 'Какой моб в Minecraft не появляется в обычном мире?',
-        opts: ['Крипер', 'Скелет', 'Зомби', 'Визер-скелет'],
+        q: 'РљР°РєРѕР№ РјРѕР± РІ Minecraft РЅРµ РїРѕСЏРІР»СЏРµС‚СЃСЏ РІ РѕР±С‹С‡РЅРѕРј РјРёСЂРµ?',
+        opts: ['РљСЂРёРїРµСЂ', 'РЎРєРµР»РµС‚', 'Р—РѕРјР±Рё', 'Р’РёР·РµСЂ-СЃРєРµР»РµС‚'],
         ans: 3
     }
 ];
@@ -239,15 +261,15 @@ function selectAnswer(idx) {
 
     currentQ++;
     if (currentQ >= totalQuestions) {
-        nextBtn.textContent = '🏁 Завершить';
+        nextBtn.textContent = 'рџЏЃ Р—Р°РІРµСЂС€РёС‚СЊ';
     } else {
-        nextBtn.textContent = '➡ Далее';
+        nextBtn.textContent = 'вћЎ Р”Р°Р»РµРµ';
     }
     nextBtn.style.display = 'inline-block';
 }
 
 function finishQuiz() {
-    resultDiv.innerHTML = '🎉 Викторина завершена! Правильных ответов: <strong style="color:#00ff00;">' + correctCount + ' / ' + totalQuestions + '</strong> | +<strong style="color:#ffd700;">' + score + '</strong> очков';
+    resultDiv.innerHTML = 'рџЋ‰ Р’РёРєС‚РѕСЂРёРЅР° Р·Р°РІРµСЂС€РµРЅР°! РџСЂР°РІРёР»СЊРЅС‹С… РѕС‚РІРµС‚РѕРІ: <strong style="color:#00ff00;">' + correctCount + ' / ' + totalQuestions + '</strong> | +<strong style="color:#ffd700;">' + score + '</strong> РѕС‡РєРѕРІ';
     nextBtn.style.display = 'none';
     restartBtn.style.display = 'inline-block';
 

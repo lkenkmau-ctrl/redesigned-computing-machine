@@ -8,7 +8,8 @@ if ($_GET['action'] === 'save_score' && isAuth()) {
     $game = $_GET['game'] ?? '';
     $level = (int)($_GET['level'] ?? 0);
     $points = (int)($_GET['points'] ?? 0);
-    if ($game !== 'snake' && $game !== 'tetris' && $game !== 'wheel' && $game !== 'scratch' && $game !== 'guess' && $game !== 'memory' && $game !== 'clicker' && $game !== 'quiz' && $game !== '2048' && $game !== 'tictactoe' && $game !== 'flappy' && $game !== 'reaction') { echo 'invalid game'; exit; }
+    $allowed = ['snake','tetris','wheel','scratch','guess','memory','clicker','quiz','2048','tictactoe','flappy','reaction','minesweeper','hangman','simon','pong','invaders','breakout','sudoku','wordle','dino','rps','typing','color_match','balloon','whack','hanoi','connect4','math','fifteen','asteroids','pacman'];
+    if (!in_array($game, $allowed)) { echo 'invalid game'; exit; }
     if ($level < 0) $level = 0;
     if ($points < 0) $points = 0;
 

@@ -22,7 +22,7 @@ foreach ($all_scratch as $s) { $total_won += (int)$s['points']; }
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Скретч Карта</title>
+<title>РЎРєСЂРµС‚С‡ РљР°СЂС‚Р°</title>
 <link rel="stylesheet" href="style.css">
 <style>
 .scratch-card-wrap { text-align: center; margin: 20px 0; position: relative; }
@@ -55,7 +55,7 @@ foreach ($all_scratch as $s) { $total_won += (int)$s['points']; }
         <a href="index.php" class="logo-link"><?= $site_name ?></a>
         <nav class="nav">
             <div class="dropdown">
-                <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+                <button class="btn btn-sm dropdown-btn">рџЋ® РРіСЂС‹ в–ѕ</button>
                 <div class="dropdown-content">
                     <a href="snake.php">🐍 Змейка</a>
                     <a href="tetris.php">🧊 Тетрис</a>
@@ -65,22 +65,44 @@ foreach ($all_scratch as $s) { $total_won += (int)$s['points']; }
                     <a href="memory.php">🃏 Память</a>
                     <a href="clicker.php">👆 Кликер</a>
                     <a href="quiz.php">📝 Викторина</a>
+                    <a href="flappy.php">🐦 Flappy Bird</a>
+                    <a href="reaction.php">⚡ Reaction Test</a>
+                    <a href="minesweeper.php">💣 Сапёр</a>
+                    <a href="hangman.php">👻 Виселица</a>
+                    <a href="simon.php">🔴 Саймон</a>
+                    <a href="pong.php">🏓 Понг</a>
+                    <a href="invaders.php">👾 Инвейдеры</a>
+                    <a href="breakout.php">🧱 Арканоид</a>
+                    <a href="sudoku.php">🧩 Судоку</a>
+                    <a href="wordle.php">🔤 Вордли</a>
+                    <a href="dino.php">🦖 Динозаврик</a>
+                    <a href="rps.php">✊ Камень-Ножницы</a>
+                    <a href="typing.php">⌨️ Печать</a>
+                    <a href="color_match.php">🎨 Цвет</a>
+                    <a href="balloon.php">🎈 Шарики</a>
+                    <a href="whack.php">🔨 Крот</a>
+                    <a href="hanoi.php">🗼 Ханой</a>
+                    <a href="connect4.php">🔴 4 в ряд</a>
+                    <a href="math.php">🧮 Математика</a>
+                    <a href="fifteen.php">🧩 Пятнашки</a>
+                    <a href="asteroids.php">☄️ Астероиды</a>
+                    <a href="pacman.php">👾 Пакман</a>
                 </div>
             </div>
-            <a href="donate.php" class="btn btn-sm">💰 Магазин</a>
-            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+            <a href="donate.php" class="btn btn-sm">рџ’° РњР°РіР°Р·РёРЅ</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">рџ‘¤ РџСЂРѕС„РёР»СЊ</a>
         </nav>
     </div>
 </header>
 <div class="container">
     <div class="game-wrapper animate-in">
-        <h1>🎰 Скретч Карта</h1>
-        <p style="color:#888;">Стирай покрытие мышкой и забери приз! <strong style="color:#ffd700;"><?= $cards_left ?></strong> карт сегодня</p>
+        <h1>рџЋ° РЎРєСЂРµС‚С‡ РљР°СЂС‚Р°</h1>
+        <p style="color:#888;">РЎС‚РёСЂР°Р№ РїРѕРєСЂС‹С‚РёРµ РјС‹С€РєРѕР№ Рё Р·Р°Р±РµСЂРё РїСЂРёР·! <strong style="color:#ffd700;"><?= $cards_left ?></strong> РєР°СЂС‚ СЃРµРіРѕРґРЅСЏ</p>
 
         <div class="game-info-bar">
-            <div class="game-info-item"><span class="lbl">Карт сегодня</span><span class="val" id="cardsLeft"><?= $cards_left ?></span></div>
-            <div class="game-info-item"><span class="lbl">Всего выиграно</span><span class="val" id="totalWon"><?= $total_won ?></span></div>
-            <div class="game-info-item"><span class="lbl">Приз</span><span class="val" id="lastWin">-</span></div>
+            <div class="game-info-item"><span class="lbl">РљР°СЂС‚ СЃРµРіРѕРґРЅСЏ</span><span class="val" id="cardsLeft"><?= $cards_left ?></span></div>
+            <div class="game-info-item"><span class="lbl">Р’СЃРµРіРѕ РІС‹РёРіСЂР°РЅРѕ</span><span class="val" id="totalWon"><?= $total_won ?></span></div>
+            <div class="game-info-item"><span class="lbl">РџСЂРёР·</span><span class="val" id="lastWin">-</span></div>
         </div>
 
         <div class="scratch-card-wrap" id="scratchWrap" style="position:relative;">
@@ -92,7 +114,7 @@ foreach ($all_scratch as $s) { $total_won += (int)$s['points']; }
 
         <div class="game-controls">
             <button id="newCardBtn" class="btn" <?= $cards_left <= 0 ? 'disabled' : '' ?>>
-                <?= $cards_left > 0 ? '🃏 Новая карта' : '❌ Карты закончились' ?>
+                <?= $cards_left > 0 ? 'рџѓЏ РќРѕРІР°СЏ РєР°СЂС‚Р°' : 'вќЊ РљР°СЂС‚С‹ Р·Р°РєРѕРЅС‡РёР»РёСЃСЊ' ?>
             </button>
         </div>
 
@@ -152,7 +174,7 @@ function drawCoating() {
     ctx.font = 'bold 48px sans-serif';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText('🎰', 160, 120);
+    ctx.fillText('рџЋ°', 160, 120);
 }
 
 function scratch(x, y) {
@@ -198,11 +220,11 @@ function revealPrize() {
             fetch('api.php?action=save_score&game=scratch&level=1&points=' + currentPrize)
                 .then(r => r.text())
                 .then(t => {
-                    resultDiv.innerHTML = '🎉 <strong style="color:#ffd700;">+' + currentPrize + '</strong> очков!';
+                    resultDiv.innerHTML = 'рџЋ‰ <strong style="color:#ffd700;">+' + currentPrize + '</strong> РѕС‡РєРѕРІ!';
                     lastWinSpan.textContent = '+' + currentPrize;
                 });
         } else {
-            resultDiv.innerHTML = '😔 В этот раз ничего. Повезёт в следующий раз!';
+            resultDiv.innerHTML = 'рџ” Р’ СЌС‚РѕС‚ СЂР°Р· РЅРёС‡РµРіРѕ. РџРѕРІРµР·С‘С‚ РІ СЃР»РµРґСѓСЋС‰РёР№ СЂР°Р·!';
         }
     }
 
@@ -210,7 +232,7 @@ function revealPrize() {
         cardsLeft--;
         cardsLeftSpan.textContent = cardsLeft;
         if (cardsLeft <= 0) {
-            newCardBtn.textContent = '❌ На сегодня всё';
+            newCardBtn.textContent = 'вќЊ РќР° СЃРµРіРѕРґРЅСЏ РІСЃС‘';
             newCardBtn.disabled = true;
         } else {
             newCardBtn.disabled = false;

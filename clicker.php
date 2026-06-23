@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Кликер</title>
+<title>РљР»РёРєРµСЂ</title>
 <link rel="stylesheet" href="style.css">
 <style>
 .click-btn {
@@ -37,7 +37,7 @@
         <a href="index.php" class="logo-link"><?= $site_name ?></a>
         <nav class="nav">
             <div class="dropdown">
-                <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+                <button class="btn btn-sm dropdown-btn">рџЋ® РРіСЂС‹ в–ѕ</button>
                 <div class="dropdown-content">
                     <a href="snake.php">🐍 Змейка</a>
                     <a href="tetris.php">🧊 Тетрис</a>
@@ -47,21 +47,43 @@
                     <a href="memory.php">🃏 Память</a>
                     <a href="clicker.php">👆 Кликер</a>
                     <a href="quiz.php">📝 Викторина</a>
+                    <a href="flappy.php">🐦 Flappy Bird</a>
+                    <a href="reaction.php">⚡ Reaction Test</a>
+                    <a href="minesweeper.php">💣 Сапёр</a>
+                    <a href="hangman.php">👻 Виселица</a>
+                    <a href="simon.php">🔴 Саймон</a>
+                    <a href="pong.php">🏓 Понг</a>
+                    <a href="invaders.php">👾 Инвейдеры</a>
+                    <a href="breakout.php">🧱 Арканоид</a>
+                    <a href="sudoku.php">🧩 Судоку</a>
+                    <a href="wordle.php">🔤 Вордли</a>
+                    <a href="dino.php">🦖 Динозаврик</a>
+                    <a href="rps.php">✊ Камень-Ножницы</a>
+                    <a href="typing.php">⌨️ Печать</a>
+                    <a href="color_match.php">🎨 Цвет</a>
+                    <a href="balloon.php">🎈 Шарики</a>
+                    <a href="whack.php">🔨 Крот</a>
+                    <a href="hanoi.php">🗼 Ханой</a>
+                    <a href="connect4.php">🔴 4 в ряд</a>
+                    <a href="math.php">🧮 Математика</a>
+                    <a href="fifteen.php">🧩 Пятнашки</a>
+                    <a href="asteroids.php">☄️ Астероиды</a>
+                    <a href="pacman.php">👾 Пакман</a>
                 </div>
             </div>
-            <a href="donate.php" class="btn btn-sm">💰 Магазин</a>
-            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+            <a href="donate.php" class="btn btn-sm">рџ’° РњР°РіР°Р·РёРЅ</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">рџ‘¤ РџСЂРѕС„РёР»СЊ</a>
         </nav>
     </div>
 </header>
 <div class="container">
     <div class="game-wrapper animate-in">
-        <h1>🖱️ Кликер</h1>
-        <p style="color:#888;margin-bottom:16px;">Кликай как можно быстрее за 10 секунд!</p>
+        <h1>рџ–±пёЏ РљР»РёРєРµСЂ</h1>
+        <p style="color:#888;margin-bottom:16px;">РљР»РёРєР°Р№ РєР°Рє РјРѕР¶РЅРѕ Р±С‹СЃС‚СЂРµРµ Р·Р° 10 СЃРµРєСѓРЅРґ!</p>
 
         <div class="game-info-bar">
-            <div class="game-info-item"><span class="lbl">Кликов</span><span class="val" id="clicksDisplay">0</span></div>
-            <div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">РљР»РёРєРѕРІ</span><span class="val" id="clicksDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">РЎС‡С‘С‚</span><span class="val" id="scoreDisplay">0</span></div>
         </div>
 
         <div class="timer-ring">
@@ -73,12 +95,12 @@
         </div>
 
         <button class="click-btn" id="clickBtn" disabled>
-            👆
-            <span class="click-count" id="clickLabel">Нажми Старт</span>
+            рџ‘†
+            <span class="click-count" id="clickLabel">РќР°Р¶РјРё РЎС‚Р°СЂС‚</span>
         </button>
 
         <div class="game-controls">
-            <button id="startBtn" class="btn" style="min-width:140px;">🚀 Старт</button>
+            <button id="startBtn" class="btn" style="min-width:140px;">рџљЂ РЎС‚Р°СЂС‚</button>
         </div>
 
         <div id="result" style="font-size:18px;font-weight:600;min-height:30px;"></div>
@@ -106,7 +128,7 @@ function newGame() {
     saved = false;
     clickBtn.disabled = true;
     startBtn.disabled = false;
-    startBtn.textContent = '🚀 Старт';
+    startBtn.textContent = 'рџљЂ РЎС‚Р°СЂС‚';
     resultDiv.innerHTML = '';
     updateDisplay();
 }
@@ -123,7 +145,7 @@ function updateDisplay() {
     } else {
         timerProgress.setAttribute('stroke', '#00ff00');
     }
-    clickLabel.textContent = clicks + ' кликов';
+    clickLabel.textContent = clicks + ' РєР»РёРєРѕРІ';
 }
 
 function startGame() {
@@ -133,7 +155,7 @@ function startGame() {
     saved = false;
     clickBtn.disabled = false;
     startBtn.disabled = true;
-    startBtn.textContent = '⏳ Игра...';
+    startBtn.textContent = 'вЏі РРіСЂР°...';
     resultDiv.innerHTML = '';
     updateDisplay();
 
@@ -151,7 +173,7 @@ function endGame() {
     clearInterval(timerInterval);
     clickBtn.disabled = true;
     startBtn.disabled = false;
-    startBtn.textContent = '🔄 Ещё раз';
+    startBtn.textContent = 'рџ”„ Р•С‰С‘ СЂР°Р·';
 
     let score = clicks * 10;
 
@@ -160,10 +182,10 @@ function endGame() {
         fetch('api.php?action=save_score&game=clicker&level=1&points=' + score)
             .then(r => r.text())
             .then(t => {
-                resultDiv.innerHTML = '⏰ Время вышло! +<strong style="color:#ffd700;">' + score + '</strong> очков зачислено';
+                resultDiv.innerHTML = 'вЏ° Р’СЂРµРјСЏ РІС‹С€Р»Рѕ! +<strong style="color:#ffd700;">' + score + '</strong> РѕС‡РєРѕРІ Р·Р°С‡РёСЃР»РµРЅРѕ';
             })
             .catch(() => {
-                resultDiv.innerHTML = '⏰ Время вышло! ⚠️ Ошибка сохранения.';
+                resultDiv.innerHTML = 'вЏ° Р’СЂРµРјСЏ РІС‹С€Р»Рѕ! вљ пёЏ РћС€РёР±РєР° СЃРѕС…СЂР°РЅРµРЅРёСЏ.';
             });
     }
 }

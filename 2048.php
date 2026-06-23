@@ -89,7 +89,7 @@
         <a href="index.php" class="logo-link"><?= $site_name ?></a>
         <nav class="nav">
             <div class="dropdown">
-                <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+                <button class="btn btn-sm dropdown-btn">рџЋ® РРіСЂС‹ в–ѕ</button>
                 <div class="dropdown-content">
                     <a href="snake.php">🐍 Змейка</a>
                     <a href="tetris.php">🧊 Тетрис</a>
@@ -99,49 +99,71 @@
                     <a href="memory.php">🃏 Память</a>
                     <a href="clicker.php">👆 Кликер</a>
                     <a href="quiz.php">📝 Викторина</a>
+                    <a href="flappy.php">🐦 Flappy Bird</a>
+                    <a href="reaction.php">⚡ Reaction Test</a>
+                    <a href="minesweeper.php">💣 Сапёр</a>
+                    <a href="hangman.php">👻 Виселица</a>
+                    <a href="simon.php">🔴 Саймон</a>
+                    <a href="pong.php">🏓 Понг</a>
+                    <a href="invaders.php">👾 Инвейдеры</a>
+                    <a href="breakout.php">🧱 Арканоид</a>
+                    <a href="sudoku.php">🧩 Судоку</a>
+                    <a href="wordle.php">🔤 Вордли</a>
+                    <a href="dino.php">🦖 Динозаврик</a>
+                    <a href="rps.php">✊ Камень-Ножницы</a>
+                    <a href="typing.php">⌨️ Печать</a>
+                    <a href="color_match.php">🎨 Цвет</a>
+                    <a href="balloon.php">🎈 Шарики</a>
+                    <a href="whack.php">🔨 Крот</a>
+                    <a href="hanoi.php">🗼 Ханой</a>
+                    <a href="connect4.php">🔴 4 в ряд</a>
+                    <a href="math.php">🧮 Математика</a>
+                    <a href="fifteen.php">🧩 Пятнашки</a>
+                    <a href="asteroids.php">☄️ Астероиды</a>
+                    <a href="pacman.php">👾 Пакман</a>
                 </div>
             </div>
-            <a href="donate.php" class="btn btn-sm">💰 Магазин</a>
-            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+            <a href="donate.php" class="btn btn-sm">рџ’° РњР°РіР°Р·РёРЅ</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">рџ‘¤ РџСЂРѕС„РёР»СЊ</a>
         </nav>
     </div>
 </header>
 <div class="container">
     <div class="game-wrapper-2048 animate-in">
         <h1>2048</h1>
-        <p style="color:#888;margin-bottom:16px;">Соединяй плитки и набери 2048!</p>
+        <p style="color:#888;margin-bottom:16px;">РЎРѕРµРґРёРЅСЏР№ РїР»РёС‚РєРё Рё РЅР°Р±РµСЂРё 2048!</p>
 
         <div class="game-info-bar">
-            <div class="game-info-item"><span class="lbl">Очки</span><span class="val" id="scoreDisplay">0</span></div>
-            <div class="game-info-item"><span class="lbl">Лучшая плитка</span><span class="val" id="bestTileDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">РћС‡РєРё</span><span class="val" id="scoreDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Р›СѓС‡С€Р°СЏ РїР»РёС‚РєР°</span><span class="val" id="bestTileDisplay">0</span></div>
         </div>
 
         <div class="board" id="board">
             <div class="game-overlay" id="gameOverlay">
                 <div class="msg">
-                    <h2 id="overlayTitle">🎉 Победа!</h2>
-                    <p id="overlayScore">Очки: 0</p>
-                    <button id="overlayBtn" class="btn" style="margin-top:12px;">🔄 Новая игра</button>
+                    <h2 id="overlayTitle">рџЋ‰ РџРѕР±РµРґР°!</h2>
+                    <p id="overlayScore">РћС‡РєРё: 0</p>
+                    <button id="overlayBtn" class="btn" style="margin-top:12px;">рџ”„ РќРѕРІР°СЏ РёРіСЂР°</button>
                 </div>
             </div>
         </div>
 
         <div class="key-hint">
-            <span class="key">⬆</span>
-            <span class="key">⬇</span>
-            <span class="key">⬅</span>
-            <span class="key">➡</span>
+            <span class="key">в¬†</span>
+            <span class="key">в¬‡</span>
+            <span class="key">в¬…</span>
+            <span class="key">вћЎ</span>
         </div>
 
         <div class="game-controls">
-            <button id="newGameBtn" class="btn" style="min-width:140px;">🔄 Новая игра</button>
-            <a href="profile.php" class="btn btn-outline">Профиль</a>
+            <button id="newGameBtn" class="btn" style="min-width:140px;">рџ”„ РќРѕРІР°СЏ РёРіСЂР°</button>
+            <a href="profile.php" class="btn btn-outline">РџСЂРѕС„РёР»СЊ</a>
         </div>
 
         <div id="result" style="font-size:16px;font-weight:600;min-height:24px;"></div>
 
         <div style="margin-top:16px;background:rgba(22,33,62,0.5);border-radius:10px;padding:16px;text-align:left;font-size:13px;color:#888;">
-            <strong style="color:#aaa;">Правила:</strong> Используй стрелки, чтобы двигать плитки. Одинаковые плитки сливаются в одну. Набери <strong style="color:#00ff00;">2048</strong>, чтобы выиграть!
+            <strong style="color:#aaa;">РџСЂР°РІРёР»Р°:</strong> РСЃРїРѕР»СЊР·СѓР№ СЃС‚СЂРµР»РєРё, С‡С‚РѕР±С‹ РґРІРёРіР°С‚СЊ РїР»РёС‚РєРё. РћРґРёРЅР°РєРѕРІС‹Рµ РїР»РёС‚РєРё СЃР»РёРІР°СЋС‚СЃСЏ РІ РѕРґРЅСѓ. РќР°Р±РµСЂРё <strong style="color:#00ff00;">2048</strong>, С‡С‚РѕР±С‹ РІС‹РёРіСЂР°С‚СЊ!
         </div>
     </div>
 </div>
@@ -354,8 +376,8 @@ function move(direction) {
 
         if (!won && hasWon()) {
             won = true;
-            overlayTitle.textContent = '🎉 Победа!';
-            overlayScore.textContent = 'Очки: ' + score;
+            overlayTitle.textContent = 'рџЋ‰ РџРѕР±РµРґР°!';
+            overlayScore.textContent = 'РћС‡РєРё: ' + score;
             overlay.classList.add('show');
         }
 
@@ -365,11 +387,11 @@ function move(direction) {
                 saved = true;
                 fetch('api.php?action=save_score&game=2048&level=1&points=' + score)
                     .then(r => r.text())
-                    .then(t => { resultDiv.innerHTML = '🎮 Игра окончена! +<strong style="color:#ffd700;">' + score + '</strong> очков зачислено'; })
-                    .catch(() => { resultDiv.innerHTML = '⚠️ Игра окончена! Ошибка сохранения.'; });
+                    .then(t => { resultDiv.innerHTML = 'рџЋ® РРіСЂР° РѕРєРѕРЅС‡РµРЅР°! +<strong style="color:#ffd700;">' + score + '</strong> РѕС‡РєРѕРІ Р·Р°С‡РёСЃР»РµРЅРѕ'; })
+                    .catch(() => { resultDiv.innerHTML = 'вљ пёЏ РРіСЂР° РѕРєРѕРЅС‡РµРЅР°! РћС€РёР±РєР° СЃРѕС…СЂР°РЅРµРЅРёСЏ.'; });
             }
-            overlayTitle.textContent = '😵 Игра окончена';
-            overlayScore.textContent = 'Очки: ' + score;
+            overlayTitle.textContent = 'рџµ РРіСЂР° РѕРєРѕРЅС‡РµРЅР°';
+            overlayScore.textContent = 'РћС‡РєРё: ' + score;
             overlay.classList.add('show');
         }
     }
