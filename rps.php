@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once 'config.php';
 requireAuth();
 $user_id = $_SESSION['user_id'];

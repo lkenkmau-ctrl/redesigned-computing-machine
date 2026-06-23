@@ -1,4 +1,4 @@
-﻿<?php require_once 'config.php';
+<?php require_once 'config.php';
 $password = 'admin123';
 if (!isset($_SESSION['admin']) && (!isset($_POST['apass']) || $_POST['apass'] !== $password)) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') { $err = 'Неверный пароль админа'; }

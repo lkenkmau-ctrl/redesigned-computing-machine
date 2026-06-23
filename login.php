@@ -1,4 +1,4 @@
-﻿<?php require_once 'config.php';
+<?php require_once 'config.php';
 if (isAuth()) header('Location: profile.php');
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -1,4 +1,4 @@
-﻿<?php require_once 'config.php';
+<?php require_once 'config.php';
 $users_resp = supabaseSelect('users', ['select' => 'id']);
 $user_count = count($users_resp);
 $dons_resp = supabaseSelect('donations', [

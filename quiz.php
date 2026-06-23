@@ -1,4 +1,4 @@
-﻿<?php require_once 'config.php'; requireAuth(); ?>
+<?php require_once 'config.php'; requireAuth(); ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>

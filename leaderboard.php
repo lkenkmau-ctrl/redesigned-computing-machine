@@ -1,4 +1,4 @@
-﻿<?php require_once 'config.php';
+<?php require_once 'config.php';
 
 $users = supabaseSelect('users', ['select' => 'id,username,minecraft_nick,points']);
 $all_scores = supabaseSelect('scores', ['select' => 'user_id,game,level']);

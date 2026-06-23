@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 require_once 'config.php';
 requireAuth();
 $page_title = "Reaction Test";

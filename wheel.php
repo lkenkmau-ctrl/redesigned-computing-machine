@@ -1,4 +1,4 @@
-﻿<?php require_once 'config.php'; requireAuth();
+<?php require_once 'config.php'; requireAuth();
 $user_id = $_SESSION['user_id'];
 $today = date('Y-m-d');
 $next_day = date('Y-m-d', strtotime('+1 day'));
