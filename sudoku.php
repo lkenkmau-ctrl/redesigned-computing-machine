@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.sudoku", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>РЎСѓРґРѕРєСѓ вЂ” DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Судоку — DonateCraft</title><link rel="stylesheet" href="style.css"><style>
 .sudoku-grid { display: grid; grid-template-columns: repeat(9, 44px); gap: 1px; background: rgba(255,136,0,0.15); padding: 2px; border-radius: 8px; margin: 0 auto; width: fit-content; border: 2px solid #ff8800; }
 .sudoku-grid input { width: 44px; height: 44px; text-align: center; font-size: 20px; font-weight: 700; padding: 0; margin: 0; border-radius: 0; background: rgba(30,16,4,0.9); color: #e8d5b0; border: 1px solid rgba(255,136,0,0.1); }
 .sudoku-grid input:focus { outline: none; box-shadow: inset 0 0 8px rgba(255,136,0,0.3); z-index: 1; position: relative; }
@@ -25,53 +25,53 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
 .sudoku-msg { font-size: 16px; font-weight: 600; margin: 10px 0; min-height: 30px; }
 #mistakesDisplay { color: #ff5555; }
 </style></head><body>
-<header><div class="header-inner"><a href="index.php" class="logo-link"><?= $site_name ?></a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">рџЋ® РРіСЂС‹ в–ѕ</button><div class="dropdown-content">
-<a href="snake.php">🐍 Змейка</a>
-<a href="tetris.php">🧊 Тетрис</a>
-<a href="2048.php">🔢 2048</a>
-<a href="tictactoe.php">⭕ Крестики-нолики</a>
-<a href="guess.php">❓ Угадай число</a>
-<a href="memory.php">🃏 Память</a>
-<a href="clicker.php">👆 Кликер</a>
-<a href="quiz.php">📝 Викторина</a>
-<a href="flappy.php">🐦 Flappy Bird</a>
-<a href="reaction.php">⚡ Reaction Test</a>
-<a href="minesweeper.php">💣 Сапёр</a>
-<a href="hangman.php">👻 Виселица</a>
-<a href="simon.php">🔴 Саймон</a>
-<a href="pong.php">🏓 Понг</a>
-<a href="invaders.php">👾 Инвейдеры</a>
-<a href="breakout.php">🧱 Арканоид</a>
-<a href="sudoku.php">🧩 Судоку</a>
-<a href="wordle.php">🔤 Вордли</a>
-<a href="dino.php">🦖 Динозаврик</a>
-<a href="rps.php">✊ Камень-Ножницы</a>
-<a href="typing.php">⌨️ Печать</a>
-<a href="color_match.php">🎨 Цвет</a>
-<a href="balloon.php">🎈 Шарики</a>
-<a href="whack.php">🔨 Крот</a>
-<a href="hanoi.php">🗼 Ханой</a>
-<a href="connect4.php">🔴 4 в ряд</a>
-<a href="math.php">🧮 Математика</a>
-<a href="fifteen.php">🧩 Пятнашки</a>
-<a href="asteroids.php">☄️ Астероиды</a>
-<a href="pacman.php">👾 Пакман</a>
-</div></div><a href="donate.php" class="btn btn-sm">рџ’° РњР°РіР°Р·РёРЅ</a><a href="profile.php" class="btn btn-sm btn-outline">рџ‘¤ РџСЂРѕС„РёР»СЊ</a></nav></div></header>
+<header><div class="header-inner"><a href="index.php" class="logo-link"><?= $site_name ?></a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button><div class="dropdown-content">
+<a href="snake.php">?? ������</a>
+<a href="tetris.php">?? ������</a>
+<a href="2048.php">?? 2048</a>
+<a href="tictactoe.php">? ��������-������</a>
+<a href="guess.php">? ������ �����</a>
+<a href="memory.php">?? ������</a>
+<a href="clicker.php">?? ������</a>
+<a href="quiz.php">?? ���������</a>
+<a href="flappy.php">?? Flappy Bird</a>
+<a href="reaction.php">? Reaction Test</a>
+<a href="minesweeper.php">?? ����</a>
+<a href="hangman.php">?? ��������</a>
+<a href="simon.php">?? ������</a>
+<a href="pong.php">?? ����</a>
+<a href="invaders.php">?? ���������</a>
+<a href="breakout.php">?? ��������</a>
+<a href="sudoku.php">?? ������</a>
+<a href="wordle.php">?? ������</a>
+<a href="dino.php">?? ����������</a>
+<a href="rps.php">? ������-�������</a>
+<a href="typing.php">?? ������</a>
+<a href="color_match.php">?? ����</a>
+<a href="balloon.php">?? ������</a>
+<a href="whack.php">?? ����</a>
+<a href="hanoi.php">?? �����</a>
+<a href="connect4.php">?? 4 � ���</a>
+<a href="math.php">?? ����������</a>
+<a href="fifteen.php">?? ��������</a>
+<a href="asteroids.php">?? ���������</a>
+<a href="pacman.php">?? ������</a>
+</div></div><a href="donate.php" class="btn btn-sm">💰 Магазин</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
 <div class="container"><div class="game-wrapper">
-<h1>рџ§© РЎСѓРґРѕРєСѓ</h1>
+<h1>🧩 Судоку</h1>
 <div class="game-info-bar">
-<div class="game-info-item"><span class="lbl">РЎС‡С‘С‚</span><span class="val" id="scoreDisplay">0</span></div>
-<div class="game-info-item"><span class="lbl">Р РµРєРѕСЂРґ</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
-<div class="game-info-item"><span class="lbl">РћС€РёР±РєРё</span><span class="val" id="mistakesDisplay">0</span></div>
+<div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div>
+<div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
+<div class="game-info-item"><span class="lbl">Ошибки</span><span class="val" id="mistakesDisplay">0</span></div>
 </div>
 <div class="game-area" id="gameArea"></div>
 <div class="sudoku-msg" id="statusMsg"></div>
 <div class="game-controls">
-<button class="btn" onclick="checkSolution()">вњ… РџСЂРѕРІРµСЂРёС‚СЊ</button>
-<button class="btn" onclick="newPuzzle()">рџ”„ РќРѕРІР°СЏ РёРіСЂР°</button>
+<button class="btn" onclick="checkSolution()">✅ Проверить</button>
+<button class="btn" onclick="newPuzzle()">🔄 Новая игра</button>
 </div>
 </div></div>
-<footer><p>DonateCraft вЂ” Р·Р°СЂР°Р±Р°С‚С‹РІР°Р№ РґРѕРЅР°С‚РЅС‹Рµ РїРѕРёРЅС‚С‹ Р·Р° РјРёРЅРё-РёРіСЂС‹</p></footer>
+<footer><p>DonateCraft — зарабатывай донатные поинты за мини-игры</p></footer>
 <script>
 const puzzles = [
     { givens: [
@@ -128,7 +128,7 @@ function newPuzzle() {
     currentPuzzle = (currentPuzzle + 1) % puzzles.length;
     document.getElementById('scoreDisplay').textContent = '0';
     document.getElementById('mistakesDisplay').textContent = '0';
-    document.getElementById('statusMsg').textContent = 'Р—Р°РїРѕР»РЅРёС‚Рµ РїСѓСЃС‚С‹Рµ РєР»РµС‚РєРё С†РёС„СЂР°РјРё РѕС‚ 1 РґРѕ 9';
+    document.getElementById('statusMsg').textContent = 'Заполните пустые клетки цифрами от 1 до 9';
     renderGrid();
 }
 
@@ -164,7 +164,7 @@ function renderGrid() {
 }
 
 function checkSolution() {
-    if (completed) { document.getElementById('statusMsg').textContent = 'вњ… РЈР¶Рµ СЂРµС€РµРЅРѕ! РќР°С‡РЅРёС‚Рµ РЅРѕРІСѓСЋ РёРіСЂСѓ.'; return; }
+    if (completed) { document.getElementById('statusMsg').textContent = '✅ Уже решено! Начните новую игру.'; return; }
     const inputs = document.querySelectorAll('.sudoku-grid input');
     const p = puzzles[currentPuzzle];
     let allFilled = true;
@@ -188,7 +188,7 @@ function checkSolution() {
     });
 
     if (!allFilled) {
-        document.getElementById('statusMsg').textContent = 'вљ пёЏ Р—Р°РїРѕР»РЅРёС‚Рµ РІСЃРµ РїСѓСЃС‚С‹Рµ РєР»РµС‚РєРё';
+        document.getElementById('statusMsg').textContent = '⚠️ Заполните все пустые клетки';
         return;
     }
 
@@ -205,7 +205,7 @@ function checkSolution() {
 
     if (!hasWrong) {
         completed = true;
-        document.getElementById('statusMsg').textContent = 'рџЋ‰ РџСЂР°РІРёР»СЊРЅРѕ! РЎС‡С‘С‚: ' + score;
+        document.getElementById('statusMsg').textContent = '🎉 Правильно! Счёт: ' + score;
         const formData = new FormData();
         formData.append('score', score);
         fetch('sudoku.php', { method: 'POST', body: formData })
@@ -213,7 +213,7 @@ function checkSolution() {
             .then(data => { if (data.best > 0) bestDisplay.textContent = data.best; })
             .catch(() => {});
     } else {
-        document.getElementById('statusMsg').textContent = 'вќЊ ' + newMistakes + ' РѕС€РёР±РѕРє. РЁС‚СЂР°С„ -' + (newMistakes * 50) + ' РѕС‡РєРѕРІ';
+        document.getElementById('statusMsg').textContent = '❌ ' + newMistakes + ' ошибок. Штраф -' + (newMistakes * 50) + ' очков';
     }
 }
 

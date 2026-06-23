@@ -13,55 +13,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.invaders", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>РРЅРІРµР№РґРµСЂС‹ вЂ” DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Инвейдеры — DonateCraft</title><link rel="stylesheet" href="style.css"><style>
 canvas { border: 2px solid rgba(255,136,0,0.25); background: #0a0500; border-radius: 8px; }
 .controls-hint { display: flex; gap: 6px; justify-content: center; margin: 8px 0; flex-wrap: wrap; }
 .key { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 4px 12px; font-size: 13px; color: #888; font-family: monospace; }
 .game-message { font-size: 18px; font-weight: 600; min-height: 28px; margin: 8px 0; color: #ffaa33; }
 </style></head><body>
-<header><div class="header-inner"><a href="index.php" class="logo-link">DonateCraft</a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">рџЋ® РРіСЂС‹ в–ѕ</button><div class="dropdown-content">
-<a href="snake.php">🐍 Змейка</a>
-<a href="tetris.php">🧊 Тетрис</a>
-<a href="2048.php">🔢 2048</a>
-<a href="tictactoe.php">⭕ Крестики-нолики</a>
-<a href="guess.php">❓ Угадай число</a>
-<a href="memory.php">🃏 Память</a>
-<a href="clicker.php">👆 Кликер</a>
-<a href="quiz.php">📝 Викторина</a>
-<a href="flappy.php">🐦 Flappy Bird</a>
-<a href="reaction.php">⚡ Reaction Test</a>
-<a href="minesweeper.php">💣 Сапёр</a>
-<a href="hangman.php">👻 Виселица</a>
-<a href="simon.php">🔴 Саймон</a>
-<a href="pong.php">🏓 Понг</a>
-<a href="invaders.php">👾 Инвейдеры</a>
-<a href="breakout.php">🧱 Арканоид</a>
-<a href="sudoku.php">🧩 Судоку</a>
-<a href="wordle.php">🔤 Вордли</a>
-<a href="dino.php">🦖 Динозаврик</a>
-<a href="rps.php">✊ Камень-Ножницы</a>
-<a href="typing.php">⌨️ Печать</a>
-<a href="color_match.php">🎨 Цвет</a>
-<a href="balloon.php">🎈 Шарики</a>
-<a href="whack.php">🔨 Крот</a>
-<a href="hanoi.php">🗼 Ханой</a>
-<a href="connect4.php">🔴 4 в ряд</a>
-<a href="math.php">🧮 Математика</a>
-<a href="fifteen.php">🧩 Пятнашки</a>
-<a href="asteroids.php">☄️ Астероиды</a>
-<a href="pacman.php">👾 Пакман</a>
-</div></div><a href="donate.php" class="btn btn-sm">рџ’° РњР°РіР°Р·РёРЅ</a><a href="profile.php" class="btn btn-sm btn-outline">рџ‘¤ РџСЂРѕС„РёР»СЊ</a></nav></div></header>
+<header><div class="header-inner"><a href="index.php" class="logo-link">DonateCraft</a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button><div class="dropdown-content">
+<a href="snake.php">?? ������</a>
+<a href="tetris.php">?? ������</a>
+<a href="2048.php">?? 2048</a>
+<a href="tictactoe.php">? ��������-������</a>
+<a href="guess.php">? ������ �����</a>
+<a href="memory.php">?? ������</a>
+<a href="clicker.php">?? ������</a>
+<a href="quiz.php">?? ���������</a>
+<a href="flappy.php">?? Flappy Bird</a>
+<a href="reaction.php">? Reaction Test</a>
+<a href="minesweeper.php">?? ����</a>
+<a href="hangman.php">?? ��������</a>
+<a href="simon.php">?? ������</a>
+<a href="pong.php">?? ����</a>
+<a href="invaders.php">?? ���������</a>
+<a href="breakout.php">?? ��������</a>
+<a href="sudoku.php">?? ������</a>
+<a href="wordle.php">?? ������</a>
+<a href="dino.php">?? ����������</a>
+<a href="rps.php">? ������-�������</a>
+<a href="typing.php">?? ������</a>
+<a href="color_match.php">?? ����</a>
+<a href="balloon.php">?? ������</a>
+<a href="whack.php">?? ����</a>
+<a href="hanoi.php">?? �����</a>
+<a href="connect4.php">?? 4 � ���</a>
+<a href="math.php">?? ����������</a>
+<a href="fifteen.php">?? ��������</a>
+<a href="asteroids.php">?? ���������</a>
+<a href="pacman.php">?? ������</a>
+</div></div><a href="donate.php" class="btn btn-sm">💰 Магазин</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
 <div class="container"><div class="game-wrapper">
-<h1>рџ‘ѕ РРЅРІРµР№РґРµСЂС‹</h1>
-<div class="game-info-bar"><div class="game-info-item"><span class="lbl">РЎС‡С‘С‚</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">РЈР±РёС‚Рѕ</span><span class="val" id="killsDisplay">0</span></div><div class="game-info-item"><span class="lbl">Р РµРєРѕСЂРґ</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div></div>
+<h1>👾 Инвейдеры</h1>
+<div class="game-info-bar"><div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">Убито</span><span class="val" id="killsDisplay">0</span></div><div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div></div>
 <div class="game-area"><canvas id="gameCanvas" width="500" height="400"></canvas></div>
 <div class="controls-hint">
-<span class="key">A / в†ђ</span><span class="key">D / в†’</span><span class="key">РџСЂРѕР±РµР» вЂ” СЃС‚СЂРµР»СЏС‚СЊ</span>
+<span class="key">A / ←</span><span class="key">D / →</span><span class="key">Пробел — стрелять</span>
 </div>
 <div id="gameMessage" class="game-message"></div>
-<div class="game-controls"><button class="btn" onclick="resetGame()">рџ”„ РќРѕРІР°СЏ РёРіСЂР°</button></div>
+<div class="game-controls"><button class="btn" onclick="resetGame()">🔄 Новая игра</button></div>
 </div></div>
-<footer><p>DonateCraft вЂ” Р·Р°СЂР°Р±Р°С‚С‹РІР°Р№ РґРѕРЅР°С‚РЅС‹Рµ РїРѕРёРЅС‚С‹ Р·Р° РјРёРЅРё-РёРіСЂС‹</p></footer>
+<footer><p>DonateCraft — зарабатывай донатные поинты за мини-игры</p></footer>
 <script>
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
@@ -191,7 +191,7 @@ function update() {
             score = kills * 10;
             scoreDisplay.textContent = score;
             if (aliens.every(a => !a.alive)) {
-                gameMessage.textContent = 'рџЋ‰ РџРѕР±РµРґР°! Р’СЃРµ РёРЅРІРµР№РґРµСЂС‹ СѓРЅРёС‡С‚РѕР¶РµРЅС‹!';
+                gameMessage.textContent = '🎉 Победа! Все инвейдеры уничтожены!';
                 endGame();
                 return;
             }
@@ -276,7 +276,7 @@ function draw() {
         ctx.fillStyle = '#ffaa33';
         ctx.font = '20px Inter, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('РќР°Р¶РјРё "РќРѕРІР°СЏ РёРіСЂР°"', W/2, H/2);
+        ctx.fillText('Нажми "Новая игра"', W/2, H/2);
     }
 }
 
@@ -284,7 +284,7 @@ function endGame() {
     gameOver = true;
     gameRunning = false;
     const finalScore = kills * 10;
-    if (!gameMessage.textContent) gameMessage.textContent = 'рџ’Ђ РРіСЂР° РѕРєРѕРЅС‡РµРЅР°! РЈРЅРёС‡С‚РѕР¶РµРЅРѕ: ' + kills;
+    if (!gameMessage.textContent) gameMessage.textContent = '💀 Игра окончена! Уничтожено: ' + kills;
     if (scoreSubmitted) return;
     scoreSubmitted = true;
     const formData = new FormData();

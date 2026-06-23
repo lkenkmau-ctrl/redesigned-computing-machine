@@ -13,55 +13,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.pacman", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>РџР°РєРјР°РЅ вЂ” DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Пакман — DonateCraft</title><link rel="stylesheet" href="style.css"><style>
 #gameCanvas { border: 2px solid rgba(255,136,0,0.25); background: #0a0a15; border-radius: 8px; }
 .controls-hint { display: flex; gap: 4px; justify-content: center; margin: 12px 0; flex-wrap: wrap; }
 .key { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 6px 12px; font-size: 12px; color: #888; font-family: monospace; }
 .game-status { font-size: 16px; min-height: 24px; margin: 10px 0; color: #ffaa33; }
 </style></head><body>
-<header><div class="header-inner"><a href="index.php" class="logo-link">DonateCraft</a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">рџЋ® РРіСЂС‹ в–ѕ</button><div class="dropdown-content">
-<a href="snake.php">🐍 Змейка</a>
-<a href="tetris.php">🧊 Тетрис</a>
-<a href="2048.php">🔢 2048</a>
-<a href="tictactoe.php">⭕ Крестики-нолики</a>
-<a href="guess.php">❓ Угадай число</a>
-<a href="memory.php">🃏 Память</a>
-<a href="clicker.php">👆 Кликер</a>
-<a href="quiz.php">📝 Викторина</a>
-<a href="flappy.php">🐦 Flappy Bird</a>
-<a href="reaction.php">⚡ Reaction Test</a>
-<a href="minesweeper.php">💣 Сапёр</a>
-<a href="hangman.php">👻 Виселица</a>
-<a href="simon.php">🔴 Саймон</a>
-<a href="pong.php">🏓 Понг</a>
-<a href="invaders.php">👾 Инвейдеры</a>
-<a href="breakout.php">🧱 Арканоид</a>
-<a href="sudoku.php">🧩 Судоку</a>
-<a href="wordle.php">🔤 Вордли</a>
-<a href="dino.php">🦖 Динозаврик</a>
-<a href="rps.php">✊ Камень-Ножницы</a>
-<a href="typing.php">⌨️ Печать</a>
-<a href="color_match.php">🎨 Цвет</a>
-<a href="balloon.php">🎈 Шарики</a>
-<a href="whack.php">🔨 Крот</a>
-<a href="hanoi.php">🗼 Ханой</a>
-<a href="connect4.php">🔴 4 в ряд</a>
-<a href="math.php">🧮 Математика</a>
-<a href="fifteen.php">🧩 Пятнашки</a>
-<a href="asteroids.php">☄️ Астероиды</a>
-<a href="pacman.php">👾 Пакман</a>
-</div></div><a href="donate.php" class="btn btn-sm">рџ’° РњР°РіР°Р·РёРЅ</a><a href="profile.php" class="btn btn-sm btn-outline">рџ‘¤ РџСЂРѕС„РёР»СЊ</a></nav></div></header>
+<header><div class="header-inner"><a href="index.php" class="logo-link">DonateCraft</a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button><div class="dropdown-content">
+<a href="snake.php">?? ������</a>
+<a href="tetris.php">?? ������</a>
+<a href="2048.php">?? 2048</a>
+<a href="tictactoe.php">? ��������-������</a>
+<a href="guess.php">? ������ �����</a>
+<a href="memory.php">?? ������</a>
+<a href="clicker.php">?? ������</a>
+<a href="quiz.php">?? ���������</a>
+<a href="flappy.php">?? Flappy Bird</a>
+<a href="reaction.php">? Reaction Test</a>
+<a href="minesweeper.php">?? ����</a>
+<a href="hangman.php">?? ��������</a>
+<a href="simon.php">?? ������</a>
+<a href="pong.php">?? ����</a>
+<a href="invaders.php">?? ���������</a>
+<a href="breakout.php">?? ��������</a>
+<a href="sudoku.php">?? ������</a>
+<a href="wordle.php">?? ������</a>
+<a href="dino.php">?? ����������</a>
+<a href="rps.php">? ������-�������</a>
+<a href="typing.php">?? ������</a>
+<a href="color_match.php">?? ����</a>
+<a href="balloon.php">?? ������</a>
+<a href="whack.php">?? ����</a>
+<a href="hanoi.php">?? �����</a>
+<a href="connect4.php">?? 4 � ���</a>
+<a href="math.php">?? ����������</a>
+<a href="fifteen.php">?? ��������</a>
+<a href="asteroids.php">?? ���������</a>
+<a href="pacman.php">?? ������</a>
+</div></div><a href="donate.php" class="btn btn-sm">💰 Магазин</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
 <div class="container"><div class="game-wrapper">
-<h1>рџ‘ѕ РџР°РєРјР°РЅ</h1>
-<div class="game-info-bar"><div class="game-info-item"><span class="lbl">РЎС‡С‘С‚</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">Р РµРєРѕСЂРґ</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div><div class="game-info-item"><span class="lbl">Р–РёР·РЅРё</span><span class="val" id="livesDisplay">3</span></div></div>
-<div class="game-status" id="statusDisplay">в¬† в¬‡ в¬… вћЎ вЂ” СЃРѕР±РёСЂР°Р№ С‚РѕС‡РєРё, РёР·Р±РµРіР°Р№ РїСЂРёР·СЂР°РєРѕРІ!</div>
+<h1>👾 Пакман</h1>
+<div class="game-info-bar"><div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div><div class="game-info-item"><span class="lbl">Жизни</span><span class="val" id="livesDisplay">3</span></div></div>
+<div class="game-status" id="statusDisplay">⬆ ⬇ ⬅ ➡ — собирай точки, избегай призраков!</div>
 <div class="game-area"><canvas id="gameCanvas" width="400" height="400"></canvas></div>
 <div class="controls-hint">
-<span class="key">в¬†</span><span class="key">в¬‡</span><span class="key">в¬…</span><span class="key">вћЎ</span>
+<span class="key">⬆</span><span class="key">⬇</span><span class="key">⬅</span><span class="key">➡</span>
 </div>
-<div class="game-controls"><button class="btn" onclick="resetGame()">рџ”„ РќРѕРІР°СЏ РёРіСЂР°</button></div>
+<div class="game-controls"><button class="btn" onclick="resetGame()">🔄 Новая игра</button></div>
 </div></div>
-<footer><p>DonateCraft вЂ” Р·Р°СЂР°Р±Р°С‚С‹РІР°Р№ РґРѕРЅР°С‚РЅС‹Рµ РїРѕРёРЅС‚С‹ Р·Р° РјРёРЅРё-РёРіСЂС‹</p></footer>
+<footer><p>DonateCraft — зарабатывай донатные поинты за мини-игры</p></footer>
 <script>
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
@@ -123,7 +123,7 @@ function resetGame() {
     totalDots = countDots();
     scoreDisplay.textContent = '0';
     livesDisplay.textContent = '3';
-    statusDisplay.textContent = 'в¬† в¬‡ в¬… вћЎ вЂ” СЃРѕР±РёСЂР°Р№ С‚РѕС‡РєРё, РёР·Р±РµРіР°Р№ РїСЂРёР·СЂР°РєРѕРІ!';
+    statusDisplay.textContent = '⬆ ⬇ ⬅ ➡ — собирай точки, избегай призраков!';
     window.pacNextDir = 0;
     draw();
 }
@@ -246,7 +246,7 @@ function checkGhostCollision() {
                 g.frightened = false;
                 g.x = 9; g.y = 8; g.inHouse = true;
                 scoreDisplay.textContent = score;
-                statusDisplay.textContent = 'рџ‘» РџСЂРёР·СЂР°Рє СЃСЉРµРґРµРЅ! +200';
+                statusDisplay.textContent = '👻 Призрак съеден! +200';
             } else {
                 lives--;
                 livesDisplay.textContent = lives;
@@ -254,8 +254,8 @@ function checkGhostCollision() {
                 // Respawn pacman
                 pacman.x = 9; pacman.y = 15; pacman.dir = 0;
                 for (const gh of ghosts) { gh.x = 9; gh.y = 8; gh.inHouse = true; gh.frightened = false; }
-                statusDisplay.textContent = 'рџ’” РџРѕС‚РµСЂСЏРЅР° Р¶РёР·РЅСЊ!';
-                setTimeout(() => { statusDisplay.textContent = 'в¬† в¬‡ в¬… вћЎ вЂ” СЃРѕР±РёСЂР°Р№ С‚РѕС‡РєРё!'; }, 1000);
+                statusDisplay.textContent = '💔 Потеряна жизнь!';
+                setTimeout(() => { statusDisplay.textContent = '⬆ ⬇ ⬅ ➡ — собирай точки!'; }, 1000);
                 return true;
             }
         }
@@ -300,9 +300,9 @@ function update() {
 function endGame(won) {
     gameOver = true;
     if (won) {
-        statusDisplay.textContent = `рџЋ‰ РџРѕР±РµРґР°! Р’СЃРµ С‚РѕС‡РєРё СЃРѕР±СЂР°РЅС‹! РЎС‡С‘С‚: ${score}`;
+        statusDisplay.textContent = `🎉 Победа! Все точки собраны! Счёт: ${score}`;
     } else {
-        statusDisplay.textContent = `рџ’Ђ РРіСЂР° РѕРєРѕРЅС‡РµРЅР°! РЎС‡С‘С‚: ${score}`;
+        statusDisplay.textContent = `💀 Игра окончена! Счёт: ${score}`;
     }
     if (!saved) {
         saved = true;
@@ -395,10 +395,10 @@ function draw() {
         ctx.fillStyle = '#ffcc00';
         ctx.font = 'bold 28px Inter, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('рџ‘ѕ РРіСЂР° РѕРєРѕРЅС‡РµРЅР°!', W/2, H/2 - 20);
+        ctx.fillText('👾 Игра окончена!', W/2, H/2 - 20);
         ctx.fillStyle = '#ffaa33';
         ctx.font = '18px Inter, sans-serif';
-        ctx.fillText('РЎС‡С‘С‚: ' + score, W/2, H/2 + 20);
+        ctx.fillText('Счёт: ' + score, W/2, H/2 + 20);
     }
 }
 

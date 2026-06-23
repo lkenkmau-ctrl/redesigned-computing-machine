@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.wordle", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Р’РѕСЂРґР»Рё вЂ” DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Вордли — DonateCraft</title><link rel="stylesheet" href="style.css"><style>
 .wordle-grid { display: flex; flex-direction: column; gap: 4px; margin: 0 auto; width: fit-content; }
 .wordle-row { display: flex; gap: 4px; }
 .wordle-cell { width: 52px; height: 52px; border: 2px solid rgba(255,136,0,0.2); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; text-transform: uppercase; background: rgba(30,16,4,0.8); color: #e8d5b0; transition: all 0.3s; }
@@ -34,63 +34,63 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
 .wordle-key.wide { min-width: 56px; }
 #statusMsg { font-size: 16px; font-weight: 600; min-height: 30px; margin: 8px 0; }
 </style></head><body>
-<header><div class="header-inner"><a href="index.php" class="logo-link"><?= $site_name ?></a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">рџЋ® РРіСЂС‹ в–ѕ</button><div class="dropdown-content">
-<a href="snake.php">🐍 Змейка</a>
-<a href="tetris.php">🧊 Тетрис</a>
-<a href="2048.php">🔢 2048</a>
-<a href="tictactoe.php">⭕ Крестики-нолики</a>
-<a href="guess.php">❓ Угадай число</a>
-<a href="memory.php">🃏 Память</a>
-<a href="clicker.php">👆 Кликер</a>
-<a href="quiz.php">📝 Викторина</a>
-<a href="flappy.php">🐦 Flappy Bird</a>
-<a href="reaction.php">⚡ Reaction Test</a>
-<a href="minesweeper.php">💣 Сапёр</a>
-<a href="hangman.php">👻 Виселица</a>
-<a href="simon.php">🔴 Саймон</a>
-<a href="pong.php">🏓 Понг</a>
-<a href="invaders.php">👾 Инвейдеры</a>
-<a href="breakout.php">🧱 Арканоид</a>
-<a href="sudoku.php">🧩 Судоку</a>
-<a href="wordle.php">🔤 Вордли</a>
-<a href="dino.php">🦖 Динозаврик</a>
-<a href="rps.php">✊ Камень-Ножницы</a>
-<a href="typing.php">⌨️ Печать</a>
-<a href="color_match.php">🎨 Цвет</a>
-<a href="balloon.php">🎈 Шарики</a>
-<a href="whack.php">🔨 Крот</a>
-<a href="hanoi.php">🗼 Ханой</a>
-<a href="connect4.php">🔴 4 в ряд</a>
-<a href="math.php">🧮 Математика</a>
-<a href="fifteen.php">🧩 Пятнашки</a>
-<a href="asteroids.php">☄️ Астероиды</a>
-<a href="pacman.php">👾 Пакман</a>
-</div></div><a href="donate.php" class="btn btn-sm">рџ’° РњР°РіР°Р·РёРЅ</a><a href="profile.php" class="btn btn-sm btn-outline">рџ‘¤ РџСЂРѕС„РёР»СЊ</a></nav></div></header>
+<header><div class="header-inner"><a href="index.php" class="logo-link"><?= $site_name ?></a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button><div class="dropdown-content">
+<a href="snake.php">?? ������</a>
+<a href="tetris.php">?? ������</a>
+<a href="2048.php">?? 2048</a>
+<a href="tictactoe.php">? ��������-������</a>
+<a href="guess.php">? ������ �����</a>
+<a href="memory.php">?? ������</a>
+<a href="clicker.php">?? ������</a>
+<a href="quiz.php">?? ���������</a>
+<a href="flappy.php">?? Flappy Bird</a>
+<a href="reaction.php">? Reaction Test</a>
+<a href="minesweeper.php">?? ����</a>
+<a href="hangman.php">?? ��������</a>
+<a href="simon.php">?? ������</a>
+<a href="pong.php">?? ����</a>
+<a href="invaders.php">?? ���������</a>
+<a href="breakout.php">?? ��������</a>
+<a href="sudoku.php">?? ������</a>
+<a href="wordle.php">?? ������</a>
+<a href="dino.php">?? ����������</a>
+<a href="rps.php">? ������-�������</a>
+<a href="typing.php">?? ������</a>
+<a href="color_match.php">?? ����</a>
+<a href="balloon.php">?? ������</a>
+<a href="whack.php">?? ����</a>
+<a href="hanoi.php">?? �����</a>
+<a href="connect4.php">?? 4 � ���</a>
+<a href="math.php">?? ����������</a>
+<a href="fifteen.php">?? ��������</a>
+<a href="asteroids.php">?? ���������</a>
+<a href="pacman.php">?? ������</a>
+</div></div><a href="donate.php" class="btn btn-sm">💰 Магазин</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
 <div class="container"><div class="game-wrapper">
-<h1>рџ”¤ Р’РѕСЂРґР»Рё</h1>
+<h1>🔤 Вордли</h1>
 <div class="game-info-bar">
-<div class="game-info-item"><span class="lbl">РЎС‡С‘С‚</span><span class="val" id="scoreDisplay">0</span></div>
-<div class="game-info-item"><span class="lbl">Р РµРєРѕСЂРґ</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
-<div class="game-info-item"><span class="lbl">РџРѕРїС‹С‚РєР°</span><span class="val" id="attemptDisplay">1 / 6</span></div>
+<div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div>
+<div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
+<div class="game-info-item"><span class="lbl">Попытка</span><span class="val" id="attemptDisplay">1 / 6</span></div>
 </div>
 <div class="game-area">
 <div id="gameArea"></div>
 <div id="statusMsg"></div>
 </div>
 <div class="game-controls">
-<button class="btn" onclick="submitGuess()">вњ… РћС‚РїСЂР°РІРёС‚СЊ</button>
-<button class="btn" onclick="newGame()">рџ”„ РќРѕРІР°СЏ РёРіСЂР°</button>
+<button class="btn" onclick="submitGuess()">✅ Отправить</button>
+<button class="btn" onclick="newGame()">🔄 Новая игра</button>
 </div>
 </div></div>
-<footer><p>DonateCraft вЂ” Р·Р°СЂР°Р±Р°С‚С‹РІР°Р№ РґРѕРЅР°С‚РЅС‹Рµ РїРѕРёРЅС‚С‹ Р·Р° РјРёРЅРё-РёРіСЂС‹</p></footer>
+<footer><p>DonateCraft — зарабатывай донатные поинты за мини-игры</p></footer>
 <script>
 const wordBank = [
-    'РљРћРўРРљ','РњРРЁРљРђ','Р Р«Р‘РљРђ','РўР РђР’Рђ','РќРћР§РљРђ','Р›РЈР§РРљ','РЎРўР•РќРђ','РљРќРР“Рђ',
-    'Р РЈР§РљРђ','РџРђР›РљРђ','Р’Р•РўРљРђ','РџРўРР¦Рђ','РЁРљРћР›Рђ','РљРћРЁРљРђ','РњР«РЁРљРђ','Р—РђР™РљРђ',
-    'Р’РћР”РљРђ','Р›РђР’РљРђ','Р›РђРњРџРђ','РњРђР РљРђ','РњРђРЎРљРђ','РќРРўРљРђ','РџР•Р§РљРђ','РџРР›РљРђ',
-    'РџРђРџРљРђ','РџР›Р•Р§Рћ','РЎР’Р•Р§Рђ','РЎРЈРњРљРђ','РўРђРџРљРђ','РўРЈР§РљРђ','РЈРўРљРђ','РўРћР§РљРђ',
-    'Р“РћР РљРђ','Р›РћР–РљРђ','Р§РђРЁРљРђ','Р”РћР§РљРђ','РџРћР§РљРђ','Р‘РћР§РљРђ','Р Р•Р§РљРђ','РќРћР–РљРђ',
-    'Р‘РЈР›РљРђ','РџРђР РљРђ','РЁРђРџРљРђ','РџРђРЈР—Рђ','Р¤РђР—Рђ'
+    'КОТИК','МИШКА','РЫБКА','ТРАВА','НОЧКА','ЛУЧИК','СТЕНА','КНИГА',
+    'РУЧКА','ПАЛКА','ВЕТКА','ПТИЦА','ШКОЛА','КОШКА','МЫШКА','ЗАЙКА',
+    'ВОДКА','ЛАВКА','ЛАМПА','МАРКА','МАСКА','НИТКА','ПЕЧКА','ПИЛКА',
+    'ПАПКА','ПЛЕЧО','СВЕЧА','СУМКА','ТАПКА','ТУЧКА','УТКА','ТОЧКА',
+    'ГОРКА','ЛОЖКА','ЧАШКА','ДОЧКА','ПОЧКА','БОЧКА','РЕЧКА','НОЖКА',
+    'БУЛКА','ПАРКА','ШАПКА','ПАУЗА','ФАЗА'
 ];
 
 let targetWord = '';
@@ -142,9 +142,9 @@ function renderKeyboard() {
     kb.className = 'wordle-keyboard';
 
     const rows = [
-        ['Р™','Р¦','РЈ','Рљ','Р•','Рќ','Р“','РЁ','Р©','Р—','РҐ'],
-        ['Р¤','Р«','Р’','Рђ','Рџ','Р ','Рћ','Р›','Р”','Р–','Р­'],
-        ['Enter','РЇ','Р§','РЎ','Рњ','Р','Рў','Р¬','Р‘','Р®','Backspace']
+        ['Й','Ц','У','К','Е','Н','Г','Ш','Щ','З','Х'],
+        ['Ф','Ы','В','А','П','Р','О','Л','Д','Ж','Э'],
+        ['Enter','Я','Ч','С','М','И','Т','Ь','Б','Ю','Backspace']
     ];
 
     for (const row of rows) {
@@ -154,7 +154,7 @@ function renderKeyboard() {
             const btn = document.createElement('button');
             btn.className = 'wordle-key';
             if (key === 'Enter' || key === 'Backspace') btn.classList.add('wide');
-            btn.textContent = key === 'Backspace' ? 'вЊ«' : key;
+            btn.textContent = key === 'Backspace' ? '⌫' : key;
             btn.dataset.key = key;
             btn.addEventListener('click', () => handleKeyClick(key));
             rowDiv.appendChild(btn);
@@ -191,11 +191,11 @@ function updateCurrentRow() {
 function submitGuess() {
     if (gameFinished) return;
     if (currentInput.length !== cols) {
-        document.getElementById('statusMsg').textContent = 'вљ пёЏ Р’РІРµРґРёС‚Рµ 5 Р±СѓРєРІ';
+        document.getElementById('statusMsg').textContent = '⚠️ Введите 5 букв';
         return;
     }
     if (!wordBank.includes(currentInput)) {
-        document.getElementById('statusMsg').textContent = 'вљ пёЏ РўР°РєРѕРіРѕ СЃР»РѕРІР° РЅРµС‚ РІ СЃРїРёСЃРєРµ';
+        document.getElementById('statusMsg').textContent = '⚠️ Такого слова нет в списке';
         return;
     }
 
@@ -247,7 +247,7 @@ function submitGuess() {
         gameFinished = true;
         const score = (7 - currentRow) * 100;
         document.getElementById('scoreDisplay').textContent = score;
-        document.getElementById('statusMsg').textContent = 'рџЋ‰ РЈРіР°РґР°РЅРѕ! РЎР»РѕРІРѕ: ' + target + '. РЎС‡С‘С‚: ' + score;
+        document.getElementById('statusMsg').textContent = '🎉 Угадано! Слово: ' + target + '. Счёт: ' + score;
         const formData = new FormData();
         formData.append('score', score);
         fetch('wordle.php', { method: 'POST', body: formData })
@@ -256,7 +256,7 @@ function submitGuess() {
             .catch(() => {});
     } else if (currentRow >= 6) {
         gameFinished = true;
-        document.getElementById('statusMsg').textContent = 'рџћ РџСЂРѕРёРіСЂС‹С€! РЎР»РѕРІРѕ: ' + target;
+        document.getElementById('statusMsg').textContent = '😞 Проигрыш! Слово: ' + target;
         const formData = new FormData();
         formData.append('score', 0);
         fetch('wordle.php', { method: 'POST', body: formData })
@@ -273,7 +273,7 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Enter') { e.preventDefault(); submitGuess(); return; }
     if (e.key === 'Backspace') { e.preventDefault(); handleKeyClick('Backspace'); return; }
     const key = e.key.toUpperCase();
-    if (/^[Рђ-РЇРЃ]$/.test(key) || /^[A-Z]$/.test(key)) handleKeyClick(key);
+    if (/^[А-ЯЁ]$/.test(key) || /^[A-Z]$/.test(key)) handleKeyClick(key);
 });
 
 newGame();

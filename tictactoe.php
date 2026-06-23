@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>РљСЂРµСЃС‚РёРєРё-РќРѕР»РёРєРё</title>
+<title>Крестики-Нолики</title>
 <link rel="stylesheet" href="style.css">
 <style>
 .board {
@@ -56,53 +56,53 @@
     <a href="index.php" class="logo-link"><?= $site_name ?></a>
     <nav class="nav">
       <div class="dropdown">
-        <button class="btn btn-sm dropdown-btn">рџЋ® РРіСЂС‹ в–ѕ</button>
+        <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
         <div class="dropdown-content">
-          <a href="snake.php">🐍 Змейка</a>
-          <a href="tetris.php">🧊 Тетрис</a>
-          <a href="2048.php">🔢 2048</a>
-          <a href="tictactoe.php">⭕ Крестики-нолики</a>
-          <a href="guess.php">❓ Угадай число</a>
-          <a href="memory.php">🃏 Память</a>
-          <a href="clicker.php">👆 Кликер</a>
-          <a href="quiz.php">📝 Викторина</a>
-          <a href="flappy.php">🐦 Flappy Bird</a>
-          <a href="reaction.php">⚡ Reaction Test</a>
-          <a href="minesweeper.php">💣 Сапёр</a>
-          <a href="hangman.php">👻 Виселица</a>
-          <a href="simon.php">🔴 Саймон</a>
-          <a href="pong.php">🏓 Понг</a>
-          <a href="invaders.php">👾 Инвейдеры</a>
-          <a href="breakout.php">🧱 Арканоид</a>
-          <a href="sudoku.php">🧩 Судоку</a>
-          <a href="wordle.php">🔤 Вордли</a>
-          <a href="dino.php">🦖 Динозаврик</a>
-          <a href="rps.php">✊ Камень-Ножницы</a>
-          <a href="typing.php">⌨️ Печать</a>
-          <a href="color_match.php">🎨 Цвет</a>
-          <a href="balloon.php">🎈 Шарики</a>
-          <a href="whack.php">🔨 Крот</a>
-          <a href="hanoi.php">🗼 Ханой</a>
-          <a href="connect4.php">🔴 4 в ряд</a>
-          <a href="math.php">🧮 Математика</a>
-          <a href="fifteen.php">🧩 Пятнашки</a>
-          <a href="asteroids.php">☄️ Астероиды</a>
-          <a href="pacman.php">👾 Пакман</a>
+          <a href="snake.php">?? ������</a>
+          <a href="tetris.php">?? ������</a>
+          <a href="2048.php">?? 2048</a>
+          <a href="tictactoe.php">? ��������-������</a>
+          <a href="guess.php">? ������ �����</a>
+          <a href="memory.php">?? ������</a>
+          <a href="clicker.php">?? ������</a>
+          <a href="quiz.php">?? ���������</a>
+          <a href="flappy.php">?? Flappy Bird</a>
+          <a href="reaction.php">? Reaction Test</a>
+          <a href="minesweeper.php">?? ����</a>
+          <a href="hangman.php">?? ��������</a>
+          <a href="simon.php">?? ������</a>
+          <a href="pong.php">?? ����</a>
+          <a href="invaders.php">?? ���������</a>
+          <a href="breakout.php">?? ��������</a>
+          <a href="sudoku.php">?? ������</a>
+          <a href="wordle.php">?? ������</a>
+          <a href="dino.php">?? ����������</a>
+          <a href="rps.php">? ������-�������</a>
+          <a href="typing.php">?? ������</a>
+          <a href="color_match.php">?? ����</a>
+          <a href="balloon.php">?? ������</a>
+          <a href="whack.php">?? ����</a>
+          <a href="hanoi.php">?? �����</a>
+          <a href="connect4.php">?? 4 � ���</a>
+          <a href="math.php">?? ����������</a>
+          <a href="fifteen.php">?? ��������</a>
+          <a href="asteroids.php">?? ���������</a>
+          <a href="pacman.php">?? ������</a>
         </div>
       </div>
-      <a href="donate.php" class="btn btn-sm">рџ’° РњР°РіР°Р·РёРЅ</a>
-      <a href="profile.php" class="btn btn-sm btn-outline">рџ‘¤ РџСЂРѕС„РёР»СЊ</a>
+      <a href="donate.php" class="btn btn-sm">💰 Магазин</a>
+      <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
     </nav>
   </div>
 </header>
 <div class="container">
   <div class="game-wrapper animate-in">
-    <h1>вќЊ РљСЂРµСЃС‚РёРєРё-РќРѕР»РёРєРё в­•</h1>
-    <p style="color:#888;margin-bottom:8px;">РЎС‹РіСЂР°Р№ РїСЂРѕС‚РёРІ Р±РѕС‚Р°! РўС‹ вЂ” <strong style="color:#4488ff;">X</strong>, Р±РѕС‚ вЂ” <strong style="color:#ff4444;">O</strong></p>
+    <h1>❌ Крестики-Нолики ⭕</h1>
+    <p style="color:#888;margin-bottom:8px;">Сыграй против бота! Ты — <strong style="color:#4488ff;">X</strong>, бот — <strong style="color:#ff4444;">O</strong></p>
 
     <div class="game-info-bar">
-      <div class="game-info-item"><span class="lbl">РЎС‡С‘С‚</span><span class="val" id="scoreDisplay">0</span></div>
-      <div class="game-info-item"><span class="lbl">РЎС‹РіСЂР°РЅРѕ</span><span class="val" id="gamesCount">0</span></div>
+      <div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div>
+      <div class="game-info-item"><span class="lbl">Сыграно</span><span class="val" id="gamesCount">0</span></div>
     </div>
 
     <div class="board" id="board"></div>
@@ -110,13 +110,13 @@
     <div class="game-status" id="status"></div>
 
     <div class="counter-grid">
-      <div class="counter-item"><span class="lbl">РџРѕР±РµРґС‹</span><span class="val win" id="wins">0</span></div>
-      <div class="counter-item"><span class="lbl">РџРѕСЂР°Р¶РµРЅРёСЏ</span><span class="val loss" id="losses">0</span></div>
-      <div class="counter-item"><span class="lbl">РќРёС‡СЊРё</span><span class="val draw" id="draws">0</span></div>
+      <div class="counter-item"><span class="lbl">Победы</span><span class="val win" id="wins">0</span></div>
+      <div class="counter-item"><span class="lbl">Поражения</span><span class="val loss" id="losses">0</span></div>
+      <div class="counter-item"><span class="lbl">Ничьи</span><span class="val draw" id="draws">0</span></div>
     </div>
 
     <div class="game-controls">
-      <button id="newGameBtn" class="btn" style="min-width:160px;">рџ”„ РќРѕРІР°СЏ РёРіСЂР°</button>
+      <button id="newGameBtn" class="btn" style="min-width:160px;">🔄 Новая игра</button>
     </div>
   </div>
 </div>
@@ -143,7 +143,7 @@ function initBoard() {
   board = Array(9).fill(null);
   gameOver = false;
   saved = false;
-  statusEl.textContent = 'РўРІРѕР№ С…РѕРґ!';
+  statusEl.textContent = 'Твой ход!';
   render();
 }
 
@@ -193,7 +193,7 @@ function playerMove(idx) {
     return;
   }
 
-  statusEl.textContent = 'РҐРѕРґ Р±РѕС‚Р°...';
+  statusEl.textContent = 'Ход бота...';
   setTimeout(botMove, 300);
 }
 
@@ -214,7 +214,7 @@ function botMove() {
     return;
   }
 
-  statusEl.textContent = 'РўРІРѕР№ С…РѕРґ!';
+  statusEl.textContent = 'Твой ход!';
   render();
 }
 
@@ -264,15 +264,15 @@ function endGame(winner, combo) {
     wins++;
     totalPoints += 100;
     if (combo) highlightWin(combo);
-    statusEl.innerHTML = 'рџЋ‰ РўС‹ РїРѕР±РµРґРёР»! <strong style="color:#4488ff;">+100 РѕС‡РєРѕРІ</strong>';
+    statusEl.innerHTML = '🎉 Ты победил! <strong style="color:#4488ff;">+100 очков</strong>';
   } else if (winner === 'O') {
     losses++;
     if (combo) highlightWin(combo);
-    statusEl.innerHTML = 'рџ” Р‘РѕС‚ РїРѕР±РµРґРёР»! РџРѕРїСЂРѕР±СѓР№ РµС‰С‘.';
+    statusEl.innerHTML = '😔 Бот победил! Попробуй ещё.';
   } else {
     draws++;
     totalPoints += 10;
-    statusEl.innerHTML = 'рџ¤ќ РќРёС‡СЊСЏ! <strong style="color:#ffaa00;">+10 РѕС‡РєРѕРІ</strong>';
+    statusEl.innerHTML = '🤝 Ничья! <strong style="color:#ffaa00;">+10 очков</strong>';
   }
 
   totalGames++;
