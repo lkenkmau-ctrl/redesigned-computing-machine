@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 require_once 'config.php';
 requireAuth();
 $user_id = $_SESSION['user_id'];
@@ -20,37 +20,36 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
 .legend-dot{width:14px;height:14px;border-radius:50%;display:inline-block}
 </style></head><body>
 <header><div class="header-inner"><a href="index.php" class="logo-link">DonateCraft</a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button><div class="dropdown-content">
-<a href="snake.php">?? ������</a>
-<a href="tetris.php">?? ������</a>
-<a href="2048.php">?? 2048</a>
-<a href="tictactoe.php">? ��������-������</a>
-<a href="guess.php">? ������ �����</a>
-<a href="memory.php">?? ������</a>
-<a href="clicker.php">?? ������</a>
-<a href="quiz.php">?? ���������</a>
-<a href="flappy.php">?? Flappy Bird</a>
-<a href="reaction.php">? Reaction Test</a>
-<a href="minesweeper.php">?? ����</a>
-<a href="hangman.php">?? ��������</a>
-<a href="simon.php">?? ������</a>
-<a href="pong.php">?? ����</a>
-<a href="invaders.php">?? ���������</a>
-<a href="breakout.php">?? ��������</a>
-<a href="sudoku.php">?? ������</a>
-<a href="wordle.php">?? ������</a>
-<a href="dino.php">?? ����������</a>
-<a href="rps.php">? ������-�������</a>
-<a href="typing.php">?? ������</a>
-<a href="color_match.php">?? ����</a>
-<a href="balloon.php">?? ������</a>
-<a href="whack.php">?? ����</a>
-<a href="hanoi.php">?? �����</a>
-<a href="connect4.php">?? 4 � ���</a>
-<a href="math.php">?? ����������</a>
-<a href="fifteen.php">?? ��������</a>
-<a href="asteroids.php">?? ���������</a>
-<a href="pacman.php">?? ������</a>
-</div></div><a href="donate.php" class="btn btn-sm">💰 Магазин</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
+                    <a href="snake.php">рџђЌ Р—РјРµР№РєР°</a>
+                    <a href="tetris.php">рџ§Љ РўРµС‚СЂРёСЃ</a>
+                    <a href="2048.php">рџ”ў 2048</a>
+                    <a href="tictactoe.php">в­• РљСЂРµСЃС‚РёРєРё-РЅРѕР»РёРєРё</a>
+                    <a href="guess.php">вќ“ РЈРіР°РґР°Р№ С‡РёСЃР»Рѕ</a>
+                    <a href="memory.php">рџѓЏ РџР°РјСЏС‚СЊ</a>
+                    <a href="clicker.php">рџ‘† РљР»РёРєРµСЂ</a>
+                    <a href="quiz.php">рџ“ќ Р’РёРєС‚РѕСЂРёРЅР°</a>
+                    <a href="flappy.php">рџђ¦ Flappy Bird</a>
+                    <a href="reaction.php">вљЎ Reaction Test</a>
+                    <a href="minesweeper.php">рџ’Ј РЎР°РїС‘СЂ</a>
+                    <a href="hangman.php">рџ‘» Р’РёСЃРµР»РёС†Р°</a>
+                    <a href="simon.php">рџ”ґ РЎР°Р№РјРѕРЅ</a>
+                    <a href="pong.php">рџЏ“ РџРѕРЅРі</a>
+                    <a href="invaders.php">рџ‘ѕ РРЅРІРµР№РґРµСЂС‹</a>
+                    <a href="breakout.php">рџ§± РђСЂРєР°РЅРѕРёРґ</a>
+                    <a href="sudoku.php">рџ§© РЎСѓРґРѕРєСѓ</a>
+                    <a href="wordle.php">рџ”¤ Р’РѕСЂРґР»Рё</a>
+                    <a href="dino.php">рџ¦– Р”РёРЅРѕР·Р°РІСЂРёРє</a>
+                    <a href="rps.php">вњЉ РљР°РјРµРЅСЊ-РќРѕР¶РЅРёС†С‹</a>
+                    <a href="typing.php">вЊЁпёЏ РџРµС‡Р°С‚СЊ</a>
+                    <a href="color_match.php">рџЋЁ Р¦РІРµС‚</a>
+                    <a href="balloon.php">рџЋ€ РЁР°СЂРёРєРё</a>
+                    <a href="whack.php">рџ”Ё РљСЂРѕС‚</a>
+                    <a href="hanoi.php">рџ—ј РҐР°РЅРѕР№</a>
+                    <a href="connect4.php">рџ”ґ 4 РІ СЂСЏРґ</a>
+                    <a href="math.php">рџ§® РњР°С‚РµРјР°С‚РёРєР°</a>
+                    <a href="fifteen.php">рџ§© РџСЏС‚РЅР°С€РєРё</a>
+                    <a href="asteroids.php">в„пёЏ РђСЃС‚РµСЂРѕРёРґС‹</a>
+                    <a href="pacman.php">рџ‘ѕ РџР°РєРјР°РЅ</a></div></div><a href="donate.php" class="btn btn-sm">💰 Магазин</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
 <div class="container"><div class="game-wrapper">
 <h1>🎈 Лопни шарик</h1>
 <div class="game-info-bar"><div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div><div class="game-info-item"><span class="lbl">⏱</span><span class="val" id="timerDisplay">30</span></div><div class="game-info-item"><span class="lbl">🎈 Вверху</span><span class="val" id="missedDisplay">0</span></div></div>
