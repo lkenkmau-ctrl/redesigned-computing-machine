@@ -90,7 +90,7 @@ let saved = false;
 
 function init() {
     snake = [{x: 10, y: 10}];
-    direction = {x: 0, y: 0};
+    direction = {x: 1, y: 0};
     food = spawnFood();
     level = 1;
     foodEaten = 0;
