@@ -19,21 +19,28 @@ $total_donations = count($dons_resp);
 <header>
     <div class="header-inner">
         <a href="index.php" class="logo-link"><?= $site_name ?></a>
-        <nav class="nav" style="overflow-x:auto;white-space:nowrap;">
+        <nav class="nav">
+            <div class="dropdown">
+                <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+                <div class="dropdown-content">
+                    <a href="snake.php">🐍 Змейка</a>
+                    <a href="tetris.php">🧊 Тетрис</a>
+                    <a href="2048.php">🔢 2048</a>
+                    <a href="tictactoe.php">⭕ Крестики-нолики</a>
+                    <a href="guess.php">❓ Угадай число</a>
+                    <a href="memory.php">🃏 Память</a>
+                    <a href="clicker.php">👆 Кликер</a>
+                    <a href="quiz.php">📝 Викторина</a>
+                    <a href="flappy.php">🐦 Flappy Bird</a>
+                    <a href="reaction.php">⚡ Reaction Test</a>
+                </div>
+            </div>
             <?php if (isAuth()): ?>
-                <a href="profile.php" class="btn btn-sm btn-outline">Профиль</a>
-                <a href="snake.php" class="btn btn-sm btn-outline">Змейка</a>
-                <a href="tetris.php" class="btn btn-sm btn-outline">Тетрис</a>
-                <a href="2048.php" class="btn btn-sm btn-outline">2048</a>
-                <a href="wheel.php" class="btn btn-sm btn-outline">Колесо</a>
-                <a href="scratch.php" class="btn btn-sm btn-outline">Скретч</a>
-                <a href="tictactoe.php" class="btn btn-sm btn-outline">Крестики</a>
-                <a href="donate.php" class="btn btn-sm">Магазин</a>
-                <a href="leaderboard.php" class="btn btn-sm btn-outline">Лидеры</a>
-                <a href="logout.php" class="btn btn-sm btn-red">Выход</a>
+            <a href="donate.php" class="btn btn-sm">💰 Магазин</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
             <?php else: ?>
-                <a href="login.php" class="btn btn-sm btn-outline">Вход</a>
-                <a href="register.php" class="btn btn-sm">Регистрация</a>
+            <a href="login.php" class="btn btn-sm btn-outline">Вход</a>
+            <a href="register.php" class="btn btn-sm">Регистрация</a>
             <?php endif; ?>
         </nav>
     </div>
@@ -179,6 +186,24 @@ $total_donations = count($dons_resp);
                 <p>Ответь на 10 вопросов из разных категорий. Каждый правильный ответ = 10 очков!</p>
                 <div class="game-stats"><span>🎯 До 100 очков</span></div>
                 <?php if (isAuth()): ?><a href="quiz.php" class="btn">Играть</a><?php endif; ?>
+            </div>
+        </div>
+        <div class="game-card animate-in delay-3">
+            <div class="game-preview" style="background:linear-gradient(135deg,#1a3a2a,#2a5a3a);">🐦</div>
+            <div class="game-body">
+                <h3>Flappy Bird</h3>
+                <p>Проведи птичку через все трубы! Управление — пробел или клик.</p>
+                <div class="game-stats"><span>🎯 За пролёт</span></div>
+                <?php if (isAuth()): ?><a href="flappy.php" class="btn btn-blue">Играть</a><?php endif; ?>
+            </div>
+        </div>
+        <div class="game-card animate-in delay-4">
+            <div class="game-preview" style="background:linear-gradient(135deg,#2a1a3a,#3a2a5a);">⚡</div>
+            <div class="game-body">
+                <h3>Reaction Test</h3>
+                <p>Проверь скорость реакции! Нажми на зелёный квадрат как можно быстрее.</p>
+                <div class="game-stats"><span>🎯 Время в ms</span></div>
+                <?php if (isAuth()): ?><a href="reaction.php" class="btn btn-purple">Играть</a><?php endif; ?>
             </div>
         </div>
     </div>

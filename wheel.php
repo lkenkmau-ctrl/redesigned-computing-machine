@@ -36,19 +36,22 @@ foreach ($all_wheel as $s) { $total_won += (int)$s['points']; }
 <header>
     <div class="header-inner">
         <a href="index.php" class="logo-link"><?= $site_name ?></a>
-        <nav class="nav" style="overflow-x:auto;white-space:nowrap;">
-            <a href="profile.php" class="btn btn-sm btn-outline">Профиль</a>
-            <a href="snake.php" class="btn btn-sm btn-outline">Змейка</a>
-            <a href="tetris.php" class="btn btn-sm btn-outline">Тетрис</a>
-            <a href="2048.php" class="btn btn-sm btn-outline">2048</a>
-            <a href="scratch.php" class="btn btn-sm btn-outline">Скретч</a>
-            <a href="tictactoe.php" class="btn btn-sm btn-outline">Крестики</a>
-            <a href="guess.php" class="btn btn-sm btn-outline">Число</a>
-            <a href="memory.php" class="btn btn-sm btn-outline">Память</a>
-            <a href="clicker.php" class="btn btn-sm btn-outline">Кликер</a>
-            <a href="quiz.php" class="btn btn-sm btn-outline">Квиз</a>
-            <a href="donate.php" class="btn btn-sm">Магазин</a>
-            <a href="index.php" class="btn btn-sm btn-outline">Главная</a>
+        <nav class="nav">
+            <div class="dropdown">
+                <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+                <div class="dropdown-content">
+                    <a href="snake.php">🐍 Змейка</a>
+                    <a href="tetris.php">🧊 Тетрис</a>
+                    <a href="2048.php">🔢 2048</a>
+                    <a href="tictactoe.php">⭕ Крестики-нолики</a>
+                    <a href="guess.php">❓ Угадай число</a>
+                    <a href="memory.php">🃏 Память</a>
+                    <a href="clicker.php">👆 Кликер</a>
+                    <a href="quiz.php">📝 Викторина</a>
+                </div>
+            </div>
+            <a href="donate.php" class="btn btn-sm">💰 Магазин</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
         </nav>
     </div>
 </header>

@@ -10,7 +10,10 @@ if (!isset($_SESSION['admin']) && (!isset($_POST['apass']) || $_POST['apass'] !=
 $_SESSION['admin'] = true;
 
 if (isset($_GET['complete'])) {
-    supabaseUpdate('donations', ['status' => 'completed'], 'id=eq.' . (int)$_GET['complete']);
+    $result = supabaseUpdate('donations', ['status' => 'completed'], 'id=eq.' . (int)$_GET['complete']);
+    if (isset($result['error'])) {
+        error_log('supabaseUpdate complete error: ' . $result['error']);
+    }
     header('Location: admin.php'); exit;
 }
 if (isset($_GET['cancel'])) {
@@ -20,7 +23,10 @@ if (isset($_GET['cancel'])) {
     ]);
     $don = $dons[0] ?? null;
     if ($don) {
-        supabaseUpdate('donations', ['status' => 'cancelled'], 'id=eq.' . (int)$_GET['cancel']);
+        $result = supabaseUpdate('donations', ['status' => 'cancelled'], 'id=eq.' . (int)$_GET['cancel']);
+        if (isset($result['error'])) {
+            error_log('supabaseUpdate cancel error: ' . $result['error']);
+        }
         $user_resp = supabaseSelect('users', [
             'select' => 'points',
             'where' => 'id=eq.' . $don['user_id']
@@ -38,7 +44,10 @@ if (isset($_POST['add_points'])) {
         'where' => 'id=eq.' . $uid
     ]);
     $current = !empty($user_resp) ? (int)$user_resp[0]['points'] : 0;
-    supabaseUpdate('users', ['points' => $current + $pts], 'id=eq.' . $uid);
+    $result = supabaseUpdate('users', ['points' => $current + $pts], 'id=eq.' . $uid);
+    if (isset($result['error'])) {
+        error_log('supabaseUpdate add_points error: ' . $result['error']);
+    }
     header('Location: admin.php'); exit;
 }
 
@@ -75,8 +84,24 @@ $pending_count = count($pending);
     <div class="header-inner">
         <a href="index.php" class="logo-link">⚡ Admin</a>
         <nav class="nav">
-            <a href="index.php" class="btn btn-sm btn-outline">На сайт</a>
-            <a href="logout.php" class="btn btn-sm btn-red">Выход</a>
+            <div class="dropdown">
+                <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+                <div class="dropdown-content">
+                    <a href="snake.php">🐍 Змейка</a>
+                    <a href="tetris.php">🧊 Тетрис</a>
+                    <a href="2048.php">🔢 2048</a>
+                    <a href="tictactoe.php">⭕ Крестики-нолики</a>
+                    <a href="guess.php">❓ Угадай число</a>
+                    <a href="memory.php">🃏 Память</a>
+                    <a href="clicker.php">👆 Кликер</a>
+                    <a href="quiz.php">📝 Викторина</a>
+                    <a href="flappy.php">🐦 Flappy Bird</a>
+                    <a href="reaction.php">⚡ Reaction Test</a>
+                </div>
+            </div>
+            <a href="donate.php" class="btn btn-sm">💰 Магазин</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+            <a href="admin.php" class="btn btn-sm btn-red">⚙️ Админ</a>
         </nav>
     </div>
 </header>

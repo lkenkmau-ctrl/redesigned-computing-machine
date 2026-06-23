@@ -24,8 +24,6 @@ $shop_categories = [
     'currency' => ['name' => 'Валюта', 'icon' => '💎', 'color' => '#00bfff'],
     'cases' => ['name' => 'Кейсы', 'icon' => '📦', 'color' => '#ff6347'],
     'kits' => ['name' => 'Наборы', 'icon' => '🎒', 'color' => '#32cd32'],
-    'boosters' => ['name' => 'Бустеры', 'icon' => '⚡', 'color' => '#ff4500'],
-    'cosmetics' => ['name' => 'Косметика', 'icon' => '✨', 'color' => '#da70d6'],
 ];
 
 $donate_items = [
@@ -34,9 +32,6 @@ $donate_items = [
     'hydra' => ['name' => 'Hydra', 'cost' => 500, 'category' => 'privileges', 'description' => 'Ранг Hydra', 'command' => 'lp user %player% parent add hydra'],
     'dhelper' => ['name' => 'DHelper', 'cost' => 600, 'category' => 'privileges', 'description' => 'Ранг DHelper', 'command' => 'lp user %player% parent add dhelper'],
     'bunny' => ['name' => 'Bunny', 'cost' => 700, 'category' => 'privileges', 'description' => 'Ранг Bunny', 'command' => 'lp user %player% parent add bunny'],
-    'plus' => ['name' => 'Plus', 'cost' => 800, 'category' => 'privileges', 'description' => 'Ранг Plus', 'command' => 'lp user %player% parent add plus'],
-    'pluspro' => ['name' => 'PlusPro', 'cost' => 1000, 'category' => 'privileges', 'description' => 'Ранг PlusPro', 'command' => 'lp user %player% parent add pluspro'],
-    'pro' => ['name' => 'Pro', 'cost' => 1200, 'category' => 'privileges', 'description' => 'Ранг Pro', 'command' => 'lp user %player% parent add pro'],
     'pegas' => ['name' => 'Pegas', 'cost' => 1400, 'category' => 'privileges', 'description' => 'Ранг Pegas', 'command' => 'lp user %player% parent add pegas'],
     'downer' => ['name' => 'Downer', 'cost' => 1500, 'category' => 'privileges', 'description' => 'Ранг Downer', 'command' => 'lp user %player% parent add downer'],
     'cobra' => ['name' => 'Cobra', 'cost' => 1800, 'category' => 'privileges', 'description' => 'Ранг Cobra', 'command' => 'lp user %player% parent add cobra'],
@@ -53,13 +48,8 @@ $donate_items = [
     'magister' => ['name' => 'Magister', 'cost' => 7000, 'category' => 'privileges', 'description' => 'Ранг Magister', 'command' => 'lp user %player% parent add magister'],
     'imperator' => ['name' => 'Imperator', 'cost' => 8000, 'category' => 'privileges', 'description' => 'Ранг Imperator', 'command' => 'lp user %player% parent add imperator'],
     'angel' => ['name' => 'Angel', 'cost' => 2500, 'category' => 'privileges', 'description' => 'Ранг Angel', 'command' => 'lp user %player% parent add grok'],
-    'prime' => ['name' => 'Prime', 'cost' => 2000, 'category' => 'privileges', 'description' => 'Ранг Prime', 'command' => 'lp user %player% parent add santa'],
-    'sn1ck' => ['name' => 'Sn1ck', 'cost' => 1000, 'category' => 'privileges', 'description' => 'Ранг Sn1ck', 'command' => 'lp user %player% parent add sn1ck'],
-    'vipe' => ['name' => 'Vipe', 'cost' => 1200, 'category' => 'privileges', 'description' => 'Ранг Vipe', 'command' => 'lp user %player% parent add vipe'],
-    'tt' => ['name' => 'TT', 'cost' => 900, 'category' => 'privileges', 'description' => 'Ранг TT', 'command' => 'lp user %player% parent add tt'],
     'yt' => ['name' => 'YT', 'cost' => 900, 'category' => 'privileges', 'description' => 'Ранг YT', 'command' => 'lp user %player% parent add yt'],
     'custom' => ['name' => 'Custom', 'cost' => 3000, 'category' => 'privileges', 'description' => 'Кастомный ранг', 'command' => 'lp user %player% parent add custom'],
-    'chiter' => ['name' => 'Chiter', 'cost' => 5000, 'category' => 'privileges', 'description' => 'Ранг Chiter', 'command' => 'lp user %player% parent add chiter'],
     'риллики_100' => ['name' => '100 Рилликов', 'cost' => 200, 'category' => 'currency', 'description' => '100 единиц игровой валюты', 'command' => 'p give %player% 100'],
     'риллики_500' => ['name' => '500 Рилликов', 'cost' => 800, 'category' => 'currency', 'description' => '500 единиц игровой валюты', 'command' => 'p give %player% 500'],
     'риллики_1000' => ['name' => '1000 Рилликов', 'cost' => 1500, 'category' => 'currency', 'description' => '1000 единиц игровой валюты', 'command' => 'p give %player% 1000'],
@@ -74,17 +64,16 @@ $donate_items = [
     'кеис_всё_или_ничего' => ['name' => 'Кейс всё или ничего', 'cost' => 2500, 'category' => 'cases', 'description' => 'Кейс всё или ничего', 'command' => 'case give %player% allornothing 1'],
     'кеис_модер_админ' => ['name' => 'Кейс модер или админ', 'cost' => 5000, 'category' => 'cases', 'description' => 'Кейс на получение модератора или админа', 'command' => 'case give %player% moderadmin 1'],
     'кеис_лето' => ['name' => 'Летний кейс', 'cost' => 800, 'category' => 'cases', 'description' => 'Летний кейс', 'command' => 'case give %player% summer 1'],
-    'набор_стартовый' => ['name' => 'Стартовый набор', 'cost' => 400, 'category' => 'kits', 'description' => 'Еда, инструменты, броня для начала игры', 'command' => 'p give %player% starter_kit 1'],
-    'набор_рыцарский' => ['name' => 'Рыцарский набор', 'cost' => 1200, 'category' => 'kits', 'description' => 'Алмазная броня, меч, щит', 'command' => 'p give %player% knight_kit 1'],
-    'набор_магический' => ['name' => 'Магический набор', 'cost' => 2000, 'category' => 'kits', 'description' => 'Зелья, книги зачарований, жемчуг Края', 'command' => 'p give %player% mage_kit 1'],
-    'набор_строителя' => ['name' => 'Набор строителя', 'cost' => 600, 'category' => 'kits', 'description' => 'Блоки, инструменты, декорации', 'command' => 'p give %player% builder_kit 1'],
-    'бустер_xp' => ['name' => 'XP Бустер x2', 'cost' => 1000, 'category' => 'boosters', 'description' => 'Удвоенный опыт на 1 час', 'command' => 'p give %player% xp_booster 1'],
-    'бустер_дроп' => ['name' => 'Drop Бустер x2', 'cost' => 1500, 'category' => 'boosters', 'description' => 'Удвоенный дроп с мобов на 1 час', 'command' => 'p give %player% drop_booster 1'],
-    'бустер_деньги' => ['name' => 'Money Бустер x2', 'cost' => 2000, 'category' => 'boosters', 'description' => 'Удвоенные монеты на 1 час', 'command' => 'eco give %player% booster_money 1'],
-    'частицы_огня' => ['name' => 'Частицы огня', 'cost' => 500, 'category' => 'cosmetics', 'description' => 'Огненные частицы вокруг игрока', 'command' => 'p give %player% fire_particles 1'],
-    'частицы_сердца' => ['name' => 'Частицы сердец', 'cost' => 500, 'category' => 'cosmetics', 'description' => 'Романтические сердечки', 'command' => 'p give %player% heart_particles 1'],
-    'частицы_магии' => ['name' => 'Магические частицы', 'cost' => 800, 'category' => 'cosmetics', 'description' => 'Волшебные звёздочки', 'command' => 'p give %player% magic_particles 1'],
-    'цвет_ника_золотой' => ['name' => 'Золотой ник', 'cost' => 1000, 'category' => 'cosmetics', 'description' => 'Золотой цвет ника в чате', 'command' => 'p give %player% gold_name 1'],
+    'кит_tiger' => ['name' => 'Tiger', 'cost' => 2697, 'category' => 'kits', 'description' => 'Набор Tiger', 'command' => 'kit give %player% tiger'],
+    'кит_bunny' => ['name' => 'Bunny', 'cost' => 2997, 'category' => 'kits', 'description' => 'Набор Bunny', 'command' => 'kit give %player% bunny'],
+    'кит_dhelper' => ['name' => 'DHelper', 'cost' => 3297, 'category' => 'kits', 'description' => 'Набор DHelper', 'command' => 'kit give %player% dhelper'],
+    'кит_rabbit' => ['name' => 'Rabbit', 'cost' => 4997, 'category' => 'kits', 'description' => 'Набор Rabbit', 'command' => 'kit give %player% rabbit'],
+    'кит_cobra' => ['name' => 'Cobra', 'cost' => 5997, 'category' => 'kits', 'description' => 'Набор Cobra', 'command' => 'kit give %player% cobra'],
+    'кит_vampire' => ['name' => 'Vampire', 'cost' => 6997, 'category' => 'kits', 'description' => 'Набор Vampire', 'command' => 'kit give %player% vampire'],
+    'кит_hydra' => ['name' => 'Hydra', 'cost' => 7997, 'category' => 'kits', 'description' => 'Набор Hydra', 'command' => 'kit give %player% hydra'],
+    'кит_pegas' => ['name' => 'Pegas', 'cost' => 9997, 'category' => 'kits', 'description' => 'Набор Pegas', 'command' => 'kit give %player% pegas'],
+    'кит_angel' => ['name' => 'Angel', 'cost' => 11997, 'category' => 'kits', 'description' => 'Набор Angel', 'command' => 'kit give %player% angel'],
+    'кит_pluspro' => ['name' => 'PlusPro', 'cost' => 14997, 'category' => 'kits', 'description' => 'Набор PlusPro', 'command' => 'kit give %player% pluspro'],
     'деньги_1000' => ['name' => '1000 Монет', 'cost' => 100, 'category' => 'currency', 'description' => '1000 игровых монет', 'command' => 'eco give %player% 1000'],
     'деньги_5000' => ['name' => '5000 Монет', 'cost' => 400, 'category' => 'currency', 'description' => '5000 игровых монет', 'command' => 'eco give %player% 5000'],
     'деньги_10000' => ['name' => '10000 Монет', 'cost' => 700, 'category' => 'currency', 'description' => '10000 игровых монет', 'command' => 'eco give %player% 10000'],
@@ -137,15 +126,23 @@ function supabase($method, $table, $options = []) {
     curl_close($ch);
 
     if ($response === false) {
-        return ['error' => 'Supabase connection failed'];
+        $curlError = curl_error($ch);
+        error_log("Supabase curl error ($method $url): $curlError");
+        return ['error' => 'Supabase connection failed: ' . $curlError];
     }
 
-    $data = json_decode($response, true);
+    $decoded = json_decode($response, true);
     if ($httpCode >= 400) {
-        return ['error' => $data['message'] ?? $data['error'] ?? "HTTP $httpCode"];
+        $errMsg = ($decoded['message'] ?? $decoded['error'] ?? $decoded['details'] ?? "HTTP $httpCode");
+        error_log("Supabase HTTP error ($httpCode) $method $url: $errMsg, Body: " . substr($response, 0, 500));
+        return ['error' => $errMsg];
     }
 
-    return $data;
+    if (!is_array($decoded)) {
+        return [];
+    }
+
+    return $decoded;
 }
 
 function supabaseSelect($table, $options = []) {

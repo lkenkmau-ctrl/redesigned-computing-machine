@@ -46,7 +46,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <header>
     <div class="header-inner">
         <a href="index.php" class="logo-link"><?= $site_name ?></a>
-        <nav class="nav"><a href="index.php" class="btn btn-sm btn-outline">Главная</a></nav>
+        <nav class="nav">
+    <div class="dropdown">
+        <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+        <div class="dropdown-content">
+            <a href="snake.php">🐍 Змейка</a>
+            <a href="tetris.php">🧊 Тетрис</a>
+            <a href="2048.php">🔢 2048</a>
+            <a href="tictactoe.php">⭕ Крестики-нолики</a>
+            <a href="guess.php">❓ Угадай число</a>
+            <a href="memory.php">🃏 Память</a>
+            <a href="clicker.php">👆 Кликер</a>
+            <a href="quiz.php">📝 Викторина</a>
+        </div>
+    </div>
+</nav>
     </div>
 </header>
 <div class="container">
