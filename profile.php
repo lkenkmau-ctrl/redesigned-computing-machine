@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_order'])) {
             $current = !empty($user_resp2) ? (int)$user_resp2[0]['points'] : 0;
             supabaseUpdate('users', ['points' => $current + (int)$don['cost']], 'id=eq.' . $user_id);
             $userData['points'] = $current + (int)$don['cost'];
-            $cancelMsg = '? ';
+            $cancelMsg = '✅ Заказ отменён. Средства возвращены.';
 
             // Refresh donations list
             $all_dons = supabaseSelect('donations', [
@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_order'])) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>������� - <?= htmlspecialchars($userData['username']) ?></title>
+<title>Профиль - <?= htmlspecialchars($userData['username']) ?></title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -121,8 +121,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_order'])) {
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div>
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
+                    <a href="pacman.php">👾 Пакман</a>
+                </div>
             </div>
             <a href="donate.php" class="btn btn-sm">💰 Донат</a>
             <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
@@ -134,41 +134,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_order'])) {
         <div class="card profile-sidebar">
             <div class="profile-avatar"><?= strtoupper(substr($userData['username'], 0, 1)) ?></div>
             <h2><?= htmlspecialchars($userData['username']) ?></h2>
-            <div class="nick">? <?= htmlspecialchars($userData['minecraft_nick']) ?></div>
+            <div class="nick">🎮 <?= htmlspecialchars($userData['minecraft_nick']) ?></div>
             <div class="balances">
-                <div class="bal-item"><span class="val"><?= (int)$userData['points'] ?></span><span class="lbl">? �����</span></div>
-                <div class="bal-item"><span class="val"><?= $total_spent ?></span><span class="lbl">?? ���������</span></div>
+                <div class="bal-item"><span class="val"><?= (int)$userData['points'] ?></span><span class="lbl">💰 Баллы</span></div>
+                <div class="bal-item"><span class="val"><?= $total_spent ?></span><span class="lbl">💰 Потрачено</span></div>
             </div>
             <div style="margin-top:16px;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;">
-                <a href="snake.php" class="btn btn-sm">??</a>
-                <a href="tetris.php" class="btn btn-sm btn-blue">??</a>
-                <a href="2048.php" class="btn btn-sm" style="background:#3a5a3a;">??</a>
-                <a href="wheel.php" class="btn btn-sm btn-gold">??</a>
-                <a href="scratch.php" class="btn btn-sm btn-purple">??</a>
-                <a href="tictactoe.php" class="btn btn-sm" style="background:#2a2a5a;">?</a>
-                <a href="guess.php" class="btn btn-sm" style="background:#5a3a2a;">?</a>
-                <a href="memory.php" class="btn btn-sm" style="background:#2a3a5a;">??</a>
-                <a href="clicker.php" class="btn btn-sm" style="background:#5a2a2a;">???</a>
-                <a href="quiz.php" class="btn btn-sm" style="background:#4a4a2a;">??</a>
-                <a href="donate.php" class="btn btn-sm">??</a>
+                <a href="snake.php" class="btn btn-sm">🐍</a>
+                <a href="tetris.php" class="btn btn-sm btn-blue">🧊</a>
+                <a href="2048.php" class="btn btn-sm" style="background:#3a5a3a;">🔢</a>
+                <a href="wheel.php" class="btn btn-sm btn-gold">🎡</a>
+                <a href="scratch.php" class="btn btn-sm btn-purple">🎫</a>
+                <a href="tictactoe.php" class="btn btn-sm" style="background:#2a2a5a;">⭕</a>
+                <a href="guess.php" class="btn btn-sm" style="background:#5a3a2a;">❓</a>
+                <a href="memory.php" class="btn btn-sm" style="background:#2a3a5a;">🃏</a>
+                <a href="clicker.php" class="btn btn-sm" style="background:#5a2a2a;">👆</a>
+                <a href="quiz.php" class="btn btn-sm" style="background:#4a4a2a;">📝</a>
+                <a href="donate.php" class="btn btn-sm">💰</a>
             </div>
         </div>
 
         <div class="card">
-            <h2 style="margin-top:0;">����������</h2>
+            <h2 style="margin-top:0;">Статистика</h2>
             <div class="stat-grid">
-                <div class="stat-card"><span class="val"><?= $total_levels ?></span><span class="lbl">?? ����� �������</span></div>
-                <div class="stat-card"><span class="val"><?= $total_games ?></span><span class="lbl">?? ������� ���</span></div>
-                <div class="stat-card"><span class="val" style="color:#00ff00;"><?= $snake_levels ?></span><span class="lbl">?? ������ (��.)</span></div>
-                <div class="stat-card"><span class="val" style="color:#4488ff;"><?= $tetris_levels ?></span><span class="lbl">?? ������ (��.)</span></div>
-                <div class="stat-card"><span class="val" style="color:#ffd700;"><?= $wheel_points ?></span><span class="lbl">?? ������ (��.)</span></div>
-                <div class="stat-card"><span class="val" style="color:#da70d6;"><?= $scratch_points ?></span><span class="lbl">?? ������ (��.)</span></div>
+                <div class="stat-card"><span class="val"><?= $total_levels ?></span><span class="lbl">🎯 Всего уровней</span></div>
+                <div class="stat-card"><span class="val"><?= $total_games ?></span><span class="lbl">🎮 Всего игр</span></div>
+                <div class="stat-card"><span class="val" style="color:#00ff00;"><?= $snake_levels ?></span><span class="lbl">🐍 Змейка (ур.)</span></div>
+                <div class="stat-card"><span class="val" style="color:#4488ff;"><?= $tetris_levels ?></span><span class="lbl">🧊 Тетрис (ур.)</span></div>
+                <div class="stat-card"><span class="val" style="color:#ffd700;"><?= $wheel_points ?></span><span class="lbl">🎡 Колесо (оч.)</span></div>
+                <div class="stat-card"><span class="val" style="color:#da70d6;"><?= $scratch_points ?></span><span class="lbl">🎫 Скретч (оч.)</span></div>
             </div>
 
-            <h3 style="margin-top:16px;color:#aaa;">�������� ���</h3>
+            <h3 style="margin-top:16px;color:#aaa;">Прогресс игр</h3>
             <div style="margin-bottom:12px;">
                 <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;">
-                    <span>?? ������</span><span><?= $snake_levels ?> �������</span>
+                    <span>🐍 Змейка</span><span><?= $snake_levels ?> уровней</span>
                 </div>
                 <div class="progress-bar">
                     <div class="progress-fill" style="width:min(<?= $snake_levels > 0 ? min($snake_levels * 10, 100) : 0 ?>%, 100%);background:linear-gradient(90deg,#00aa00,#00ff00);"></div>
@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_order'])) {
             </div>
             <div>
                 <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;">
-                    <span>?? ������</span><span><?= $tetris_levels ?> �������</span>
+                    <span>🧊 Тетрис</span><span><?= $tetris_levels ?> уровней</span>
                 </div>
                 <div class="progress-bar">
                     <div class="progress-fill" style="width:min(<?= $tetris_levels > 0 ? min($tetris_levels * 10, 100) : 0 ?>%, 100%);background:linear-gradient(90deg,#0044aa,#4488ff);"></div>
@@ -185,7 +185,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_order'])) {
         </div>
     </div>
 
-    <?php if ($cancelMsg): ?><div class="msg msg-success">✅ Заказ отменён. Средства возвращены.</div><?php endif; ?>
+    <?php if ($cancelMsg): ?><div class="msg msg-success"><?= $cancelMsg ?></div><?php endif; ?>
 <?php if (count($donations) > 0): ?>
     <div class="card animate-in">
         <h2>🛒 Заказы</h2>
@@ -196,7 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_order'])) {
                 <tr>
                     <td><?= htmlspecialchars($d['item_name']) ?></td>
                     <td class="status-<?= $d['status'] ?>">
-                        <?= $d['status'] === 'pending' ? '? �������' : ($d['status'] === 'completed' ? '? ������' : '? ��������') ?>
+                        <?= $d['status'] === 'pending' ? '⏳ В обработке' : ($d['status'] === 'completed' ? '✅ Выполнен' : '❌ Отменён') ?>
                     </td>
                     <td><?= (int)$d['cost'] ?> pts</td>
                     <td><?php if (in_array($d['status'], ['pending','processing'])): ?><form method='post' style='display:inline;'><input type='hidden' name='order_id' value='<?= $d['id'] ?>'><button type='submit' name='cancel_order' class='btn btn-sm btn-red'>❌ Отменить</button></form><?php endif; ?></td>
@@ -207,9 +207,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_order'])) {
     </div>
     <?php else: ?>
     <div class="card animate-in" style="text-align:center;padding:40px;">
-        <p style="font-size:40px;margin-bottom:12px;">??</p>
-        <p style="color:#888;">� ��� ���� ��� �������. ����������� ���� � ����� � ������ ���-������ � ��������!</p>
-        <a href="donate.php" class="btn" style="margin-top:16px;">������� � �������</a>
+        <p style="font-size:40px;margin-bottom:12px;">📦</p>
+        <p style="color:#888;">У тебя ещё нет заказов. Загляни в магазин и выбери что-нибудь интересное!</p>
+        <a href="donate.php" class="btn" style="margin-top:16px;">Перейти в магазин</a>
     </div>
     <?php endif; ?>
 </div>

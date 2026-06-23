@@ -69,8 +69,7 @@ $php_ver = phpversion();
                     <a href="asteroids.php">☄️ Астероиды</a>
                     <a href="pacman.php">👾 Пакман</a></div>
 
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
-            </div>
+</div>
         </nav>
     </div>
 </header>

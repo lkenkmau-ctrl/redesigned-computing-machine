@@ -87,8 +87,7 @@ foreach ($all_scratch as $s) { $total_won += (int)$s['points']; }
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
                     <a href="pacman.php">👾 Пакман</a></div>
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
-            </div>
+</div>
             <a href="donate.php" class="btn btn-sm">💰 Донат</a>
             <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
         </nav>

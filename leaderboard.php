@@ -74,8 +74,7 @@ $rank = 1;
                     <a href="asteroids.php">☄️ Астероиды</a>
                     <a href="pacman.php">👾 Пакман</a></div>
 
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
-            </div>
+</div>
             <?php if (isAuth()): ?>
             <a href="donate.php" class="btn btn-sm">💰 Донат</a>
             <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>

@@ -82,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <a href="pacman.php">👾 Пакман</a>
                 </div>
             </div>
-            <a href="games.php" class="btn btn-sm">🎮 Играть</a>
             <a href="donate.php" class="btn btn-sm">💰 Донат</a>
             <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
         </nav>
