@@ -5,7 +5,6 @@ $page_title = "Flappy Bird";
 $user_id = $_SESSION['user_id'];
 $username = $_SESSION['username'];
 
-// Handle score submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
     $score = (int)$_POST['score'];
     supabaseInsert('game_scores', [
@@ -14,7 +13,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
         'score' => $score,
         'created_at' => date('c')
     ]);
-    // Update best score
     $bests = supabaseSelect('game_scores', [
         'select' => 'score',
         'where' => "user_id=eq.$user_id&game=eq.flappy",
@@ -26,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
     exit;
 }
 
-// Get best score
 $bestData = supabaseSelect('game_scores', [
     'select' => 'score',
     'where' => "user_id=eq.$user_id&game=eq.flappy",
@@ -40,7 +37,7 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flappy Bird � DonateCraft</title>
+    <title>Flappy Bird | DonateCraft</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -80,7 +77,8 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
                 <a href="games.php" class="btn btn-sm">🎮 Играть</a>
             </div>
             <a href="donate.php" class="btn btn-sm">💰 Донат</a>
@@ -90,21 +88,21 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
 </header>
 <div class="container">
     <div class="game-wrapper">
-        <h1>?? Flappy Bird</h1>
+        <h1>🐦 Flappy Bird</h1>
         <div class="game-info-bar">
-            <div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div>
-            <div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
+            <div class="game-info-item"><span class="lbl">Счет</span><span class="val" id="scoreDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
         </div>
         <div class="game-area">
             <canvas id="gameCanvas" width="400" height="500"></canvas>
         </div>
         <div class="game-controls">
-            <button class="btn" onclick="startGame()">?? ������ / ������</button>
+            <button class="btn" onclick="startGame()">🔄 Старт / Прыжок</button>
         </div>
     </div>
 </div>
 <footer>
-    <p>DonateCraft � ����������� �������� ������ �� ����-����</p>
+    <p>DonateCraft | Наслаждайся классической игрой про птичку</p>
 </footer>
 <script>
 const canvas = document.getElementById('gameCanvas');
@@ -168,7 +166,6 @@ function update() {
         }
     }
 
-    // Collision
     if (bird.y - bird.size <= 0 || bird.y + bird.size >= canvas.height) {
         endGame(); return;
     }
@@ -184,7 +181,6 @@ function update() {
 function endGame() {
     gameOver = true;
     gameStarted = false;
-    // Submit score
     const formData = new FormData();
     formData.append('score', score);
     fetch('flappy.php', { method: 'POST', body: formData })
@@ -197,7 +193,6 @@ function draw() {
     ctx.fillStyle = '#1a0a00';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Draw ground
     ctx.fillStyle = '#2d1b00';
     ctx.fillRect(0, canvas.height - 30, canvas.width, 30);
     ctx.strokeStyle = '#ff880033';
@@ -210,7 +205,6 @@ function draw() {
     }
     ctx.stroke();
 
-    // Pipes
     for (const p of pipes) {
         ctx.fillStyle = '#cc6600';
         ctx.fillRect(p.x, 0, PIPE_W, p.topH);
@@ -220,7 +214,6 @@ function draw() {
         ctx.fillRect(p.x - 3, p.topH + GAP, PIPE_W + 6, 20);
     }
 
-    // Bird
     ctx.save();
     ctx.translate(bird.x, bird.y);
     ctx.fillStyle = '#ffcc00';
@@ -235,7 +228,6 @@ function draw() {
     ctx.beginPath();
     ctx.arc(5, -4, 2, 0, Math.PI * 2);
     ctx.fill();
-    // Beak
     ctx.fillStyle = '#ff6600';
     ctx.beginPath();
     ctx.moveTo(10, 0);
@@ -249,16 +241,16 @@ function draw() {
         ctx.fillStyle = '#ffaa33';
         ctx.font = '18px Inter, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('����� "������" ��� ������', canvas.width/2, canvas.height/2 - 20);
+        ctx.fillText('Нажми "Старт" чтобы начать', canvas.width/2, canvas.height/2 - 20);
     }
     if (gameOver) {
         ctx.fillStyle = '#ff4444';
         ctx.font = '28px Inter, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('���� ��������!', canvas.width/2, canvas.height/2);
+        ctx.fillText('Игра окончена!', canvas.width/2, canvas.height/2);
         ctx.fillStyle = '#ffaa33';
         ctx.font = '16px Inter, sans-serif';
-        ctx.fillText('����: ' + score, canvas.width/2, canvas.height/2 + 30);
+        ctx.fillText('Счет: ' + score, canvas.width/2, canvas.height/2 + 30);
     }
 }
 

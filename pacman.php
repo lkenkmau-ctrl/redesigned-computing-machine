@@ -13,13 +13,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.pacman", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>������ � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Пакман</title>
+<link rel="stylesheet" href="style.css">
+<style>
 #gameCanvas { border: 2px solid rgba(255,136,0,0.25); background: #0a0a15; border-radius: 8px; }
 .controls-hint { display: flex; gap: 4px; justify-content: center; margin: 12px 0; flex-wrap: wrap; }
 .key { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 6px 12px; font-size: 12px; color: #888; font-family: monospace; }
 .game-status { font-size: 16px; min-height: 24px; margin: 10px 0; color: #ffaa33; }
-</style></head><body>
-<header><div class="header-inner"><a href="index.php" class="logo-link">DonateCraft</a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button><div class="dropdown-content">
+</style>
+</head>
+<body>
+<header>
+    <div class="header-inner">
+        <a href="index.php" class="logo-link"><?= $site_name ?></a>
+        <nav class="nav">
+            <div class="dropdown">
+                <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+                <div class="dropdown-content">
                     <a href="snake.php">🐍 Змейка</a>
                     <a href="tetris.php">🧊 Тетрис</a>
                     <a href="2048.php">🔢 2048</a>
@@ -49,19 +64,50 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div><
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
-<div class="container"><div class="game-wrapper">
-<h1>?? ������</h1>
-<div class="game-info-bar"><div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div><div class="game-info-item"><span class="lbl">�����</span><span class="val" id="livesDisplay">3</span></div></div>
-<div class="game-status" id="statusDisplay">? ? ? ? � ������� �����, ������� ���������!</div>
-<div class="game-area"><canvas id="gameCanvas" width="400" height="400"></canvas></div>
-<div class="controls-hint">
-<span class="key">?</span><span class="key">?</span><span class="key">?</span><span class="key">?</span>
+                    <a href="pacman.php">👾 Пакман</a>
+                </div>
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
+            </div>
+            <a href="donate.php" class="btn btn-sm">💰 Донат</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <div class="game-wrapper animate-in">
+        <h1>👾 Пакман</h1>
+        <p style="color:#888;margin-bottom:16px;">Съешь все точки и убегай от призраков!</p>
+
+        <div class="game-info-bar">
+            <div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
+            <div class="game-info-item"><span class="lbl">Жизни</span><span class="val" id="livesDisplay">3</span></div>
+        </div>
+
+        <div class="game-status" id="statusDisplay">👆 Используй стрелки, чтобы двигаться!</div>
+
+        <div class="game-area">
+            <canvas id="gameCanvas" width="400" height="400"></canvas>
+        </div>
+
+        <div class="controls-hint">
+            <span class="key">←</span>
+            <span class="key">↑</span>
+            <span class="key">→</span>
+            <span class="key">↓</span>
+        </div>
+
+        <div class="game-controls">
+            <button class="btn" onclick="resetGame()" style="min-width:140px;">🔄 Новая игра</button>
+            <a href="profile.php" class="btn btn-outline">Выйти</a>
+        </div>
+
+        <div style="margin-top:16px;background:rgba(22,33,62,0.5);border-radius:10px;padding:16px;text-align:left;font-size:13px;color:#888;">
+            <strong style="color:#aaa;">Правила:</strong> Съедай все точки на карте. Большие точки дают +50 и делают призраков уязвимыми — съешь их за +200! Не попадись призракам. У тебя 3 жизни. Удачи!
+        </div>
+    </div>
 </div>
-<div class="game-controls"><button class="btn" onclick="resetGame()">?? ����� ����</button></div>
-</div></div>
-<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
+
 <script>
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
@@ -123,7 +169,7 @@ function resetGame() {
     totalDots = countDots();
     scoreDisplay.textContent = '0';
     livesDisplay.textContent = '3';
-    statusDisplay.textContent = '? ? ? ? � ������� �����, ������� ���������!';
+    statusDisplay.textContent = '👆 Используй стрелки, чтобы двигаться!';
     window.pacNextDir = 0;
     draw();
 }
@@ -145,12 +191,11 @@ function getCell(col, row) {
 }
 
 function moveEntity(entity, speed) {
-    const dirs = [[0,-1],[1,0],[0,1],[-1,0]]; // up, right, down, left
+    const dirs = [[0,-1],[1,0],[0,1],[-1,0]];
     const d = dirs[entity.dir];
     let nx = entity.x + d[0] * speed * 0.05;
     let ny = entity.y + d[1] * speed * 0.05;
 
-    // Tunnel wrap
     if (nx < -0.5) nx = COLS - 0.5;
     if (nx > COLS - 0.5) nx = -0.5;
 
@@ -161,24 +206,11 @@ function moveEntity(entity, speed) {
         entity.x = nx;
         entity.y = ny;
     } else {
-        // Bounce back
         entity.x = Math.round(entity.x);
         entity.y = Math.round(entity.y);
-        return true; // blocked
+        return true;
     }
     return false;
-}
-
-function getRandomDir(col, row, exclude) {
-    const dirs = [[0,-1],[1,0],[0,1],[-1,0]];
-    const opts = [];
-    for (let i = 0; i < 4; i++) {
-        if (i === exclude) continue;
-        const nc = col + dirs[i][0], nr = row + dirs[i][1];
-        if (isWalkable(nc, nr)) opts.push(i);
-    }
-    if (opts.length === 0) return exclude;
-    return opts[Math.floor(Math.random() * opts.length)];
 }
 
 function moveGhosts() {
@@ -204,7 +236,6 @@ function moveGhosts() {
                 if (isWalkable(nc, nr)) options.push(i);
             }
 
-            // Chase AI: prefer direction toward pacman
             if (options.length > 1 && !g.frightened) {
                 let bestDir = options[0];
                 let bestDist = Infinity;
@@ -246,16 +277,15 @@ function checkGhostCollision() {
                 g.frightened = false;
                 g.x = 9; g.y = 8; g.inHouse = true;
                 scoreDisplay.textContent = score;
-                statusDisplay.textContent = '?? ������� ������! +200';
+                statusDisplay.textContent = '🎉 Съел призрака! +200';
             } else {
                 lives--;
                 livesDisplay.textContent = lives;
                 if (lives <= 0) { endGame(false); return true; }
-                // Respawn pacman
                 pacman.x = 9; pacman.y = 15; pacman.dir = 0;
                 for (const gh of ghosts) { gh.x = 9; gh.y = 8; gh.inHouse = true; gh.frightened = false; }
-                statusDisplay.textContent = '?? �������� �����!';
-                setTimeout(() => { statusDisplay.textContent = '? ? ? ? � ������� �����!'; }, 1000);
+                statusDisplay.textContent = '😵 Потерял жизнь!';
+                setTimeout(() => { statusDisplay.textContent = '👆 Используй стрелки!'; }, 1000);
                 return true;
             }
         }
@@ -266,7 +296,6 @@ function checkGhostCollision() {
 function update() {
     if (gameOver) return;
 
-    // Pacman direction
     if (window.pacNextDir !== undefined) {
         const dirs = [[0,-1],[1,0],[0,1],[-1,0]];
         const d = dirs[window.pacNextDir];
@@ -300,9 +329,9 @@ function update() {
 function endGame(won) {
     gameOver = true;
     if (won) {
-        statusDisplay.textContent = `?? ������! ��� ����� �������! ����: ${score}`;
+        statusDisplay.textContent = `🎉 Победа! Все точки съедены! Счёт: ${score}`;
     } else {
-        statusDisplay.textContent = `?? ���� ��������! ����: ${score}`;
+        statusDisplay.textContent = `💀 Игра окончена! Счёт: ${score}`;
     }
     if (!saved) {
         saved = true;
@@ -318,7 +347,6 @@ function endGame(won) {
 function draw() {
     ctx.fillStyle = '#0a0a15'; ctx.fillRect(0, 0, W, H);
 
-    // Maze
     for (let r = 0; r < ROWS; r++) {
         for (let c = 0; c < COLS; c++) {
             const x = c * TS, y = r * TS;
@@ -339,7 +367,6 @@ function draw() {
         }
     }
 
-    // Ghost house
     for (let r = 7; r <= 9; r++) {
         for (let c = 8; c <= 11; c++) {
             if (maze[r][c] === 3) {
@@ -348,15 +375,14 @@ function draw() {
         }
     }
 
-    // Pacman
     const px = pacman.x * TS + TS/2, py = pacman.y * TS + TS/2;
     ctx.fillStyle = '#ffcc00';
     ctx.shadowColor = '#ffcc00'; ctx.shadowBlur = 8;
     const mouth = 0.2 + 0.15 * Math.sin(Date.now() / 100);
     const angles = [ -Math.PI/2 + mouth, Math.PI/2 - mouth,
-                    0 + mouth, Math.PI - mouth,
-                    Math.PI/2 + mouth, Math.PI*3/2 - mouth,
-                    Math.PI + mouth, -mouth ];
+                     0 + mouth, Math.PI - mouth,
+                     Math.PI/2 + mouth, Math.PI*3/2 - mouth,
+                     Math.PI + mouth, -mouth ];
     const startAngle = angles[pacman.dir * 2] || -mouth;
     const endAngle = angles[pacman.dir * 2 + 1] || Math.PI * 2 - mouth;
     ctx.beginPath();
@@ -364,7 +390,6 @@ function draw() {
     ctx.lineTo(px, py); ctx.closePath(); ctx.fill();
     ctx.shadowBlur = 0;
 
-    // Ghosts
     for (const g of ghosts) {
         const gx = g.x * TS + TS/2, gy = g.y * TS + TS/2;
         ctx.fillStyle = g.frightened ? '#4466cc' : g.color;
@@ -378,7 +403,6 @@ function draw() {
         }
         ctx.closePath(); ctx.fill();
         ctx.shadowBlur = 0;
-        // Eyes
         if (!g.frightened) {
             ctx.fillStyle = '#fff';
             ctx.beginPath(); ctx.arc(gx - 3, gy - 5, 2.5, 0, Math.PI * 2); ctx.fill();
@@ -395,10 +419,10 @@ function draw() {
         ctx.fillStyle = '#ffcc00';
         ctx.font = 'bold 28px Inter, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('?? ���� ��������!', W/2, H/2 - 20);
+        ctx.fillText('💀 Игра окончена!', W/2, H/2 - 20);
         ctx.fillStyle = '#ffaa33';
         ctx.font = '18px Inter, sans-serif';
-        ctx.fillText('����: ' + score, W/2, H/2 + 20);
+        ctx.fillText('Счёт: ' + score, W/2, H/2 + 20);
     }
 }
 
@@ -420,4 +444,6 @@ document.addEventListener('keydown', e => {
 
 resetGame();
 gameLoop();
-</script></body></html>
+</script>
+</body>
+</html>

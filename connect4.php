@@ -13,11 +13,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.connect4", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>������ � ��� � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>4 в ряд</title>
+<link rel="stylesheet" href="style.css">
+<style>
 #connectCanvas { border: 2px solid rgba(255,136,0,0.25); background: #1a0a00; border-radius: 8px; cursor: pointer; }
 .game-status { font-size: 18px; font-weight: 600; min-height: 30px; margin: 10px 0; color: #ffaa33; }
-</style></head><body>
-<header><div class="header-inner"><a href="index.php" class="logo-link">DonateCraft</a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button><div class="dropdown-content">
+</style>
+</head>
+<body>
+<header>
+    <div class="header-inner">
+        <a href="index.php" class="logo-link"><?= $site_name ?></a>
+        <nav class="nav">
+            <div class="dropdown">
+                <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+                <div class="dropdown-content">
                     <a href="snake.php">🐍 Змейка</a>
                     <a href="tetris.php">🧊 Тетрис</a>
                     <a href="2048.php">🔢 2048</a>
@@ -47,16 +62,42 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div><
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
-<div class="container"><div class="game-wrapper">
-<h1>?? ������ � ���</h1>
-<div class="game-info-bar"><div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div></div>
-<div class="game-status" id="statusDisplay">���� ��� � ������ �������</div>
-<div class="game-area"><canvas id="connectCanvas" width="490" height="420"></canvas></div>
-<div class="game-controls"><button class="btn" onclick="resetGame()">?? ����� ����</button></div>
-</div></div>
-<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
+                    <a href="pacman.php">👾 Пакман</a>
+                </div>
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
+            </div>
+            <a href="donate.php" class="btn btn-sm">💰 Донат</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <div class="game-wrapper animate-in">
+        <h1>🔴 4 в ряд</h1>
+        <p style="color:#888;margin-bottom:16px;">Собери 4 фишки в ряд раньше компьютера!</p>
+
+        <div class="game-info-bar">
+            <div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
+        </div>
+
+        <div class="game-status" id="statusDisplay">Твой ход — нажми на колонку</div>
+
+        <div class="game-area">
+            <canvas id="connectCanvas" width="490" height="420"></canvas>
+        </div>
+
+        <div class="game-controls">
+            <button class="btn" onclick="resetGame()" style="min-width:140px;">🔄 Новая игра</button>
+            <a href="profile.php" class="btn btn-outline">Выйти</a>
+        </div>
+
+        <div style="margin-top:16px;background:rgba(22,33,62,0.5);border-radius:10px;padding:16px;text-align:left;font-size:13px;color:#888;">
+            <strong style="color:#aaa;">Правила:</strong> Кликай на колонку, чтобы бросить красную фишку. Собери 4 в ряд по горизонтали, вертикали или диагонали. Победа = +200 очков. Удачи!
+        </div>
+    </div>
+</div>
+
 <script>
 const canvas = document.getElementById('connectCanvas');
 const ctx = canvas.getContext('2d');
@@ -73,7 +114,7 @@ function initBoard() {
     gameOver = false;
     score = 0;
     saved = false;
-    statusDisplay.textContent = '���� ��� � ������ �������';
+    statusDisplay.textContent = 'Твой ход — нажми на колонку';
     scoreDisplay.textContent = '0';
 }
 
@@ -87,7 +128,7 @@ function dropPiece(col) {
             if (checkWin(col, r, 'red')) { endGame('win'); return true; }
             if (isFull()) { endGame('draw'); return true; }
             currentPlayer = 'yellow';
-            statusDisplay.textContent = '��� ��...';
+            statusDisplay.textContent = 'Бот думает...';
             draw();
             setTimeout(aiMove, 400);
             return true;
@@ -108,7 +149,7 @@ function aiMove() {
             if (checkWin(col, r, 'yellow')) { draw(); endGame('lose'); return; }
             if (isFull()) { draw(); endGame('draw'); return; }
             currentPlayer = 'red';
-            statusDisplay.textContent = '���� ��� � ������ �������';
+            statusDisplay.textContent = 'Твой ход — нажми на колонку';
             draw();
             return;
         }
@@ -136,9 +177,9 @@ function checkWin(col, row, player) {
 
 function endGame(result) {
     gameOver = true;
-    if (result === 'win') { score = 200; statusDisplay.textContent = '?? �� �������! +200 �����'; }
-    else if (result === 'lose') { score = 0; statusDisplay.textContent = '?? �� �������!'; }
-    else { score = 50; statusDisplay.textContent = '?? �����! +50 �����'; }
+    if (result === 'win') { score = 200; statusDisplay.textContent = '🎉 Ты выиграл! +200 очков'; }
+    else if (result === 'lose') { score = 0; statusDisplay.textContent = '😵 Компьютер выиграл!'; }
+    else { score = 50; statusDisplay.textContent = '🤝 Ничья! +50 очков'; }
     scoreDisplay.textContent = score;
     if (!saved) {
         saved = true;
@@ -181,4 +222,6 @@ canvas.addEventListener('click', e => {
 });
 
 initBoard(); draw();
-</script></body></html>
+</script>
+</body>
+</html>

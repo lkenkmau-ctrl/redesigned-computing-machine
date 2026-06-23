@@ -13,14 +13,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.minesweeper", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>���� � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Сапёр | DonateCraft</title><link rel="stylesheet" href="style.css"><style>
 #minesweeperGrid { display: inline-grid; grid-template-columns: repeat(9, 36px); gap: 2px; margin: 10px auto; user-select: none; }
 .cell { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; border-radius: 4px; cursor: pointer; transition: all 0.1s; }
 .cell.hidden { background: rgba(255,136,0,0.15); border: 1px solid rgba(255,136,0,0.2); }
 .cell.hidden:hover { background: rgba(255,136,0,0.25); }
 .cell.revealed { background: rgba(40,22,5,0.5); border: 1px solid rgba(255,136,0,0.08); cursor: default; }
 .cell.flagged { background: rgba(255,0,0,0.1); border: 1px solid rgba(255,0,0,0.25); }
-.cell.flagged::after { content: '?'; }
+.cell.flagged::after { content: '🚩'; }
 .cell.mine { background: rgba(255,0,0,0.15); border: 1px solid rgba(255,0,0,0.2); }
 .cell.mine-hit { background: rgba(255,0,0,0.5); border: 1px solid #ff0000; }
 .game-message { font-size: 18px; font-weight: 600; min-height: 30px; margin: 10px 0; color: #ffaa33; }
@@ -55,16 +55,23 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div><
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
+            </div>
+            <a href="donate.php" class="btn btn-sm">💰 Донат</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+        </nav>
+    </div>
+</header>
 <div class="container"><div class="game-wrapper">
-<h1>?? ����</h1>
-<div class="game-info-bar"><div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div></div>
+<h1>💣 Сапёр</h1>
+<div class="game-info-bar"><div class="game-info-item"><span class="lbl">Счет</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div></div>
 <div class="game-area"><div id="minesweeperGrid"></div></div>
 <div id="gameMessage" class="game-message"></div>
-<div class="game-controls"><button class="btn" onclick="resetGame()">?? ����� ����</button></div>
+<div class="game-controls"><button class="btn" onclick="resetGame()">🔄 Новая игра</button></div>
 </div></div>
-<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
+<footer><p>DonateCraft | Наслаждайся классической игрой про птичку</p></footer>
 <script>
 const ROWS = 9, COLS = 9, MINES = 10;
 const TOTAL_SAFE = ROWS * COLS - MINES;
@@ -133,7 +140,7 @@ function reveal(r, c) {
     revealedCount++;
     if (cell.mine) {
         cell.el.className = 'cell mine-hit';
-        cell.el.textContent = '??';
+        cell.el.textContent = '💣';
         gameOver = true;
         revealAllMines();
         endGame(false);
@@ -154,7 +161,7 @@ function revealAllMines() {
         for (let c = 0; c < COLS; c++)
             if (grid[r][c].mine && !grid[r][c].revealed) {
                 grid[r][c].el.className = 'cell mine';
-                grid[r][c].el.textContent = '??';
+                grid[r][c].el.textContent = '💣';
             }
 }
 
@@ -182,7 +189,7 @@ function endGame(won) {
     gameOver = true;
     const finalScore = revealedCount * 10;
     scoreDisplay.textContent = finalScore;
-    document.getElementById('gameMessage').textContent = won ? '?? ������! ��� ���� �����������!' : '?? ���! �� ��������� �� ����!';
+    document.getElementById('gameMessage').textContent = won ? '🎉 Победа! Ты всё обезвредил!' : '💥 Бум! Ты наступил на мину!';
     if (scoreSubmitted) return;
     scoreSubmitted = true;
     const formData = new FormData();

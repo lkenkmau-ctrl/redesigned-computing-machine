@@ -13,7 +13,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.hanoi", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>��������� ����� � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ханойская башня</title>
+<link rel="stylesheet" href="style.css">
+<style>
 .hanoi-container{display:flex;gap:20px;justify-content:center;align-items:flex-end;margin:30px 0;height:260px;padding:0 10px}
 .peg-wrapper{display:flex;flex-direction:column;align-items:center;width:140px;cursor:pointer;position:relative}
 .peg-wrapper:hover .peg-pole{box-shadow:0 0 15px rgba(255,136,0,0.15)}
@@ -31,8 +38,16 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
 .hanoi-info{font-size:15px;color:#ffaa33;margin:10px 0;min-height:24px}
 .hanoi-hud{display:flex;gap:20px;justify-content:center;margin:10px 0;flex-wrap:wrap}
 .hanoi-hud span{background:rgba(40,22,5,0.6);padding:6px 16px;border-radius:8px;border:1px solid rgba(255,136,0,0.1);font-size:14px}
-</style></head><body>
-<header><div class="header-inner"><a href="index.php" class="logo-link">DonateCraft</a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button><div class="dropdown-content">
+</style>
+</head>
+<body>
+<header>
+    <div class="header-inner">
+        <a href="index.php" class="logo-link"><?= $site_name ?></a>
+        <nav class="nav">
+            <div class="dropdown">
+                <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+                <div class="dropdown-content">
                     <a href="snake.php">🐍 Змейка</a>
                     <a href="tetris.php">🧊 Тетрис</a>
                     <a href="2048.php">🔢 2048</a>
@@ -62,24 +77,44 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div><
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
-<div class="container"><div class="game-wrapper">
-<h1>?? ��������� �����</h1>
-<div class="game-info-bar"><div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div></div>
-<div class="game-area">
-<div>
-<div class="hanoi-hud">
-<span>?? ����: <span id="movesDisplay">0</span></span>
-<span>?? ���. �����: 15</span>
+                    <a href="pacman.php">👾 Пакман</a>
+                </div>
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
+            </div>
+            <a href="donate.php" class="btn btn-sm">💰 Донат</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <div class="game-wrapper animate-in">
+        <h1>🗼 Ханойская башня</h1>
+        <p style="color:#888;margin-bottom:16px;">Переложи все диски с A на C, соблюдая правила!</p>
+
+        <div class="game-info-bar">
+            <div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
+        </div>
+
+        <div class="hanoi-hud">
+            <span>🔄 Ходов: <span id="movesDisplay">0</span></span>
+            <span>🎯 Мин. ходов: 15</span>
+        </div>
+
+        <div class="hanoi-container" id="hanoiContainer"></div>
+        <div class="hanoi-info" id="hanoiInfo">Кликни на стержень, чтобы взять верхний диск, кликни другой, чтобы положить</div>
+
+        <div class="game-controls">
+            <button class="btn" onclick="resetGame()" style="min-width:140px;">🔄 Новая игра</button>
+            <a href="profile.php" class="btn btn-outline">Выйти</a>
+        </div>
+
+        <div style="margin-top:16px;background:rgba(22,33,62,0.5);border-radius:10px;padding:16px;text-align:left;font-size:13px;color:#888;">
+            <strong style="color:#aaa;">Правила:</strong> За один ход можно переместить только один диск. Нельзя класть больший диск на меньший. Цель: перенести все диски на стержень C. Меньше ходов = выше счёт! Удачи!
+        </div>
+    </div>
 </div>
-<div class="hanoi-container" id="hanoiContainer"></div>
-<div class="hanoi-info" id="hanoiInfo">����� �� �������, ����� ����� ������� ����, ����� ����� ������, ����� ���������</div>
-</div>
-</div>
-<div class="game-controls"><button class="btn" onclick="resetGame()">?? ����� ����</button></div>
-</div></div>
-<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
+
 <script>
 const NUM_DISKS = 4;
 const NUM_PEGS = 3;
@@ -106,14 +141,14 @@ function resetGame() {
   gameComplete = false;
   movesDisplay.textContent = '0';
   scoreDisplay.textContent = '0';
-  hanoiInfo.textContent = '����� �� �������, ����� ����� ������� ����, ����� ����� ������, ����� ���������';
+  hanoiInfo.textContent = 'Кликни на стержень, чтобы взять верхний диск, кликни другой, чтобы положить';
   render();
 }
 
 function render() {
   container.innerHTML = '';
   const labels = ['A', 'B', 'C'];
-  const titles = ['������', '��������', '����'];
+  const titles = ['Старт', 'Помощник', 'Цель'];
   for (let p = 0; p < NUM_PEGS; p++) {
     const wrapper = document.createElement('div');
     wrapper.className = 'peg-wrapper';
@@ -152,17 +187,17 @@ function clickPeg(pegIdx) {
   if (!gameActive || gameComplete) return;
   if (selectedPeg === null) {
     if (pegs[pegIdx].length === 0) {
-      hanoiInfo.textContent = '?? �� ���� ������� ��� ������';
+      hanoiInfo.textContent = '❌ На этом стержне нет дисков';
       return;
     }
     selectedPeg = pegIdx;
-    hanoiInfo.textContent = '������ ������� ' + (pegIdx === 0 ? 'A' : pegIdx === 1 ? 'B' : 'C') + '. ������� ���� ��������� ����.';
+    hanoiInfo.textContent = 'Взял стержень ' + (pegIdx === 0 ? 'A' : pegIdx === 1 ? 'B' : 'C') + '. Нажми на другой стержень.';
     render();
     return;
   }
   if (selectedPeg === pegIdx) {
     selectedPeg = null;
-    hanoiInfo.textContent = '��������. ������� ������� � ������.';
+    hanoiInfo.textContent = 'Отмена. Нажми на любой стержень.';
     render();
     return;
   }
@@ -170,7 +205,7 @@ function clickPeg(pegIdx) {
   const dstPeg = pegs[pegIdx];
   const topDisk = srcPeg[srcPeg.length - 1];
   if (dstPeg.length > 0 && dstPeg[dstPeg.length - 1] < topDisk) {
-    hanoiInfo.textContent = '? ������ �������� ������� ���� �� �������!';
+    hanoiInfo.textContent = '❌ Нельзя положить больший диск на меньший!';
     selectedPeg = null;
     render();
     return;
@@ -179,7 +214,7 @@ function clickPeg(pegIdx) {
   moves++;
   movesDisplay.textContent = moves;
   selectedPeg = null;
-  hanoiInfo.textContent = '��� ' + moves + '. ���� ���������.';
+  hanoiInfo.textContent = 'Ход ' + moves + '. Диск перемещён.';
   render();
 }
 
@@ -190,7 +225,7 @@ function checkWin() {
     const extra = Math.max(0, moves - MIN_MOVES);
     const score = Math.max(0, 500 - extra * 10);
     scoreDisplay.textContent = score;
-    hanoiInfo.textContent = '?? ������! �� ������ �� ' + moves + ' �����! ����: ' + score;
+    hanoiInfo.textContent = '🎉 Победа! Ты справился за ' + moves + ' ходов! Счёт: ' + score;
     const formData = new FormData();
     formData.append('score', score);
     fetch('hanoi.php', { method: 'POST', body: formData })
@@ -201,4 +236,6 @@ function checkWin() {
 }
 
 resetGame();
-</script></body></html>
+</script>
+</body>
+</html>

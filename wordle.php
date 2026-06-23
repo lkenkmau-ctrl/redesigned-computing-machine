@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.wordle", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>������ � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Вордли | DonateCraft</title><link rel="stylesheet" href="style.css"><style>
 .wordle-grid { display: flex; flex-direction: column; gap: 4px; margin: 0 auto; width: fit-content; }
 .wordle-row { display: flex; gap: 4px; }
 .wordle-cell { width: 52px; height: 52px; border: 2px solid rgba(255,136,0,0.2); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; text-transform: uppercase; background: rgba(30,16,4,0.8); color: #e8d5b0; transition: all 0.3s; }
@@ -64,33 +64,39 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div><
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
+            </div>
+            <a href="donate.php" class="btn btn-sm">💰 Донат</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+        </nav>
+    </div>
+</header>
 <div class="container"><div class="game-wrapper">
-<h1>?? ������</h1>
+<h1>🔤 Вордли</h1>
 <div class="game-info-bar">
-<div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div>
-<div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
-<div class="game-info-item"><span class="lbl">�������</span><span class="val" id="attemptDisplay">1 / 6</span></div>
+<div class="game-info-item"><span class="lbl">Счет</span><span class="val" id="scoreDisplay">0</span></div>
+<div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
+<div class="game-info-item"><span class="lbl">Попытка</span><span class="val" id="attemptDisplay">1 / 6</span></div>
 </div>
 <div class="game-area">
 <div id="gameArea"></div>
 <div id="statusMsg"></div>
 </div>
 <div class="game-controls">
-<button class="btn" onclick="submitGuess()">? ���������</button>
-<button class="btn" onclick="newGame()">?? ����� ����</button>
+<button class="btn" onclick="submitGuess()">✅ Проверить</button>
+<button class="btn" onclick="newGame()">🔄 Новая игра</button>
 </div>
 </div></div>
-<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
+<footer><p>DonateCraft | Наслаждайся классической игрой про птичку</p></footer>
 <script>
 const wordBank = [
-    '�����','�����','�����','�����','�����','�����','�����','�����',
-    '�����','�����','�����','�����','�����','�����','�����','�����',
-    '�����','�����','�����','�����','�����','�����','�����','�����',
-    '�����','�����','�����','�����','�����','�����','����','�����',
-    '�����','�����','�����','�����','�����','�����','�����','�����',
-    '�����','�����','�����','�����','����'
+    'книга','ручка','парта','лампа','кошка','мышка','короб','карта','озеро','дверь',
+    'вечер','весна','осень','город','стена','крыша','труба','печка','рыбка','птица',
+    'зверь','трава','земля','ночка','песок','ветер','мороз','ложка','вилка','чашка',
+    'миска','топор','игла','нитка','лента','брошь','речка','сосна','ягода','палка',
+    'пятно','солнце','дерево','цветок','камень','звезда'
 ];
 
 let targetWord = '';
@@ -142,9 +148,9 @@ function renderKeyboard() {
     kb.className = 'wordle-keyboard';
 
     const rows = [
-        ['�','�','�','�','�','�','�','�','�','�','�'],
-        ['�','�','�','�','�','�','�','�','�','�','�'],
-        ['Enter','�','�','�','�','�','�','�','�','�','Backspace']
+        ['Й','Ц','У','К','Е','Н','Г','Ш','Щ','З','Х'],
+        ['Ф','Ы','В','А','П','Р','О','Л','Д','Ж','Э'],
+        ['Enter','Я','Ч','С','М','И','Т','Ь','Б','Ю','Backspace']
     ];
 
     for (const row of rows) {
@@ -154,7 +160,7 @@ function renderKeyboard() {
             const btn = document.createElement('button');
             btn.className = 'wordle-key';
             if (key === 'Enter' || key === 'Backspace') btn.classList.add('wide');
-            btn.textContent = key === 'Backspace' ? '?' : key;
+            btn.textContent = key === 'Backspace' ? '⌫' : key;
             btn.dataset.key = key;
             btn.addEventListener('click', () => handleKeyClick(key));
             rowDiv.appendChild(btn);
@@ -175,7 +181,7 @@ function handleKeyClick(key) {
         return;
     }
     if (currentInput.length < cols) {
-        currentInput += key;
+        currentInput += key.toLowerCase();
         updateCurrentRow();
     }
 }
@@ -183,7 +189,7 @@ function handleKeyClick(key) {
 function updateCurrentRow() {
     for (let c = 0; c < cols; c++) {
         const cell = document.getElementById('cell_' + currentRow + '_' + c);
-        cell.textContent = currentInput[c] || '';
+        cell.textContent = currentInput[c] ? currentInput[c].toUpperCase() : '';
         cell.className = 'wordle-cell' + (currentInput[c] ? ' filled' : '');
     }
 }
@@ -191,11 +197,11 @@ function updateCurrentRow() {
 function submitGuess() {
     if (gameFinished) return;
     if (currentInput.length !== cols) {
-        document.getElementById('statusMsg').textContent = '?? ������� 5 ����';
+        document.getElementById('statusMsg').textContent = '❌ Введите 5 букв';
         return;
     }
     if (!wordBank.includes(currentInput)) {
-        document.getElementById('statusMsg').textContent = '?? ������ ����� ��� � ������';
+        document.getElementById('statusMsg').textContent = '❌ Нет такого слова в списке';
         return;
     }
 
@@ -228,10 +234,10 @@ function submitGuess() {
     for (let i = 0; i < cols; i++) {
         const cell = document.getElementById('cell_' + currentRow + '_' + i);
         cell.className = 'wordle-cell ' + result[i];
-        cell.textContent = guess[i];
+        cell.textContent = guess[i].toUpperCase();
         const keys = document.querySelectorAll('.wordle-key');
         keys.forEach(k => {
-            if (k.dataset.key === guess[i]) {
+            if (k.dataset.key.toLowerCase() === guess[i]) {
                 if (result[i] === 'green') k.className = 'wordle-key green';
                 else if (result[i] === 'yellow' && !k.classList.contains('green')) k.className = 'wordle-key yellow';
                 else if (result[i] === 'gray' && !k.classList.contains('green') && !k.classList.contains('yellow')) k.className = 'wordle-key gray';
@@ -247,7 +253,7 @@ function submitGuess() {
         gameFinished = true;
         const score = (7 - currentRow) * 100;
         document.getElementById('scoreDisplay').textContent = score;
-        document.getElementById('statusMsg').textContent = '?? �������! �����: ' + target + '. ����: ' + score;
+        document.getElementById('statusMsg').textContent = '🎉 Угадал! Слово: ' + target.toUpperCase() + '. Счет: ' + score;
         const formData = new FormData();
         formData.append('score', score);
         fetch('wordle.php', { method: 'POST', body: formData })
@@ -256,7 +262,7 @@ function submitGuess() {
             .catch(() => {});
     } else if (currentRow >= 6) {
         gameFinished = true;
-        document.getElementById('statusMsg').textContent = '?? ��������! �����: ' + target;
+        document.getElementById('statusMsg').textContent = '💀 Проигрыш! Слово: ' + target.toUpperCase();
         const formData = new FormData();
         formData.append('score', 0);
         fetch('wordle.php', { method: 'POST', body: formData })
@@ -272,8 +278,8 @@ function submitGuess() {
 document.addEventListener('keydown', e => {
     if (e.key === 'Enter') { e.preventDefault(); submitGuess(); return; }
     if (e.key === 'Backspace') { e.preventDefault(); handleKeyClick('Backspace'); return; }
-    const key = e.key.toUpperCase();
-    if (/^[�-ߨ]$/.test(key) || /^[A-Z]$/.test(key)) handleKeyClick(key);
+    const key = e.key.toLowerCase();
+    if (/^[а-яё]$/i.test(key)) handleKeyClick(key);
 });
 
 newGame();

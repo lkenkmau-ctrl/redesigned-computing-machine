@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>������ �����</title>
+<title>Угадай число</title>
 <link rel="stylesheet" href="style.css">
 <style>
 .guess-area { max-width: 500px; margin: 20px auto; }
@@ -56,7 +56,8 @@
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
                 <a href="games.php" class="btn btn-sm">🎮 Играть</a>
             </div>
             <a href="donate.php" class="btn btn-sm">💰 Донат</a>
@@ -66,13 +67,13 @@
 </header>
 <div class="container">
     <div class="game-wrapper animate-in">
-        <h1>?? ������ �����</h1>
-        <p style="color:#888;margin-bottom:16px;">� ������� ����� �� 1 �� 100. �������� �������!</p>
+        <h1>❓ Угадай число</h1>
+        <p style="color:#888;margin-bottom:16px;">Я загадал число от 1 до 100. Попробуй угадать!</p>
 
         <div class="game-info-bar">
-            <div class="game-info-item"><span class="lbl">�������</span><span class="val" id="attemptsDisplay">0</span></div>
-            <div class="game-info-item"><span class="lbl">��������</span><span class="val" id="remainingDisplay">10</span></div>
-            <div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">100</span></div>
+            <div class="game-info-item"><span class="lbl">Попытки</span><span class="val" id="attemptsDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Осталось</span><span class="val" id="remainingDisplay">10</span></div>
+            <div class="game-info-item"><span class="lbl">Счет</span><span class="val" id="scoreDisplay">100</span></div>
         </div>
 
         <div class="guess-area">
@@ -82,8 +83,8 @@
             <div class="guess-history" id="historyDisplay"></div>
             <div class="guess-attempts" id="attemptsInfo"></div>
             <div class="game-controls">
-                <button id="guessBtn" class="btn">? ���������</button>
-                <button id="newGameBtn" class="btn btn-outline">?? ����� ����</button>
+                <button id="guessBtn" class="btn">✅ Проверить</button>
+                <button id="newGameBtn" class="btn btn-outline">🔄 Новая игра</button>
             </div>
             <div id="result" style="font-size:18px;font-weight:600;min-height:30px;margin-top:12px;"></div>
         </div>
@@ -142,7 +143,7 @@ guessBtn.addEventListener('click', () => {
     if (gameOver) return;
     let val = parseInt(guessInput.value);
     if (isNaN(val) || val < 1 || val > 100) {
-        hintDisplay.innerHTML = '<span style="color:#ff6666;">������� ����� �� 1 �� 100</span>';
+        hintDisplay.innerHTML = '<span style="color:#ff6666;">Введите число от 1 до 100</span>';
         return;
     }
     attempts++;
@@ -156,17 +157,17 @@ guessBtn.addEventListener('click', () => {
         guessDisplay.style.color = '#ffd700';
         addHistory(val, 'correct');
         let score = Math.max(0, 100 - attempts * 10);
-        hintDisplay.innerHTML = '?? <strong style="color:#00ff00;">���������!</strong> ��� ���� ����� ' + target;
+        hintDisplay.innerHTML = '🎉 <strong style="color:#00ff00;">Угадал!</strong> Это было число ' + target;
 
         if (!saved) {
             saved = true;
             fetch('api.php?action=save_score&game=guess&level=1&points=' + score)
                 .then(r => r.text())
                 .then(t => {
-                    resultDiv.innerHTML = '? +<strong style="color:#ffd700;">' + score + '</strong> ����� ���������!';
+                    resultDiv.innerHTML = '🎯 +<strong style="color:#ffd700;">' + score + '</strong> поинтов начислено!';
                 })
                 .catch(() => {
-                    resultDiv.innerHTML = '?? ������ ����������.';
+                    resultDiv.innerHTML = '❌ Ошибка сохранения.';
                 });
         }
         updateStats();
@@ -174,10 +175,10 @@ guessBtn.addEventListener('click', () => {
     }
 
     if (val < target) {
-        hintDisplay.innerHTML = '?? <strong>������!</strong> ���������� ����� ������ <strong style="color:#ff6666;">' + val + '</strong>';
+        hintDisplay.innerHTML = '⬆️ <strong>Больше!</strong> Загаданное число больше <strong style="color:#ff6666;">' + val + '</strong>';
         addHistory(val, 'low');
     } else {
-        hintDisplay.innerHTML = '?? <strong>������!</strong> ���������� ����� ������ <strong style="color:#6688ff;">' + val + '</strong>';
+        hintDisplay.innerHTML = '⬇️ <strong>Меньше!</strong> Загаданное число меньше <strong style="color:#6688ff;">' + val + '</strong>';
         addHistory(val, 'high');
     }
 
@@ -186,8 +187,8 @@ guessBtn.addEventListener('click', () => {
         guessInput.disabled = true;
         guessBtn.disabled = true;
         guessDisplay.textContent = target;
-        hintDisplay.innerHTML = '?? ������� �����������. ���� �������� <strong style="color:#ffd700;">' + target + '</strong>';
-        resultDiv.innerHTML = '?? ����� ����� ����!';
+        hintDisplay.innerHTML = '💀 Попытки кончились. Было загадано <strong style="color:#ffd700;">' + target + '</strong>';
+        resultDiv.innerHTML = '😢 В другой раз повезёт!';
     }
 
     guessInput.value = '';

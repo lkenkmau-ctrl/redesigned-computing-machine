@@ -13,13 +13,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.balloon", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>������ � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Шарики</title>
+<link rel="stylesheet" href="style.css">
+<style>
 #balloonCanvas{display:block;margin:0 auto;border:2px solid rgba(255,136,0,0.2);border-radius:8px;background:linear-gradient(to bottom,#0d1b2a,#1b2e3e);cursor:crosshair}
 .legend{display:flex;gap:16px;justify-content:center;margin:10px 0;font-size:14px;flex-wrap:wrap}
 .legend-item{display:flex;align-items:center;gap:6px}
 .legend-dot{width:14px;height:14px;border-radius:50%;display:inline-block}
-</style></head><body>
-<header><div class="header-inner"><a href="index.php" class="logo-link">DonateCraft</a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button><div class="dropdown-content">
+</style>
+</head>
+<body>
+<header>
+    <div class="header-inner">
+        <a href="index.php" class="logo-link"><?= $site_name ?></a>
+        <nav class="nav">
+            <div class="dropdown">
+                <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+                <div class="dropdown-content">
                     <a href="snake.php">🐍 Змейка</a>
                     <a href="tetris.php">🧊 Тетрис</a>
                     <a href="2048.php">🔢 2048</a>
@@ -49,24 +64,48 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div><
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
-<div class="container"><div class="game-wrapper">
-<h1>?? ����� �����</h1>
-<div class="game-info-bar"><div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div><div class="game-info-item"><span class="lbl">?</span><span class="val" id="timerDisplay">30</span></div><div class="game-info-item"><span class="lbl">?? ������</span><span class="val" id="missedDisplay">0</span></div></div>
-<div class="game-area">
-<div>
-<div class="legend">
-<span class="legend-item"><span class="legend-dot" style="background:#ff3333"></span>������� 10</span>
-<span class="legend-item"><span class="legend-dot" style="background:#3388ff"></span>����� 20</span>
-<span class="legend-item"><span class="legend-dot" style="background:#ffd700"></span>������� 50</span>
+                    <a href="pacman.php">👾 Пакман</a>
+                </div>
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
+            </div>
+            <a href="donate.php" class="btn btn-sm">💰 Донат</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <div class="game-wrapper animate-in">
+        <h1>🎈 Шарики</h1>
+        <p style="color:#888;margin-bottom:16px;">Лопай шарики, набирай очки и ставь рекорды!</p>
+
+        <div class="game-info-bar">
+            <div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
+            <div class="game-info-item"><span class="lbl">Время</span><span class="val" id="timerDisplay">30</span></div>
+            <div class="game-info-item"><span class="lbl">Пропущено</span><span class="val" id="missedDisplay">0</span></div>
+        </div>
+
+        <div class="legend">
+            <span class="legend-item"><span class="legend-dot" style="background:#ff3333"></span> Красные 10</span>
+            <span class="legend-item"><span class="legend-dot" style="background:#3388ff"></span> Синие 20</span>
+            <span class="legend-item"><span class="legend-dot" style="background:#ffd700"></span> Золотые 50</span>
+        </div>
+
+        <canvas id="balloonCanvas" width="500" height="550"></canvas>
+
+        <div class="game-controls">
+            <button class="btn" onclick="resetGame()" style="min-width:140px;">🔄 Новая игра</button>
+            <a href="profile.php" class="btn btn-outline">Выйти</a>
+        </div>
+
+        <div id="result" style="font-size:18px;font-weight:600;min-height:30px;"></div>
+
+        <div style="margin-top:16px;background:rgba(22,33,62,0.5);border-radius:10px;padding:16px;text-align:left;font-size:13px;color:#888;">
+            <strong style="color:#aaa;">Правила:</strong> Лопай шарики кликом мыши. Красные = 10, Синие = 20, Золотые = 50 очков. Не пропусти больше 10 шариков! Удачи!
+        </div>
+    </div>
 </div>
-<canvas id="balloonCanvas" width="500" height="550"></canvas>
-</div>
-</div>
-<div class="game-controls"><button class="btn" onclick="resetGame()">?? ����� ����</button></div>
-</div></div>
-<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
+
 <script>
 const canvas = document.getElementById('balloonCanvas');
 const ctx = canvas.getContext('2d');
@@ -127,6 +166,7 @@ function resetGame() {
   scoreDisplay.textContent = '0';
   timerDisplay.textContent = GAME_TIME;
   missedDisplay.textContent = '0';
+  document.getElementById('result').textContent = '';
   timer = setInterval(() => {
     timeLeft--;
     timerDisplay.textContent = timeLeft;
@@ -208,14 +248,14 @@ function draw() {
     ctx.fillStyle = '#ff4444';
     ctx.font = '32px Inter, sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('?? ������� ����� �������!', W/2, H/2);
+    ctx.fillText('Ты пропустил слишком много!', W/2, H/2);
   } else if (!gameActive) {
     ctx.fillStyle = '#ffaa33';
     ctx.font = '28px Inter, sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('���� ��������!', W/2, H/2);
+    ctx.fillText('Игра окончена!', W/2, H/2);
     ctx.font = '18px Inter, sans-serif';
-    ctx.fillText('����: ' + score, W/2, H/2 + 36);
+    ctx.fillText('Счёт: ' + score, W/2, H/2 + 36);
   }
 }
 
@@ -258,4 +298,6 @@ canvas.addEventListener('click', e => {
     }
   }
 });
-</script></body></html>
+</script>
+</body>
+</html>

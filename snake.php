@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>������</title>
+<title>Змейка</title>
 <link rel="stylesheet" href="style.css">
 <style>
 #gameCanvas { border: 2px solid rgba(0,170,0,0.3); background: #0a0a15; border-radius: 8px; }
@@ -49,7 +49,8 @@
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
                 <a href="games.php" class="btn btn-sm">🎮 Играть</a>
             </div>
             <a href="donate.php" class="btn btn-sm">💰 Донат</a>
@@ -59,14 +60,14 @@
 </header>
 <div class="container">
     <div class="game-wrapper animate-in">
-        <h1>?? ������</h1>
-        <p style="color:#888;margin-bottom:16px;">������� ���, ������� ������ � ����������� ����!</p>
+        <h1>🐍 Змейка</h1>
+        <p style="color:#888;margin-bottom:16px;">Собирай еду, расти и ставь рекорды!</p>
 
         <div class="game-info-bar">
-            <div class="game-info-item"><span class="lbl">�������</span><span class="val" id="scoreDisplay">0</span></div>
-            <div class="game-info-item"><span class="lbl">�������</span><span class="val" id="foodEatenDisplay">0</span></div>
-            <div class="game-info-item"><span class="lbl">����������</span><span class="val" id="pointsDisplay">0</span></div>
-            <div class="game-info-item"><span class="lbl">��������</span><span class="val" id="speedDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Уровень</span><span class="val" id="scoreDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Съедено</span><span class="val" id="foodEatenDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Заработано</span><span class="val" id="pointsDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Скорость</span><span class="val" id="speedDisplay">0</span></div>
         </div>
 
         <canvas id="gameCanvas" width="400" height="400"></canvas>
@@ -76,21 +77,21 @@
             <span class="key">A</span>
             <span class="key">S</span>
             <span class="key">D</span>
-            <span class="key">?</span>
-            <span class="key">?</span>
-            <span class="key">?</span>
-            <span class="key">?</span>
+            <span class="key">↑</span>
+            <span class="key">←</span>
+            <span class="key">↓</span>
+            <span class="key">→</span>
         </div>
 
         <div class="game-controls">
-            <button id="startBtn" class="btn" style="min-width:140px;">? �����</button>
-            <a href="profile.php" class="btn btn-outline">�������</a>
+            <button id="startBtn" class="btn" style="min-width:140px;">▶ Старт</button>
+            <a href="profile.php" class="btn btn-outline">Выйти</a>
         </div>
 
         <div id="result" style="font-size:18px;font-weight:600;min-height:30px;"></div>
 
         <div style="margin-top:16px;background:rgba(22,33,62,0.5);border-radius:10px;padding:16px;text-align:left;font-size:13px;color:#888;">
-            <strong style="color:#aaa;">�������:</strong> ������ 5 ��������� �������� = ����� �������. �� ������ ������� ����������� <strong style="color:#00ff00;">+100 �����</strong>. � ������ ������� �������� �����!
+            <strong style="color:#aaa;">Правила:</strong> через 5 съеденных еды = новый уровень. На каждом уровне скорость растет. <strong style="color:#00ff00;">+100 поинтов</strong> за еду. Удачи!
         </div>
     </div>
 </div>
@@ -211,10 +212,10 @@ function gameOver() {
         saved = true;
         fetch('api.php?action=save_score&game=snake&level=' + level + '&points=' + currentPoints)
             .then(r => r.text())
-            .then(t => { resultDiv.innerHTML = '?? ���� ��������! �������: <strong style="color:#00ff00;">' + level + '</strong> | +<strong style="color:#ffd700;">' + currentPoints + '</strong> ����� ���������'; })
-            .catch(() => { resultDiv.innerHTML = '?? ���� ��������! ������ ����������.'; });
+            .then(t => { resultDiv.innerHTML = '💀 Игра окончена! Уровень: <strong style="color:#00ff00;">' + level + '</strong> | +<strong style="color:#ffd700;">' + currentPoints + '</strong> поинтов начислено'; })
+            .catch(() => { resultDiv.innerHTML = '❌ Игра окончена! Ошибка сохранения.'; });
     }
-    startBtn.textContent = '?? ������';
+    startBtn.textContent = '🔄 Заново';
 }
 
 document.addEventListener('keydown', e => {
@@ -230,7 +231,7 @@ document.addEventListener('keydown', e => {
 startBtn.addEventListener('click', () => {
     init();
     gameRunning = true;
-    startBtn.textContent = '? ����...';
+    startBtn.textContent = '⏳ Игра...';
     resultDiv.innerHTML = '';
     let speed = Math.max(80, baseSpeed - (level - 1) * 15);
     if (gameLoop) clearInterval(gameLoop);

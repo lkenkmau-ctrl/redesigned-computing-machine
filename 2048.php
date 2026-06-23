@@ -120,7 +120,8 @@
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
                 <a href="games.php" class="btn btn-sm">🎮 Играть</a>
             </div>
             <a href="donate.php" class="btn btn-sm">💰 Донат</a>
@@ -130,40 +131,40 @@
 </header>
 <div class="container">
     <div class="game-wrapper-2048 animate-in">
-        <h1>2048</h1>
-        <p style="color:#888;margin-bottom:16px;">�������� ������ � ������ 2048!</p>
+        <h1>🔢 2048</h1>
+        <p style="color:#888;margin-bottom:16px;">Соединяй плитки и набери 2048!</p>
 
         <div class="game-info-bar">
-            <div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div>
-            <div class="game-info-item"><span class="lbl">������ ������</span><span class="val" id="bestTileDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Очки</span><span class="val" id="scoreDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Лучшая плитка</span><span class="val" id="bestTileDisplay">0</span></div>
         </div>
 
         <div class="board" id="board">
             <div class="game-overlay" id="gameOverlay">
                 <div class="msg">
-                    <h2 id="overlayTitle">?? ������!</h2>
-                    <p id="overlayScore">����: 0</p>
-                    <button id="overlayBtn" class="btn" style="margin-top:12px;">?? ����� ����</button>
+                    <h2 id="overlayTitle">🎉 Победа!</h2>
+                    <p id="overlayScore">Счет: 0</p>
+                    <button id="overlayBtn" class="btn" style="margin-top:12px;">🔄 Новая игра</button>
                 </div>
             </div>
         </div>
 
         <div class="key-hint">
-            <span class="key">?</span>
-            <span class="key">?</span>
-            <span class="key">?</span>
-            <span class="key">?</span>
+            <span class="key">←</span>
+            <span class="key">↓</span>
+            <span class="key">↑</span>
+            <span class="key">→</span>
         </div>
 
         <div class="game-controls">
-            <button id="newGameBtn" class="btn" style="min-width:140px;">?? ����� ����</button>
-            <a href="profile.php" class="btn btn-outline">�������</a>
+            <button id="newGameBtn" class="btn" style="min-width:140px;">🔄 Новая игра</button>
+            <a href="profile.php" class="btn btn-outline">Выйти</a>
         </div>
 
         <div id="result" style="font-size:16px;font-weight:600;min-height:24px;"></div>
 
         <div style="margin-top:16px;background:rgba(22,33,62,0.5);border-radius:10px;padding:16px;text-align:left;font-size:13px;color:#888;">
-            <strong style="color:#aaa;">�������:</strong> ��������� �������, ����� ������� ������. ���������� ������ ��������� � ����. ������ <strong style="color:#00ff00;">2048</strong>, ����� ��������!
+            <strong style="color:#aaa;">Правила:</strong> Соединяйте плитки, чтобы получить больше. Достигните плитки <strong style="color:#00ff00;">2048</strong>, чтобы победить!
         </div>
     </div>
 </div>
@@ -376,8 +377,8 @@ function move(direction) {
 
         if (!won && hasWon()) {
             won = true;
-            overlayTitle.textContent = '?? ������!';
-            overlayScore.textContent = '����: ' + score;
+            overlayTitle.textContent = '🎉 Победа!';
+            overlayScore.textContent = 'Счет: ' + score;
             overlay.classList.add('show');
         }
 
@@ -387,11 +388,11 @@ function move(direction) {
                 saved = true;
                 fetch('api.php?action=save_score&game=2048&level=1&points=' + score)
                     .then(r => r.text())
-                    .then(t => { resultDiv.innerHTML = '?? ���� ��������! +<strong style="color:#ffd700;">' + score + '</strong> ����� ���������'; })
-                    .catch(() => { resultDiv.innerHTML = '?? ���� ��������! ������ ����������.'; });
+                    .then(t => { resultDiv.innerHTML = '💀 Игра окончена! +<strong style="color:#ffd700;">' + score + '</strong> поинтов начислено'; })
+                    .catch(() => { resultDiv.innerHTML = '❌ Игра окончена! Ошибка сохранения.'; });
             }
-            overlayTitle.textContent = '?? ���� ��������';
-            overlayScore.textContent = '����: ' + score;
+            overlayTitle.textContent = '💀 Игра окончена';
+            overlayScore.textContent = 'Счет: ' + score;
             overlay.classList.add('show');
         }
     }

@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>������</title>
+<title>Кликер</title>
 <link rel="stylesheet" href="style.css">
 <style>
 .click-btn {
@@ -68,7 +68,8 @@
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
                 <a href="games.php" class="btn btn-sm">🎮 Играть</a>
             </div>
             <a href="donate.php" class="btn btn-sm">💰 Донат</a>
@@ -78,12 +79,12 @@
 </header>
 <div class="container">
     <div class="game-wrapper animate-in">
-        <h1>??? ������</h1>
-        <p style="color:#888;margin-bottom:16px;">������ ��� ����� ������� �� 10 ������!</p>
+        <h1>👆 Кликер</h1>
+        <p style="color:#888;margin-bottom:16px;">Кликай как можно быстрее за 10 секунд!</p>
 
         <div class="game-info-bar">
-            <div class="game-info-item"><span class="lbl">������</span><span class="val" id="clicksDisplay">0</span></div>
-            <div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Нажатия</span><span class="val" id="clicksDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Счет</span><span class="val" id="scoreDisplay">0</span></div>
         </div>
 
         <div class="timer-ring">
@@ -95,12 +96,12 @@
         </div>
 
         <button class="click-btn" id="clickBtn" disabled>
-            ??
-            <span class="click-count" id="clickLabel">����� �����</span>
+            👆
+            <span class="click-count" id="clickLabel">Нажми меня</span>
         </button>
 
         <div class="game-controls">
-            <button id="startBtn" class="btn" style="min-width:140px;">?? �����</button>
+            <button id="startBtn" class="btn" style="min-width:140px;">▶ Старт</button>
         </div>
 
         <div id="result" style="font-size:18px;font-weight:600;min-height:30px;"></div>
@@ -128,7 +129,7 @@ function newGame() {
     saved = false;
     clickBtn.disabled = true;
     startBtn.disabled = false;
-    startBtn.textContent = '?? �����';
+    startBtn.textContent = '▶ Старт';
     resultDiv.innerHTML = '';
     updateDisplay();
 }
@@ -145,7 +146,7 @@ function updateDisplay() {
     } else {
         timerProgress.setAttribute('stroke', '#00ff00');
     }
-    clickLabel.textContent = clicks + ' ������';
+    clickLabel.textContent = clicks + ' нажатий';
 }
 
 function startGame() {
@@ -155,7 +156,7 @@ function startGame() {
     saved = false;
     clickBtn.disabled = false;
     startBtn.disabled = true;
-    startBtn.textContent = '? ����...';
+    startBtn.textContent = '⏳ Игра...';
     resultDiv.innerHTML = '';
     updateDisplay();
 
@@ -173,7 +174,7 @@ function endGame() {
     clearInterval(timerInterval);
     clickBtn.disabled = true;
     startBtn.disabled = false;
-    startBtn.textContent = '?? ��� ���';
+    startBtn.textContent = '🔄 Ещё раз';
 
     let score = clicks * 10;
 
@@ -182,10 +183,10 @@ function endGame() {
         fetch('api.php?action=save_score&game=clicker&level=1&points=' + score)
             .then(r => r.text())
             .then(t => {
-                resultDiv.innerHTML = '? ����� �����! +<strong style="color:#ffd700;">' + score + '</strong> ����� ���������';
+                resultDiv.innerHTML = '⏱️ Время вышло! +<strong style="color:#ffd700;">' + score + '</strong> поинтов начислено';
             })
             .catch(() => {
-                resultDiv.innerHTML = '? ����� �����! ?? ������ ����������.';
+                resultDiv.innerHTML = '⏱️ Время вышло! ❌ Ошибка сохранения.';
             });
     }
 }

@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.simon", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>������ � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Саймон | DonateCraft</title><link rel="stylesheet" href="style.css"><style>
 .simon-grid { display: grid; grid-template-columns: 110px 110px; gap: 8px; margin: 10px auto; justify-content: center; }
 .simon-btn { width: 110px; height: 110px; border-radius: 16px; cursor: pointer; transition: all 0.12s; border: 3px solid rgba(0,0,0,0.3); }
 .simon-btn:active { transform: scale(0.92); }
@@ -57,11 +57,18 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div><
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
+            </div>
+            <a href="donate.php" class="btn btn-sm">💰 Донат</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+        </nav>
+    </div>
+</header>
 <div class="container"><div class="game-wrapper">
-<h1>?? ������ �������</h1>
-<div class="game-info-bar"><div class="game-info-item"><span class="lbl">�����</span><span class="val" id="roundDisplay">0</span></div><div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div></div>
+<h1>🔴 Саймон</h1>
+<div class="game-info-bar"><div class="game-info-item"><span class="lbl">Раунд</span><span class="val" id="roundDisplay">0</span></div><div class="game-info-item"><span class="lbl">Счет</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div></div>
 <div class="game-area">
 <div><div class="simon-grid">
 <div id="btn-red" class="simon-btn" data-color="0"></div>
@@ -69,12 +76,12 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
 <div id="btn-green" class="simon-btn" data-color="2"></div>
 <div id="btn-yellow" class="simon-btn" data-color="3"></div>
 </div>
-<div class="simon-label"><span>�������</span><span>�����</span><span>������</span><span>Ƹ����</span></div></div>
+<div class="simon-label"><span>Красный</span><span>Синий</span><span>Зелёный</span><span>Жёлтый</span></div></div>
 </div>
 <div id="gameMessage" class="game-message"></div>
-<div class="game-controls"><button class="btn" onclick="startGame()">?? ����� ����</button></div>
+<div class="game-controls"><button class="btn" onclick="startGame()">🔄 Новая игра</button></div>
 </div></div>
-<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
+<footer><p>DonateCraft | Наслаждайся классической игрой про птичку</p></footer>
 <script>
 const scoreDisplay = document.getElementById('scoreDisplay');
 const bestDisplay = document.getElementById('bestDisplay');
@@ -122,9 +129,9 @@ function nextRound() {
     roundDisplay.textContent = round;
     score = round * 50;
     scoreDisplay.textContent = score;
-    gameMessage.textContent = '����� ' + round + ' � ��������� ������������������!';
+    gameMessage.textContent = 'Раунд ' + round + ' — запомни последовательность!';
     playSequence(() => {
-        gameMessage.textContent = '��� ��� � ���������!';
+        gameMessage.textContent = 'Твой ход — повтори!';
     });
 }
 
@@ -152,7 +159,7 @@ function endGame() {
     isPlaying = false;
     const finalScore = Math.max(0, (round - 1) * 50);
     scoreDisplay.textContent = finalScore;
-    gameMessage.textContent = '?? �����������! �� ������������ ' + round + ' �������. ����: ' + finalScore;
+    gameMessage.textContent = '💀 Ошибка! Ты продержался ' + round + ' раундов. Счет: ' + finalScore;
     if (scoreSubmitted) return;
     scoreSubmitted = true;
     const formData = new FormData();
@@ -174,7 +181,7 @@ function startGame() {
     isPlaying = false;
     roundDisplay.textContent = '0';
     scoreDisplay.textContent = '0';
-    gameMessage.textContent = '��������!';
+    gameMessage.textContent = 'Начинаем!';
     setTimeout(nextRound, 500);
 }
 </script></body></html>

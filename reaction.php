@@ -37,7 +37,7 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reaction Test � DonateCraft</title>
+    <title>Reaction Test | DonateCraft</title>
     <link rel="stylesheet" href="style.css">
     <style>
     #reactionBox {
@@ -95,7 +95,8 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
                 <a href="games.php" class="btn btn-sm">🎮 Играть</a>
             </div>
             <a href="donate.php" class="btn btn-sm">💰 Донат</a>
@@ -105,24 +106,24 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
 </header>
 <div class="container">
     <div class="game-wrapper">
-        <h1>? Reaction Test</h1>
-        <p style="color:#8a7a5a;margin-bottom:10px;">����� �� �������, ����� �� ������ ������!</p>
+        <h1>⚡ Reaction Test</h1>
+        <p style="color:#8a7a5a;margin-bottom:10px;">Кликни на коробку, когда увидишь зелёный цвет!</p>
         <div class="game-info-bar">
-            <div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ? $bestScore . 'ms' : '�' ?></span></div>
-            <div class="game-info-item"><span class="lbl">�������</span><span class="val" id="attemptsDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ? $bestScore . 'ms' : '—' ?></span></div>
+            <div class="game-info-item"><span class="lbl">Попытки</span><span class="val" id="attemptsDisplay">0</span></div>
         </div>
-        <div id="reactionBox" class="idle">�����, ����� ������</div>
+        <div id="reactionBox" class="idle">Кликни, чтобы начать</div>
         <div class="reaction-results">
-            <div class="last" id="lastDisplay">�</div>
+            <div class="last" id="lastDisplay">—</div>
             <div class="best" id="bestDisplay2"></div>
         </div>
         <div class="game-controls">
-            <button class="btn" onclick="resetTest()">?? ��������</button>
+            <button class="btn" onclick="resetTest()">🔄 Сбросить</button>
         </div>
     </div>
 </div>
 <footer>
-    <p>DonateCraft � ����������� �������� ������ �� ����-����</p>
+    <p>DonateCraft | Наслаждайся классической игрой про птичку</p>
 </footer>
 <script>
 const box = document.getElementById('reactionBox');
@@ -131,7 +132,7 @@ const bestDisplay = document.getElementById('bestDisplay');
 const bestDisplay2 = document.getElementById('bestDisplay2');
 const attemptsDisplay = document.getElementById('attemptsDisplay');
 
-let state = 'idle'; // idle | waiting | ready | too-early
+let state = 'idle';
 let timeoutId = null;
 let startTime = 0;
 let attempts = 0;
@@ -141,18 +142,18 @@ function resetTest() {
     if (timeoutId) { clearTimeout(timeoutId); timeoutId = null; }
     state = 'idle';
     box.className = 'idle';
-    box.textContent = '�����, ����� ������';
+    box.textContent = 'Кликни, чтобы начать';
 }
 
 function startWait() {
     state = 'waiting';
     box.className = 'waiting';
-    box.textContent = '���...';
+    box.textContent = 'Жди...';
     const delay = 1000 + Math.random() * 3000;
     timeoutId = setTimeout(() => {
         state = 'ready';
         box.className = 'ready';
-        box.textContent = '���!';
+        box.textContent = 'Жми!';
         startTime = performance.now();
         timeoutId = null;
     }, delay);
@@ -167,7 +168,7 @@ function submitScore(time) {
             if (data.best && data.best > 0) {
                 best = data.best;
                 bestDisplay.textContent = best + 'ms';
-                bestDisplay2.textContent = '?? ������: ' + best + 'ms';
+                bestDisplay2.textContent = '🏆 Рекорд: ' + best + 'ms';
             }
         })
         .catch(() => {});
@@ -177,7 +178,7 @@ box.addEventListener('click', () => {
     if (state === 'idle') {
         attempts = 0;
         attemptsDisplay.textContent = attempts;
-        lastDisplay.textContent = '�';
+        lastDisplay.textContent = '—';
         startWait();
         return;
     }
@@ -185,7 +186,7 @@ box.addEventListener('click', () => {
         if (timeoutId) { clearTimeout(timeoutId); timeoutId = null; }
         state = 'too-early';
         box.className = 'too-early';
-        box.textContent = '������� ����! ����� ����� ������ ������';
+        box.textContent = 'Слишком рано! Кликни чтобы попробовать снова';
         return;
     }
     if (state === 'too-early') {
@@ -200,14 +201,14 @@ box.addEventListener('click', () => {
         if (best === null || elapsed < best) {
             best = elapsed;
             bestDisplay.textContent = best.toFixed(0) + 'ms';
-            bestDisplay2.textContent = '?? ����� ������! ' + best.toFixed(0) + 'ms';
+            bestDisplay2.textContent = '🎉 Новый рекорд! ' + best.toFixed(0) + 'ms';
         } else {
-            bestDisplay2.textContent = '?? ������: ' + best.toFixed(0) + 'ms';
+            bestDisplay2.textContent = '🏆 Рекорд: ' + best.toFixed(0) + 'ms';
         }
         submitScore(elapsed.toFixed(0));
         state = 'idle';
         box.className = 'idle';
-        box.textContent = '��� ���! �����';
+        box.textContent = 'Ещё раз! Кликни';
         return;
     }
 });

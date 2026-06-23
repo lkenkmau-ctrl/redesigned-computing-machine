@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>������</title>
+<title>Тетрис</title>
 <link rel="stylesheet" href="style.css">
 <style>
 #gameCanvas { border: 2px solid rgba(68,136,255,0.3); background: #0a0a15; border-radius: 8px; }
@@ -50,7 +50,8 @@
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
                 <a href="games.php" class="btn btn-sm">🎮 Играть</a>
             </div>
             <a href="donate.php" class="btn btn-sm">💰 Донат</a>
@@ -60,40 +61,40 @@
 </header>
 <div class="container">
     <div class="game-wrapper animate-in">
-        <h1>?? ������</h1>
-        <p style="color:#888;margin-bottom:16px;">��������� �����, ������� ����� � ����������� ����! ����� �������� ������ �����.</p>
+        <h1>🧊 Тетрис</h1>
+        <p style="color:#888;margin-bottom:16px;">Расставляй блоки, заполняй ряды и ставь рекорды! Убирай по 4 ряда за раз.</p>
 
         <div class="game-info-bar">
-            <div class="game-info-item"><span class="lbl">�������</span><span class="val" id="levelDisplay">1</span></div>
-            <div class="game-info-item"><span class="lbl">�����</span><span class="val" id="linesDisplay">0</span></div>
-            <div class="game-info-item"><span class="lbl">����������</span><span class="val" id="pointsDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Уровень</span><span class="val" id="levelDisplay">1</span></div>
+            <div class="game-info-item"><span class="lbl">Линии</span><span class="val" id="linesDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Очки</span><span class="val" id="pointsDisplay">0</span></div>
         </div>
 
         <div class="game-area">
             <canvas id="gameCanvas" width="300" height="600"></canvas>
             <div class="game-side">
-                <p style="color:#888;margin-bottom:8px;">���������:</p>
+                <p style="color:#888;margin-bottom:8px;">Следующая:</p>
                 <canvas id="nextCanvas" width="120" height="120"></canvas>
             </div>
         </div>
 
         <div class="controls-hint">
-            <span class="key">?</span>
-            <span class="key">?</span>
-            <span class="key">?</span>
-            <span class="key">? / W</span>
-            <span class="key" style="background:rgba(255,215,0,0.1);border-color:#ffd700;">������</span>
+            <span class="key">←</span>
+            <span class="key">↓</span>
+            <span class="key">→</span>
+            <span class="key">↑ / W</span>
+            <span class="key" style="background:rgba(255,215,0,0.1);border-color:#ffd700;">Пробел</span>
         </div>
 
         <div class="game-controls">
-            <button id="startBtn" class="btn btn-blue" style="min-width:140px;">? �����</button>
-            <a href="profile.php" class="btn btn-outline">�������</a>
+            <button id="startBtn" class="btn btn-blue" style="min-width:140px;">▶ Старт</button>
+            <a href="profile.php" class="btn btn-outline">Выйти</a>
         </div>
 
         <div id="result" style="font-size:18px;font-weight:600;min-height:30px;"></div>
 
         <div style="margin-top:16px;background:rgba(22,33,62,0.5);border-radius:10px;padding:16px;text-align:left;font-size:13px;color:#888;">
-            <strong style="color:#aaa;">�������:</strong> ������ 10 ��������� ����� = ����� �������. �� ������ ������� ����������� <strong style="color:#4488ff;">+100 �����</strong>. � ������ ������� �������� ������� �����! ����� �������� ������ �����.
+            <strong style="color:#aaa;">Правила:</strong> каждые 10 очищенных линий = новый уровень. На каждом уровне скорость растет. <strong style="color:#4488ff;">+100 поинтов</strong> за линию. Удачи! Убирай по 4 ряда за раз.
         </div>
     </div>
 </div>
@@ -289,10 +290,10 @@ function gameOver() {
         saved = true;
         fetch('api.php?action=save_score&game=tetris&level=' + level + '&points=' + score)
             .then(r => r.text())
-            .then(t => { resultDiv.innerHTML = '?? ���� ��������! �������: <strong style="color:#4488ff;">' + level + '</strong> | +<strong style="color:#ffd700;">' + score + '</strong> ����� ���������'; })
-            .catch(() => { resultDiv.innerHTML = '?? ���� ��������! ������ ����������.'; });
+            .then(t => { resultDiv.innerHTML = '💀 Игра окончена! Уровень: <strong style="color:#4488ff;">' + level + '</strong> | +<strong style="color:#ffd700;">' + score + '</strong> поинтов начислено'; })
+            .catch(() => { resultDiv.innerHTML = '❌ Игра окончена! Ошибка сохранения.'; });
     }
-    startBtn.textContent = '?? ������';
+    startBtn.textContent = '🔄 Заново';
 }
 
 function updateTetris() {
@@ -316,7 +317,7 @@ startBtn.addEventListener('click', () => {
     if (gameLoop) { clearInterval(gameLoop); gameLoop = null; }
     init();
     gameRunning = true;
-    startBtn.textContent = '? ����...';
+    startBtn.textContent = '⏳ Игра...';
     resultDiv.innerHTML = '';
     gameLoop = setInterval(updateTetris, 50);
 });

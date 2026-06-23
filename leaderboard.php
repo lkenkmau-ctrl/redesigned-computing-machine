@@ -32,7 +32,7 @@ $rank = 1;
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>������� �������</title>
+<title>Таблица лидеров</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -72,7 +72,8 @@ $rank = 1;
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
                 <a href="games.php" class="btn btn-sm">🎮 Играть</a>
             </div>
             <?php if (isAuth()): ?>
@@ -86,26 +87,26 @@ $rank = 1;
     </div>
 </header>
 <div class="container">
-    <h1>������� �������</h1>
-    <p style="text-align:center;color:#888;margin-bottom:20px;">?? ���-50 ������� �� ������������ �����</p>
+    <h1>Таблица лидеров</h1>
+    <p style="text-align:center;color:#888;margin-bottom:20px;">🏆 Топ-50 игроков по накопленным баллам</p>
 
     <div class="table-wrap animate-in">
         <table class="leader-table">
             <tr>
                 <th>#</th>
-                <th>�����</th>
-                <th>Minecraft ���</th>
-                <th>����</th>
-                <th>������</th>
-                <th>������</th>
-                <th>���</th>
+                <th>Игрок</th>
+                <th>Minecraft ник</th>
+                <th>Баллы</th>
+                <th>Змейка</th>
+                <th>Тетрис</th>
+                <th>Игр</th>
             </tr>
             <?php foreach ($stats as $u): ?>
             <tr>
                 <td class="rank rank-<?= $rank ?>">
-                    <?php if ($rank === 1): ?><span class="leader-medal">??</span>
-                    <?php elseif ($rank === 2): ?><span class="leader-medal">??</span>
-                    <?php elseif ($rank === 3): ?><span class="leader-medal">??</span>
+                    <?php if ($rank === 1): ?><span class="leader-medal">🥇</span>
+                    <?php elseif ($rank === 2): ?><span class="leader-medal">🥈</span>
+                    <?php elseif ($rank === 3): ?><span class="leader-medal">🥉</span>
                     <?php else: ?><?= $rank ?>
                     <?php endif; ?>
                 </td>
@@ -118,7 +119,7 @@ $rank = 1;
             </tr>
             <?php $rank++; endforeach; ?>
             <?php if (count($stats) === 0): ?>
-            <tr><td colspan="7" style="text-align:center;color:#666;padding:30px;">���� ����� �� �����. ���� ������!</td></tr>
+            <tr><td colspan="7" style="text-align:center;color:#666;padding:30px;">Пока нет данных. Играйте больше!</td></tr>
             <?php endif; ?>
         </table>
     </div>

@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>��������</title>
+<title>Память</title>
 <link rel="stylesheet" href="style.css">
 <style>
 .memory-grid { display: grid; grid-template-columns: repeat(4, 90px); gap: 8px; justify-content: center; margin: 20px auto; }
@@ -62,7 +62,8 @@
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
                 <a href="games.php" class="btn btn-sm">🎮 Играть</a>
             </div>
             <a href="donate.php" class="btn btn-sm">💰 Донат</a>
@@ -72,19 +73,19 @@
 </header>
 <div class="container">
     <div class="game-wrapper animate-in">
-        <h1>?? ��������</h1>
-        <p style="color:#888;margin-bottom:16px;">����� ��� ���� ���������� ����!</p>
+        <h1>🃏 Память</h1>
+        <p style="color:#888;margin-bottom:16px;">Найди все пары одинаковых карт!</p>
 
         <div class="game-info-bar">
-            <div class="game-info-item"><span class="lbl">����</span><span class="val" id="movesDisplay">0</span></div>
-            <div class="game-info-item"><span class="lbl">������� ���</span><span class="val" id="pairsDisplay">0 / 8</span></div>
-            <div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Ходы</span><span class="val" id="movesDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Найдено пар</span><span class="val" id="pairsDisplay">0 / 8</span></div>
+            <div class="game-info-item"><span class="lbl">Счет</span><span class="val" id="scoreDisplay">0</span></div>
         </div>
 
         <div class="memory-grid" id="memoryGrid"></div>
 
         <div class="game-controls">
-            <button id="newGameBtn" class="btn">?? ����� ����</button>
+            <button id="newGameBtn" class="btn">🔄 Новая игра</button>
         </div>
 
         <div id="result" style="font-size:18px;font-weight:600;min-height:30px;"></div>
@@ -99,7 +100,7 @@ const scoreDisplay = document.getElementById('scoreDisplay');
 const newGameBtn = document.getElementById('newGameBtn');
 const resultDiv = document.getElementById('result');
 
-const emojis = ['??','??','??','??','??','??','??','??'];
+const emojis = ['🐶','🐱','🐭','🐹','🐰','🦊','🐻','🐼'];
 let cards, flippedIndices, matchedPairs, moves, locked, saved;
 
 function shuffle(arr) {
@@ -129,7 +130,7 @@ function renderGrid() {
         const div = document.createElement('div');
         div.className = 'memory-card';
         div.dataset.index = i;
-        div.innerHTML = '<span class="card-back">?</span>';
+        div.innerHTML = '<span class="card-back">❓</span>';
         div.addEventListener('click', () => flipCard(i));
         grid.appendChild(div);
     });
@@ -178,8 +179,8 @@ function checkMatch() {
             setTimeout(() => {
                 grid.children[i1].classList.remove('flipped', 'wrong');
                 grid.children[i2].classList.remove('flipped', 'wrong');
-                grid.children[i1].innerHTML = '<span class="card-back">?</span>';
-                grid.children[i2].innerHTML = '<span class="card-back">?</span>';
+                grid.children[i1].innerHTML = '<span class="card-back">❓</span>';
+                grid.children[i2].innerHTML = '<span class="card-back">❓</span>';
                 flippedIndices = [];
                 locked = false;
                 updateStats();
@@ -202,10 +203,10 @@ function gameOver() {
         fetch('api.php?action=save_score&game=memory&level=1&points=' + score)
             .then(r => r.text())
             .then(t => {
-                resultDiv.innerHTML = '?? ��� ���� �������! +<strong style="color:#ffd700;">' + score + '</strong> ����� ���������';
+                resultDiv.innerHTML = '🎉 Все пары найдены! +<strong style="color:#ffd700;">' + score + '</strong> поинтов начислено';
             })
             .catch(() => {
-                resultDiv.innerHTML = '?? ��� ���� �������! ?? ������ ����������.';
+                resultDiv.innerHTML = '🎉 Все пары найдены! ❌ Ошибка сохранения.';
             });
     }
 }

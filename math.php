@@ -13,14 +13,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.math", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>���������� � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Математика</title>
+<link rel="stylesheet" href="style.css">
+<style>
 .math-equation { font-size: 48px; font-weight: 800; color: #ffcc33; margin: 20px 0; letter-spacing: 4px; }
 .math-input { width: 160px; font-size: 32px; text-align: center; padding: 12px; margin: 10px 0; }
 .timer-bar { height: 8px; background: rgba(255,136,0,0.15); border-radius: 4px; margin: 15px 0; overflow: hidden; }
 .timer-fill { height: 100%; background: linear-gradient(90deg, #ff8800, #ff3333); border-radius: 4px; transition: width 0.1s linear; }
 .progress-text { font-size: 14px; color: #8a7a5a; margin: 10px 0; }
-</style></head><body>
-<header><div class="header-inner"><a href="index.php" class="logo-link">DonateCraft</a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button><div class="dropdown-content">
+</style>
+</head>
+<body>
+<header>
+    <div class="header-inner">
+        <a href="index.php" class="logo-link"><?= $site_name ?></a>
+        <nav class="nav">
+            <div class="dropdown">
+                <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+                <div class="dropdown-content">
                     <a href="snake.php">🐍 Змейка</a>
                     <a href="tetris.php">🧊 Тетрис</a>
                     <a href="2048.php">🔢 2048</a>
@@ -50,22 +65,48 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div><
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
-<div class="container"><div class="game-wrapper">
-<h1>?? �������������� �������</h1>
-<div class="game-info-bar"><div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div><div class="game-info-item"><span class="lbl">���������</span><span class="val" id="correctDisplay">0 / 20</span></div></div>
-<div class="progress-text" id="progressText">������ 1 �� 20</div>
-<div class="timer-bar"><div class="timer-fill" id="timerFill" style="width:100%"></div></div>
-<div class="math-equation" id="equationDisplay">23 + 17</div>
-<input class="math-input" id="answerInput" type="number" placeholder="?" autofocus>
-<div class="game-controls">
-<button class="btn" id="submitBtn">? ��������</button>
-<button class="btn" onclick="resetGame()">?? ����� ����</button>
+                    <a href="pacman.php">👾 Пакман</a>
+                </div>
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
+            </div>
+            <a href="donate.php" class="btn btn-sm">💰 Донат</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <div class="game-wrapper animate-in">
+        <h1>🧮 Математические примеры</h1>
+        <p style="color:#888;margin-bottom:16px;">Решай примеры, набирай очки и ставь рекорды!</p>
+
+        <div class="game-info-bar">
+            <div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
+            <div class="game-info-item"><span class="lbl">Правильно</span><span class="val" id="correctDisplay">0 / 20</span></div>
+        </div>
+
+        <div class="progress-text" id="progressText">Пример 1 из 20</div>
+
+        <div class="timer-bar"><div class="timer-fill" id="timerFill" style="width:100%"></div></div>
+
+        <div class="math-equation" id="equationDisplay">23 + 17</div>
+
+        <input class="math-input" id="answerInput" type="number" placeholder="?" autofocus>
+
+        <div class="game-controls">
+            <button class="btn" id="submitBtn">✅ Ответить</button>
+            <button class="btn" onclick="resetGame()">🔄 Новая игра</button>
+            <a href="profile.php" class="btn btn-outline">Выйти</a>
+        </div>
+
+        <div class="game-status" id="statusDisplay" style="font-size:16px;min-height:24px;margin-top:10px;color:#8a7a5a;"></div>
+
+        <div style="margin-top:16px;background:rgba(22,33,62,0.5);border-radius:10px;padding:16px;text-align:left;font-size:13px;color:#888;">
+            <strong style="color:#aaa;">Правила:</strong> Реши 20 примеров за отведённое время. Каждый правильный ответ = +25 очков. Сложение, вычитание и умножение. Удачи!
+        </div>
+    </div>
 </div>
-<div class="game-status" id="statusDisplay" style="font-size:16px;min-height:24px;margin-top:10px;color:#8a7a5a;"></div>
-</div></div>
-<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
+
 <script>
 const scoreDisplay = document.getElementById('scoreDisplay');
 const bestDisplay = document.getElementById('bestDisplay');
@@ -115,9 +156,9 @@ function resetGame() {
 function showProblem() {
     if (currentIndex >= TOTAL) { endGame(); return; }
     const p = problems[currentIndex];
-    const opSymbol = p.op === '*' ? '?' : p.op;
+    const opSymbol = p.op === '*' ? '×' : p.op;
     equationDisplay.textContent = `${p.a} ${opSymbol} ${p.b}`;
-    progressText.textContent = `������ ${currentIndex + 1} �� ${TOTAL}`;
+    progressText.textContent = `Пример ${currentIndex + 1} из ${TOTAL}`;
     correctDisplay.textContent = `${correctCount} / ${TOTAL}`;
     answerInput.value = '';
     answerInput.focus();
@@ -129,7 +170,7 @@ function showProblem() {
         timerFill.style.width = (timeLeft / 10 * 100) + '%';
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
-            statusDisplay.textContent = '? ����� �����! ���������� �����: ' + problems[currentIndex].ans;
+            statusDisplay.textContent = '⏰ Время вышло! Правильный ответ: ' + problems[currentIndex].ans;
             currentIndex++;
             setTimeout(showProblem, 1200);
         }
@@ -145,9 +186,9 @@ function submitAnswer() {
         correctCount++;
         score += 25;
         scoreDisplay.textContent = score;
-        statusDisplay.textContent = '? �����!';
+        statusDisplay.textContent = '✅ Верно!';
     } else {
-        statusDisplay.textContent = '? �������! ���������� �����: ' + p.ans;
+        statusDisplay.textContent = '❌ Ошибка! Правильный ответ: ' + p.ans;
     }
     correctDisplay.textContent = `${correctCount} / ${TOTAL}`;
     currentIndex++;
@@ -159,9 +200,9 @@ function endGame() {
     clearInterval(timerInterval);
     answerInput.disabled = true;
     submitBtn.disabled = true;
-    equationDisplay.textContent = '?? ���������� ���������!';
-    statusDisplay.textContent = `���������: ${correctCount} �� ${TOTAL} | ����: ${score}`;
-    progressText.textContent = '������!';
+    equationDisplay.textContent = '🎯 Тренировка завершена!';
+    statusDisplay.textContent = `Правильно: ${correctCount} из ${TOTAL} | Счёт: ${score}`;
+    progressText.textContent = 'Готово!';
     if (!saved) {
         saved = true;
         const formData = new FormData();
@@ -177,4 +218,6 @@ submitBtn.addEventListener('click', submitAnswer);
 answerInput.addEventListener('keydown', e => { if (e.key === 'Enter') submitAnswer(); });
 
 resetGame();
-</script></body></html>
+</script>
+</body>
+</html>

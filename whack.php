@@ -13,7 +13,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.whack", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>����� ����� � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Крот</title>
+<link rel="stylesheet" href="style.css">
+<style>
 .whack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:400px;margin:20px auto}
 .hole{position:relative;aspect-ratio:1;background:radial-gradient(ellipse at center,#2d1b00 0%,#1a0a00 70%,transparent 100%);border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:48px;transition:all .1s;overflow:hidden;border:2px solid rgba(255,136,0,0.1)}
 .hole-inner{position:absolute;bottom:-20%;left:50%;transform:translateX(-50%);width:120%;height:60%;background:radial-gradient(ellipse at center,#1a0a00,#0d0500);border-radius:50%}
@@ -23,8 +30,16 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
 @keyframes popUp{0%{transform:translate(-50%,50%) scale(0)}100%{transform:translate(-50%,-50%) scale(1)}}
 .whack-hud{display:flex;gap:16px;justify-content:center;margin:10px 0;font-size:15px;flex-wrap:wrap}
 .whack-hud span{background:rgba(40,22,5,0.6);padding:6px 14px;border-radius:8px;border:1px solid rgba(255,136,0,0.1)}
-</style></head><body>
-<header><div class="header-inner"><a href="index.php" class="logo-link">DonateCraft</a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button><div class="dropdown-content">
+</style>
+</head>
+<body>
+<header>
+    <div class="header-inner">
+        <a href="index.php" class="logo-link"><?= $site_name ?></a>
+        <nav class="nav">
+            <div class="dropdown">
+                <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+                <div class="dropdown-content">
                     <a href="snake.php">🐍 Змейка</a>
                     <a href="tetris.php">🧊 Тетрис</a>
                     <a href="2048.php">🔢 2048</a>
@@ -54,23 +69,45 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div><
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
-<div class="container"><div class="game-wrapper">
-<h1>?? ����� �����</h1>
-<div class="game-info-bar"><div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div></div>
-<div class="game-area">
-<div>
-<div class="whack-hud">
-<span>? <span id="timerDisplay">30</span>�</span>
-<span>?? <span id="hitsDisplay">0</span></span>
+                    <a href="pacman.php">👾 Пакман</a>
+                </div>
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
+            </div>
+            <a href="donate.php" class="btn btn-sm">💰 Донат</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <div class="game-wrapper animate-in">
+        <h1>🔨 Крот</h1>
+        <p style="color:#888;margin-bottom:16px;">Бей кротов, избегай бомб и ставь рекорды!</p>
+
+        <div class="game-info-bar">
+            <div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
+        </div>
+
+        <div class="whack-hud">
+            <span>⏱ <span id="timerDisplay">30</span>с</span>
+            <span>👊 <span id="hitsDisplay">0</span></span>
+        </div>
+
+        <div class="whack-grid" id="whackGrid"></div>
+
+        <div class="game-controls">
+            <button class="btn" onclick="resetGame()" style="min-width:140px;">🔄 Новая игра</button>
+            <a href="profile.php" class="btn btn-outline">Выйти</a>
+        </div>
+
+        <div id="result" style="font-size:18px;font-weight:600;min-height:30px;"></div>
+
+        <div style="margin-top:16px;background:rgba(22,33,62,0.5);border-radius:10px;padding:16px;text-align:left;font-size:13px;color:#888;">
+            <strong style="color:#aaa;">Правила:</strong> Бей кротов 👊 +10 очков. Избегай бомб 💥 -20 очков. У тебя 30 секунд! Удачи!
+        </div>
+    </div>
 </div>
-<div class="whack-grid" id="whackGrid"></div>
-</div>
-</div>
-<div class="game-controls"><button class="btn" onclick="resetGame()">?? ����� ����</button></div>
-</div></div>
-<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
+
 <script>
 const GAME_TIME = 30;
 const GRID_SIZE = 3;
@@ -115,6 +152,7 @@ function resetGame() {
   scoreDisplay.textContent = '0';
   timerDisplay.textContent = GAME_TIME;
   hitsDisplay.textContent = '0';
+  document.getElementById('result').textContent = '';
   for (const h of holes) {
     if (h.creature) {
       h.creature.remove();
@@ -147,7 +185,7 @@ function spawnCreatures() {
     const isBomb = Math.random() < BOMB_CHANCE;
     const el = document.createElement('div');
     el.className = isBomb ? 'bomb' : 'mole';
-    el.textContent = isBomb ? '??' : '??';
+    el.textContent = isBomb ? '💣' : '🐹';
     h.el.appendChild(el);
     h.creature = el;
     h.occupied = true;
@@ -169,7 +207,7 @@ function whack(index) {
   if (h.isBomb) {
     score -= 20;
     if (score < 0) score = 0;
-    h.creature.textContent = '??';
+    h.creature.textContent = '💥';
     h.creature.style.animation = 'none';
     h.creature.style.transform = 'translate(-50%,-50%) scale(1.5)';
     setTimeout(() => {
@@ -181,7 +219,7 @@ function whack(index) {
     score += 10;
     hits++;
     hitsDisplay.textContent = hits;
-    h.creature.textContent = '??';
+    h.creature.textContent = '💫';
     h.creature.style.animation = 'none';
     h.creature.style.transform = 'translate(-50%,-50%) scale(1.5)';
     setTimeout(() => {
@@ -197,6 +235,7 @@ function endGame() {
   gameActive = false;
   clearInterval(timer);
   clearInterval(spawnTimer);
+  document.getElementById('result').textContent = 'Игра окончена! Счёт: ' + score;
   for (const h of holes) {
     if (h.creature) {
       h.creature.remove();
@@ -213,4 +252,6 @@ function endGame() {
 }
 
 initGrid();
-</script></body></html>
+</script>
+</body>
+</html>

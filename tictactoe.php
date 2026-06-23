@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>��������-������</title>
+<title>Крестики-нолики</title>
 <link rel="stylesheet" href="style.css">
 <style>
 .board {
@@ -97,12 +97,12 @@
 </header>
 <div class="container">
   <div class="game-wrapper animate-in">
-    <h1>? ��������-������ ?</h1>
-    <p style="color:#888;margin-bottom:8px;">������ ������ ����! �� � <strong style="color:#4488ff;">X</strong>, ��� � <strong style="color:#ff4444;">O</strong></p>
+    <h1>❌ Крестики-нолики ⭕</h1>
+    <p style="color:#888;margin-bottom:8px;">Первый ход твой! Ты за <strong style="color:#4488ff;">X</strong>, бот за <strong style="color:#ff4444;">O</strong></p>
 
     <div class="game-info-bar">
-      <div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div>
-      <div class="game-info-item"><span class="lbl">�������</span><span class="val" id="gamesCount">0</span></div>
+      <div class="game-info-item"><span class="lbl">Очки</span><span class="val" id="scoreDisplay">0</span></div>
+      <div class="game-info-item"><span class="lbl">Сыграно</span><span class="val" id="gamesCount">0</span></div>
     </div>
 
     <div class="board" id="board"></div>
@@ -110,13 +110,13 @@
     <div class="game-status" id="status"></div>
 
     <div class="counter-grid">
-      <div class="counter-item"><span class="lbl">������</span><span class="val win" id="wins">0</span></div>
-      <div class="counter-item"><span class="lbl">���������</span><span class="val loss" id="losses">0</span></div>
-      <div class="counter-item"><span class="lbl">�����</span><span class="val draw" id="draws">0</span></div>
+      <div class="counter-item"><span class="lbl">Победы</span><span class="val win" id="wins">0</span></div>
+      <div class="counter-item"><span class="lbl">Поражения</span><span class="val loss" id="losses">0</span></div>
+      <div class="counter-item"><span class="lbl">Ничьи</span><span class="val draw" id="draws">0</span></div>
     </div>
 
     <div class="game-controls">
-      <button id="newGameBtn" class="btn" style="min-width:160px;">?? ����� ����</button>
+      <button id="newGameBtn" class="btn" style="min-width:160px;">🔄 Новая игра</button>
     </div>
   </div>
 </div>
@@ -143,7 +143,7 @@ function initBoard() {
   board = Array(9).fill(null);
   gameOver = false;
   saved = false;
-  statusEl.textContent = '���� ���!';
+  statusEl.textContent = 'Твой ход!';
   render();
 }
 
@@ -193,7 +193,7 @@ function playerMove(idx) {
     return;
   }
 
-  statusEl.textContent = '��� ����...';
+  statusEl.textContent = 'Бот думает...';
   setTimeout(botMove, 300);
 }
 
@@ -214,7 +214,7 @@ function botMove() {
     return;
   }
 
-  statusEl.textContent = '���� ���!';
+  statusEl.textContent = 'Твой ход!';
   render();
 }
 
@@ -264,15 +264,15 @@ function endGame(winner, combo) {
     wins++;
     totalPoints += 100;
     if (combo) highlightWin(combo);
-    statusEl.innerHTML = '?? �� �������! <strong style="color:#4488ff;">+100 �����</strong>';
+    statusEl.innerHTML = '🎉 Ты выиграл! <strong style="color:#4488ff;">+100 поинтов</strong>';
   } else if (winner === 'O') {
     losses++;
     if (combo) highlightWin(combo);
-    statusEl.innerHTML = '?? ��� �������! �������� ���.';
+    statusEl.innerHTML = '💀 Бот выиграл! Попробуй ещё.';
   } else {
     draws++;
     totalPoints += 10;
-    statusEl.innerHTML = '?? �����! <strong style="color:#ffaa00;">+10 �����</strong>';
+    statusEl.innerHTML = '🤝 Ничья! <strong style="color:#ffaa00;">+10 поинтов</strong>';
   }
 
   totalGames++;

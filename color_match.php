@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.color_match", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>�������� ������� � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Цветовая головоломка | DonateCraft</title><link rel="stylesheet" href="style.css"><style>
 .color-word{font-size:60px;font-weight:800;margin:30px 0;min-height:80px;text-shadow:0 0 30px rgba(255,255,255,0.08);transition:all .3s}
 .color-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:20px 0}
 .color-btn{width:90px;height:90px;border-radius:16px;border:3px solid transparent;cursor:pointer;transition:all .2s;position:relative;font-size:13px;font-weight:600;color:rgba(255,255,255,0.85);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
@@ -55,30 +55,37 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div><
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
+            </div>
+            <a href="donate.php" class="btn btn-sm">💰 Донат</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+        </nav>
+    </div>
+</header>
 <div class="container"><div class="game-wrapper">
-<h1>?? �������� �������</h1>
-<div class="game-info-bar"><div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div></div>
+<h1>🎨 Цветовая головоломка</h1>
+<div class="game-info-bar"><div class="game-info-item"><span class="lbl">Счет</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div></div>
 <div class="game-area">
 <div>
-<div class="round-info">����� <span id="roundDisplay">0</span>/20</div>
-<div class="color-word" id="colorWordDisplay">����� �����</div>
+<div class="round-info">Раунд <span id="roundDisplay">0</span>/20</div>
+<div class="color-word" id="colorWordDisplay">Нажми цвет</div>
 <div class="timer-bar"><div class="timer-bar-fill" id="timerBarFill"></div></div>
 <div class="feedback" id="feedbackDisplay"></div>
 <div class="color-btns" id="colorBtns"></div>
 </div>
 </div>
-<div class="game-controls"><button class="btn" onclick="resetGame()">?? ����� ����</button></div>
+<div class="game-controls"><button class="btn" onclick="resetGame()">🔄 Новая игра</button></div>
 </div></div>
-<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
+<footer><p>DonateCraft | Наслаждайся классической игрой про птичку</p></footer>
 <script>
 const COLORS = [
-  { name: '�������', value: '#ff2222', emoji: '??' },
-  { name: '�����', value: '#2288ff', emoji: '??' },
-  { name: '��˨���', value: '#22cc44', emoji: '??' },
-  { name: 'ƨ����', value: '#ffdd22', emoji: '??' },
-  { name: '����������', value: '#bb44ff', emoji: '??' },
+  { name: 'Красный', value: '#ff2222', emoji: '🔴' },
+  { name: 'Синий', value: '#2288ff', emoji: '🔵' },
+  { name: 'Зелёный', value: '#22cc44', emoji: '🟢' },
+  { name: 'Жёлтый', value: '#ffdd22', emoji: '🟡' },
+  { name: 'Фиолетовый', value: '#bb44ff', emoji: '🟣' },
 ];
 const TOTAL_ROUNDS = 20;
 const ROUND_TIME = 3000;
@@ -160,7 +167,7 @@ function nextRound() {
     const pct = Math.max(0, 100 - (elapsed / ROUND_TIME) * 100);
     timerBarFill.style.width = pct + '%';
     if (pct <= 0) {
-      feedbackDisplay.textContent = '? ����� �����!';
+      feedbackDisplay.textContent = '⏰ Время вышло!';
       feedbackDisplay.style.color = '#ff4455';
       setTimeout(nextRound, 500);
     } else {
@@ -176,12 +183,12 @@ function handleClick(color) {
   if (color === currentWordColor) {
     score += 50;
     correctAnswers++;
-    feedbackDisplay.textContent = '? +50';
+    feedbackDisplay.textContent = '✅ +50';
     feedbackDisplay.style.color = '#44dd66';
   } else {
     score -= 20;
     wrongAnswers++;
-    feedbackDisplay.textContent = '? -20';
+    feedbackDisplay.textContent = '❌ -20';
     feedbackDisplay.style.color = '#ff4455';
   }
   if (score < 0) score = 0;
@@ -191,7 +198,7 @@ function handleClick(color) {
 
 function endGame() {
   gameActive = false;
-  colorWordDisplay.textContent = '���� ��������!';
+  colorWordDisplay.textContent = 'Игра окончена!';
   colorWordDisplay.style.color = '#ffaa33';
   const formData = new FormData();
   formData.append('score', score);

@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.invaders", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>��������� � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Инвейдеры | DonateCraft</title><link rel="stylesheet" href="style.css"><style>
 canvas { border: 2px solid rgba(255,136,0,0.25); background: #0a0500; border-radius: 8px; }
 .controls-hint { display: flex; gap: 6px; justify-content: center; margin: 8px 0; flex-wrap: wrap; }
 .key { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 4px 12px; font-size: 13px; color: #888; font-family: monospace; }
@@ -49,19 +49,26 @@ canvas { border: 2px solid rgba(255,136,0,0.25); background: #0a0500; border-rad
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div><
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
+            </div>
+            <a href="donate.php" class="btn btn-sm">💰 Донат</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+        </nav>
+    </div>
+</header>
 <div class="container"><div class="game-wrapper">
-<h1>?? ���������</h1>
-<div class="game-info-bar"><div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">�����</span><span class="val" id="killsDisplay">0</span></div><div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div></div>
+<h1>👾 Инвейдеры</h1>
+<div class="game-info-bar"><div class="game-info-item"><span class="lbl">Счет</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">Убито</span><span class="val" id="killsDisplay">0</span></div><div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div></div>
 <div class="game-area"><canvas id="gameCanvas" width="500" height="400"></canvas></div>
 <div class="controls-hint">
-<span class="key">A / <</span><span class="key">D / ></span><span class="key">������ � ��������</span>
+<span class="key">A / ←</span><span class="key">D / →</span><span class="key">Пробел для стрельбы</span>
 </div>
 <div id="gameMessage" class="game-message"></div>
-<div class="game-controls"><button class="btn" onclick="resetGame()">?? ����� ����</button></div>
+<div class="game-controls"><button class="btn" onclick="resetGame()">🔄 Новая игра</button></div>
 </div></div>
-<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
+<footer><p>DonateCraft | Наслаждайся классической игрой про птичку</p></footer>
 <script>
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
@@ -135,12 +142,10 @@ function update() {
     frameCount++;
     if (shootCooldown > 0) shootCooldown--;
 
-    // Player movement
     if (keys.left) player.x = Math.max(0, player.x - 4);
     if (keys.right) player.x = Math.min(W - player.w, player.x + 4);
     if (keys.space) shoot();
 
-    // Alien movement
     moveCounter++;
     if (moveCounter >= 30) {
         moveCounter = 0;
@@ -162,7 +167,6 @@ function update() {
         }
     }
 
-    // Check aliens reached bottom
     for (const a of aliens) {
         if (a.alive && a.y + a.h >= player.y) {
             endGame();
@@ -170,7 +174,6 @@ function update() {
         }
     }
 
-    // Player bullets
     for (let i = bullets.length - 1; i >= 0; i--) {
         bullets[i].y -= 6;
         if (bullets[i].y + bullets[i].h < 0) { bullets.splice(i, 1); continue; }
@@ -191,17 +194,15 @@ function update() {
             score = kills * 10;
             scoreDisplay.textContent = score;
             if (aliens.every(a => !a.alive)) {
-                gameMessage.textContent = '?? ������! ��� ��������� ����������!';
+                gameMessage.textContent = '🎉 Победа! Ты уничтожил всех пришельцев!';
                 endGame();
                 return;
             }
         }
     }
 
-    // Alien shooting
     if (frameCount % 40 === 0 && aliens.some(a => a.alive)) alienShoot();
 
-    // Alien bullets
     for (let i = alienBullets.length - 1; i >= 0; i--) {
         alienBullets[i].y += 3;
         if (alienBullets[i].y > H) { alienBullets.splice(i, 1); continue; }
@@ -218,14 +219,12 @@ function draw() {
     ctx.fillStyle = '#0a0500';
     ctx.fillRect(0, 0, W, H);
 
-    // Stars
     ctx.fillStyle = 'rgba(255,255,255,0.08)';
     for (let i = 0; i < 50; i++) {
         const sx = (i * 137 + 50) % W, sy = (i * 97 + 30) % H;
         ctx.fillRect(sx, sy, 2, 2);
     }
 
-    // Aliens
     for (const a of aliens) {
         if (!a.alive) continue;
         const row = Math.floor((a.y - 40) / 44);
@@ -237,16 +236,13 @@ function draw() {
             ctx.shadowColor = '#ff44aa';
         }
         ctx.shadowBlur = 8;
-        // Alien body
         ctx.fillRect(a.x + 4, a.y + 4, a.w - 8, a.h - 8);
         ctx.shadowBlur = 0;
-        // Eyes
         ctx.fillStyle = '#fff';
         ctx.fillRect(a.x + 8, a.y + 8, 6, 6);
         ctx.fillRect(a.x + a.w - 14, a.y + 8, 6, 6);
     }
 
-    // Player
     ctx.fillStyle = '#4488ff';
     ctx.shadowColor = '#4488ff';
     ctx.shadowBlur = 12;
@@ -258,14 +254,12 @@ function draw() {
     ctx.fill();
     ctx.shadowBlur = 0;
 
-    // Player bullets
     ctx.fillStyle = '#ffcc00';
     ctx.shadowColor = '#ffcc00';
     ctx.shadowBlur = 8;
     for (const b of bullets) ctx.fillRect(b.x, b.y, b.w, b.h);
     ctx.shadowBlur = 0;
 
-    // Alien bullets
     ctx.fillStyle = '#ff4444';
     ctx.shadowColor = '#ff4444';
     ctx.shadowBlur = 8;
@@ -276,7 +270,7 @@ function draw() {
         ctx.fillStyle = '#ffaa33';
         ctx.font = '20px Inter, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('����� "����� ����"', W/2, H/2);
+        ctx.fillText('Нажми "Новая игра"', W/2, H/2);
     }
 }
 
@@ -284,7 +278,7 @@ function endGame() {
     gameOver = true;
     gameRunning = false;
     const finalScore = kills * 10;
-    if (!gameMessage.textContent) gameMessage.textContent = '?? ���� ��������! ����������: ' + kills;
+    if (!gameMessage.textContent) gameMessage.textContent = '💀 Игра окончена! Уничтожено: ' + kills;
     if (scoreSubmitted) return;
     scoreSubmitted = true;
     const formData = new FormData();

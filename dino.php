@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.dino", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>���������� � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Динозаврик | DonateCraft</title><link rel="stylesheet" href="style.css"><style>
 #gameCanvas { display: block; margin: 0 auto; }
 </style></head><body>
 <header><div class="header-inner"><a href="index.php" class="logo-link"><?= $site_name ?></a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button><div class="dropdown-content">
@@ -46,19 +46,26 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div><
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
+            </div>
+            <a href="donate.php" class="btn btn-sm">💰 Донат</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+        </nav>
+    </div>
+</header>
 <div class="container"><div class="game-wrapper">
-<h1>?? ����������</h1>
+<h1>🦖 Динозаврик</h1>
 <div class="game-info-bar">
-<div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div>
-<div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
-<div class="game-info-item"><span class="lbl">��������</span><span class="val" id="speedDisplay">1</span></div>
+<div class="game-info-item"><span class="lbl">Счет</span><span class="val" id="scoreDisplay">0</span></div>
+<div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
+<div class="game-info-item"><span class="lbl">Скорость</span><span class="val" id="speedDisplay">1</span></div>
 </div>
 <div class="game-area"><canvas id="gameCanvas" width="600" height="250"></canvas></div>
-<div class="game-controls"><button class="btn" onclick="startGame()">?? ����� / ������</button></div>
+<div class="game-controls"><button class="btn" onclick="startGame()">🔄 Старт / Прыжок</button></div>
 </div></div>
-<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
+<footer><p>DonateCraft | Наслаждайся классической игрой про птичку</p></footer>
 <script>
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
@@ -231,7 +238,7 @@ function draw() {
         ctx.fillStyle = '#ffaa33';
         ctx.font = '18px Inter, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('����� ������ ��� ������', canvas.width / 2, 80);
+        ctx.fillText('Нажми пробел для старта', canvas.width / 2, 80);
     }
 
     if (gameOver) {
@@ -240,10 +247,10 @@ function draw() {
         ctx.fillStyle = '#ff4444';
         ctx.font = '28px Inter, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('?? ���� ��������!', canvas.width / 2, canvas.height / 2 - 20);
+        ctx.fillText('💀 Игра окончена!', canvas.width / 2, canvas.height / 2 - 20);
         ctx.fillStyle = '#ffaa33';
         ctx.font = '18px Inter, sans-serif';
-        ctx.fillText('����: ' + score, canvas.width / 2, canvas.height / 2 + 15);
+        ctx.fillText('Счет: ' + score, canvas.width / 2, canvas.height / 2 + 15);
     }
 }
 

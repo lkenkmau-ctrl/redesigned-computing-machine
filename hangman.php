@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.hangman", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>�������� � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Виселица | DonateCraft</title><link rel="stylesheet" href="style.css"><style>
 canvas { border: 2px solid rgba(255,136,0,0.2); background: #0a0500; border-radius: 8px; }
 .word-display { font-size: 32px; font-weight: 700; letter-spacing: 10px; font-family: monospace; margin: 16px 0; color: #ffcc66; }
 .letter-grid { display: flex; flex-wrap: wrap; gap: 4px; max-width: 350px; justify-content: center; margin: 10px auto; }
@@ -55,21 +55,28 @@ canvas { border: 2px solid rgba(255,136,0,0.2); background: #0a0500; border-radi
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div><
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
+            </div>
+            <a href="donate.php" class="btn btn-sm">💰 Донат</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+        </nav>
+    </div>
+</header>
 <div class="container"><div class="game-wrapper">
-<h1>?? ��������</h1>
-<div class="game-info-bar"><div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div></div>
+<h1>👻 Виселица</h1>
+<div class="game-info-bar"><div class="game-info-item"><span class="lbl">Счет</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div></div>
 <div class="game-area">
 <canvas id="hangmanCanvas" width="300" height="360"></canvas>
 <div><div id="wordDisplay" class="word-display">_</div>
-<div class="hint-row"><span id="hintLength">�����: 0</span><span id="hintWrong">������: 0/6</span></div>
+<div class="hint-row"><span id="hintLength">Длина: 0</span><span id="hintWrong">Ошибки: 0/6</span></div>
 <div id="letterGrid" class="letter-grid"></div>
 <div id="gameMessage" style="font-size:16px;font-weight:600;min-height:24px;margin:8px 0;color:#ffaa33;"></div></div>
 </div>
-<div class="game-controls"><button class="btn" onclick="resetGame()">?? ����� ����</button></div>
+<div class="game-controls"><button class="btn" onclick="resetGame()">🔄 Новая игра</button></div>
 </div></div>
-<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
+<footer><p>DonateCraft | Наслаждайся классической игрой про птичку</p></footer>
 <script>
 const canvas = document.getElementById('hangmanCanvas');
 const ctx = canvas.getContext('2d');
@@ -81,11 +88,11 @@ const gameMessage = document.getElementById('gameMessage');
 const hintLength = document.getElementById('hintLength');
 const hintWrong = document.getElementById('hintWrong');
 
-const WORDS = ['����������������','����������','���������','������','�������������','������������','���������','��������','�������','����������','�����','������','������','������','�����','����','�������','��������','�������','������','�������','����������','������','�����','����������','���������','������','�������','���������','������','�����','������','�����������','�����������','������','�����','�����','���������','�����������','�����������','������������','�����������','��������','�������','��������','�����������','���������','���������','��������','���������','����������'];
+const WORDS = ['программирование','разработка','компьютер','приключение','алгоритм','функция','переменная','клавиатура','монитор','процессор','память','сервер','браузер','скрипт','отладка','рекурсия','транзакция','компиляция','библиотека','фреймворк','интерфейс','приложение','настройка','анимация','визуализация','документация','оптимизация','шифрование','интеграция','модификация','блокчейн','нейросеть','киберспорт','видеокарта','симуляция','эмуляция','виртуализация','автоматизация','тестирование','рефакторинг','репликация','наследование','инкапсуляция','полиморфизм','принтер','маршрутизатор','гиперболоид','параболоид','верификация','исключение','конфигурация'];
 const MAX_WRONG = 6;
 let word, guessed, wrongCount, gameOver, scoreSubmitted;
 
-const ALPHABET = '��������������������������������'.split('');
+const ALPHABET = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'.split('');
 
 function selectWord() {
     word = WORDS[Math.floor(Math.random() * WORDS.length)].toLowerCase();
@@ -115,7 +122,7 @@ function guessLetter(letter, btn) {
     } else {
         btn.classList.add('used-wrong');
         wrongCount++;
-        hintWrong.textContent = '������: ' + wrongCount + '/6';
+        hintWrong.textContent = 'Ошибки: ' + wrongCount + '/6';
         drawHangman();
         if (wrongCount >= MAX_WRONG) endGame(false);
     }
@@ -137,14 +144,12 @@ function drawHangman() {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.strokeStyle = '#ff8800';
     ctx.lineWidth = 3;
-    // Gallows
     ctx.beginPath();
     ctx.moveTo(40, 340); ctx.lineTo(180, 340);
     ctx.moveTo(80, 340); ctx.lineTo(80, 40);
     ctx.moveTo(80, 40); ctx.lineTo(200, 40);
     ctx.moveTo(200, 40); ctx.lineTo(200, 70);
     ctx.stroke();
-    // Rope
     ctx.beginPath();
     ctx.moveTo(196, 70); ctx.lineTo(204, 70);
     ctx.stroke();
@@ -174,7 +179,7 @@ function endGame(won) {
     const correct = guessed.filter((l, i) => l !== '_' && word[i] === l).length;
     const finalScore = Math.max(0, correct * 10 - wrongCount * 5);
     scoreDisplay.textContent = finalScore;
-    gameMessage.textContent = won ? '?? ������! �� ������� �����: ' + word.toUpperCase() : '?? �� ���������. �����: ' + word.toUpperCase();
+    gameMessage.textContent = won ? '🎉 Победа! Ты отгадал слово: ' + word.toUpperCase() : '💀 Ты не справился. Слово: ' + word.toUpperCase();
     if (scoreSubmitted) return;
     scoreSubmitted = true;
     const formData = new FormData();
@@ -192,8 +197,8 @@ function resetGame() {
     guessed = [];
     selectWord();
     for (let i = 0; i < word.length; i++) guessed.push('_');
-    hintLength.textContent = '�����: ' + word.length;
-    hintWrong.textContent = '������: 0/6';
+    hintLength.textContent = 'Длина: ' + word.length;
+    hintWrong.textContent = 'Ошибки: 0/6';
     updateWordDisplay();
     gameMessage.textContent = '';
     scoreDisplay.textContent = '0';

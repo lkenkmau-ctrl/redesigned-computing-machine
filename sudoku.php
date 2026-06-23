@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.sudoku", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>������ � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Судоку | DonateCraft</title><link rel="stylesheet" href="style.css"><style>
 .sudoku-grid { display: grid; grid-template-columns: repeat(9, 44px); gap: 1px; background: rgba(255,136,0,0.15); padding: 2px; border-radius: 8px; margin: 0 auto; width: fit-content; border: 2px solid #ff8800; }
 .sudoku-grid input { width: 44px; height: 44px; text-align: center; font-size: 20px; font-weight: 700; padding: 0; margin: 0; border-radius: 0; background: rgba(30,16,4,0.9); color: #e8d5b0; border: 1px solid rgba(255,136,0,0.1); }
 .sudoku-grid input:focus { outline: none; box-shadow: inset 0 0 8px rgba(255,136,0,0.3); z-index: 1; position: relative; }
@@ -55,23 +55,30 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div><
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
+            </div>
+            <a href="donate.php" class="btn btn-sm">💰 Донат</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+        </nav>
+    </div>
+</header>
 <div class="container"><div class="game-wrapper">
-<h1>?? ������</h1>
+<h1>🧩 Судоку</h1>
 <div class="game-info-bar">
-<div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div>
-<div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
-<div class="game-info-item"><span class="lbl">������</span><span class="val" id="mistakesDisplay">0</span></div>
+<div class="game-info-item"><span class="lbl">Счет</span><span class="val" id="scoreDisplay">0</span></div>
+<div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
+<div class="game-info-item"><span class="lbl">Ошибки</span><span class="val" id="mistakesDisplay">0</span></div>
 </div>
 <div class="game-area" id="gameArea"></div>
 <div class="sudoku-msg" id="statusMsg"></div>
 <div class="game-controls">
-<button class="btn" onclick="checkSolution()">? ���������</button>
-<button class="btn" onclick="newPuzzle()">?? ����� ����</button>
+<button class="btn" onclick="checkSolution()">✅ Проверить</button>
+<button class="btn" onclick="newPuzzle()">🔄 Новая игра</button>
 </div>
 </div></div>
-<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
+<footer><p>DonateCraft | Наслаждайся классической игрой про птичку</p></footer>
 <script>
 const puzzles = [
     { givens: [
@@ -128,7 +135,7 @@ function newPuzzle() {
     currentPuzzle = (currentPuzzle + 1) % puzzles.length;
     document.getElementById('scoreDisplay').textContent = '0';
     document.getElementById('mistakesDisplay').textContent = '0';
-    document.getElementById('statusMsg').textContent = '��������� ������ ������ ������� �� 1 �� 9';
+    document.getElementById('statusMsg').textContent = 'Заполните пустые ячейки числами от 1 до 9';
     renderGrid();
 }
 
@@ -164,7 +171,7 @@ function renderGrid() {
 }
 
 function checkSolution() {
-    if (completed) { document.getElementById('statusMsg').textContent = '? ��� ������! ������� ����� ����.'; return; }
+    if (completed) { document.getElementById('statusMsg').textContent = '✅ Уже решено! Начни новую.'; return; }
     const inputs = document.querySelectorAll('.sudoku-grid input');
     const p = puzzles[currentPuzzle];
     let allFilled = true;
@@ -188,7 +195,7 @@ function checkSolution() {
     });
 
     if (!allFilled) {
-        document.getElementById('statusMsg').textContent = '?? ��������� ��� ������ ������';
+        document.getElementById('statusMsg').textContent = '❌ Заполните все пустые клетки';
         return;
     }
 
@@ -205,7 +212,7 @@ function checkSolution() {
 
     if (!hasWrong) {
         completed = true;
-        document.getElementById('statusMsg').textContent = '?? ���������! ����: ' + score;
+        document.getElementById('statusMsg').textContent = '🎉 Отлично! Счет: ' + score;
         const formData = new FormData();
         formData.append('score', score);
         fetch('sudoku.php', { method: 'POST', body: formData })
@@ -213,7 +220,7 @@ function checkSolution() {
             .then(data => { if (data.best > 0) bestDisplay.textContent = data.best; })
             .catch(() => {});
     } else {
-        document.getElementById('statusMsg').textContent = '? ' + newMistakes + ' ������. ����� -' + (newMistakes * 50) + ' �����';
+        document.getElementById('statusMsg').textContent = '📝 ' + newMistakes + ' ошибок. Штраф -' + (newMistakes * 50) + ' очков';
     }
 }
 

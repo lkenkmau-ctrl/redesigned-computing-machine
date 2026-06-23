@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>���������</title>
+<title>Викторина</title>
 <link rel="stylesheet" href="style.css">
 <style>
 .quiz-card { max-width: 600px; margin: 20px auto; text-align: left; }
@@ -68,7 +68,8 @@
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
                 <a href="games.php" class="btn btn-sm">🎮 Играть</a>
             </div>
             <a href="donate.php" class="btn btn-sm">💰 Донат</a>
@@ -78,13 +79,13 @@
 </header>
 <div class="container">
     <div class="game-wrapper animate-in">
-        <h1>? ���������</h1>
-        <p style="color:#888;margin-bottom:16px;">������ �� 10 �������� � ��������� ����!</p>
+        <h1>📝 Викторина</h1>
+        <p style="color:#888;margin-bottom:16px;">Ответь на 10 вопросов и проверь себя!</p>
 
         <div class="game-info-bar">
-            <div class="game-info-item"><span class="lbl">������</span><span class="val" id="questionNum">1 / 10</span></div>
-            <div class="game-info-item"><span class="lbl">���������</span><span class="val" id="correctDisplay">0</span></div>
-            <div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Вопрос</span><span class="val" id="questionNum">1 / 10</span></div>
+            <div class="game-info-item"><span class="lbl">Правильно</span><span class="val" id="correctDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Счет</span><span class="val" id="scoreDisplay">0</span></div>
         </div>
 
         <div class="quiz-progress" id="progressDots"></div>
@@ -93,8 +94,8 @@
             <div class="quiz-question" id="questionText"></div>
             <div id="optionsContainer"></div>
             <div class="game-controls" style="margin-top:16px;">
-                <button id="nextBtn" class="btn" style="display:none;">? �����</button>
-                <button id="restartBtn" class="btn btn-outline" style="display:none;">?? ������ ������</button>
+                <button id="nextBtn" class="btn" style="display:none;">▶ Дальше</button>
+                <button id="restartBtn" class="btn btn-outline" style="display:none;">🔄 Пройти снова</button>
             </div>
             <div id="result" style="font-size:18px;font-weight:600;min-height:30px;text-align:center;margin-top:12px;"></div>
         </div>
@@ -104,53 +105,53 @@
 <script>
 const questions = [
     {
-        q: '����� ������� ����� ������� � ��������� �������?',
-        opts: ['����', '������', '������', '������'],
+        q: 'Какой блок самый прочный в Майнкрафте?',
+        opts: ['Камень', 'Бедрок', 'Кирпич', 'Дерево'],
         ans: 1
     },
     {
-        q: '������� ������ � ���� ��������� ��������?',
+        q: 'Сколько костей в теле взрослого человека?',
         opts: ['106', '206', '306', '406'],
         ans: 1
     },
     {
-        q: '����� ���� � Minecraft ����� �������?',
-        opts: ['��������', '�������� ������', '�������� ����', '����������� ����'],
+        q: 'В каком году вышла полная версия Minecraft?',
+        opts: ['2009', '2011', '2013', '2015'],
         ans: 1
     },
     {
-        q: '����� ����� ������� ���� � ����?',
-        opts: ['��������', '���', '���������', '�����'],
+        q: 'Какой самый большой океан на Земле?',
+        opts: ['Тихий', 'Атлантический', 'Индийский', 'Северный'],
         ans: 0
     },
     {
-        q: '������� �������� � ��������?',
+        q: 'Сколько хромосом у человека?',
         opts: ['23', '44', '46', '48'],
         ans: 2
     },
     {
-        q: '����� ������� ������������ �������� "Fe"?',
-        opts: ['����', '������', '������', '������'],
+        q: 'Какой химический элемент обозначается "Fe"?',
+        opts: ['Фтор', 'Фосфор', 'Железо', 'Франций'],
         ans: 2
     },
     {
-        q: '� ����� ���� ��� �������� Minecraft?',
+        q: 'В каком году началась разработка Minecraft?',
         opts: ['2009', '2010', '2011', '2012'],
         ans: 0
     },
     {
-        q: '����� ����� ������� ���� � ����?',
-        opts: ['�2', '�������', '������������', '������'],
+        q: 'Какая самая высокая гора в мире?',
+        opts: ['К2', 'Эверест', 'Килиманджаро', 'Монблан'],
         ans: 1
     },
     {
-        q: '������� ��������� � �����?',
+        q: 'Сколько пространственных измерений в классической физике?',
         opts: ['1', '2', '3', '0'],
-        ans: 1
+        ans: 2
     },
     {
-        q: '����� ��� � Minecraft �� ���������� � ������� ����?',
-        opts: ['������', '������', '�����', '�����-������'],
+        q: 'Какой моб в Minecraft не появляется в обычном мире?',
+        opts: ['Крипер', 'Скелет', 'Зомби', 'Дракон Края'],
         ans: 3
     }
 ];
@@ -261,15 +262,15 @@ function selectAnswer(idx) {
 
     currentQ++;
     if (currentQ >= totalQuestions) {
-        nextBtn.textContent = '?? ���������';
+        nextBtn.textContent = '🔔 Финиш';
     } else {
-        nextBtn.textContent = '? �����';
+        nextBtn.textContent = '▶ Дальше';
     }
     nextBtn.style.display = 'inline-block';
 }
 
 function finishQuiz() {
-    resultDiv.innerHTML = '?? ��������� ���������! ���������� �������: <strong style="color:#00ff00;">' + correctCount + ' / ' + totalQuestions + '</strong> | +<strong style="color:#ffd700;">' + score + '</strong> �����';
+    resultDiv.innerHTML = '🎉 Викторина завершена! Правильных ответов: <strong style="color:#00ff00;">' + correctCount + ' / ' + totalQuestions + '</strong> | +<strong style="color:#ffd700;">' + score + '</strong> поинтов';
     nextBtn.style.display = 'none';
     restartBtn.style.display = 'inline-block';
 

@@ -1,5 +1,0 @@
-Warning: session_save_path(): Session save path cannot be changed after headers have already been sent in /var/www/html/config.php on line 5
-
-Warning: session_start(): Session cannot be started after headers have already been sent in /var/www/html/config.php on line 6
-
-Warning: Cannot modify header information - headers already sent by (output started at /var/www/html/profile.php:1) in /var/www/html/config.php on line 166

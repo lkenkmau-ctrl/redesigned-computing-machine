@@ -13,12 +13,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.asteroids", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>��������� � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Астероиды</title>
+<link rel="stylesheet" href="style.css">
+<style>
 #gameCanvas { border: 2px solid rgba(255,136,0,0.25); background: #050a10; border-radius: 8px; }
 .controls-hint { display: flex; gap: 4px; justify-content: center; margin: 12px 0; flex-wrap: wrap; }
 .key { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 6px 12px; font-size: 12px; color: #888; font-family: monospace; }
-</style></head><body>
-<header><div class="header-inner"><a href="index.php" class="logo-link">DonateCraft</a><nav class="nav"><div class="dropdown"><button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button><div class="dropdown-content">
+</style>
+</head>
+<body>
+<header>
+    <div class="header-inner">
+        <a href="index.php" class="logo-link"><?= $site_name ?></a>
+        <nav class="nav">
+            <div class="dropdown">
+                <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+                <div class="dropdown-content">
                     <a href="snake.php">🐍 Змейка</a>
                     <a href="tetris.php">🧊 Тетрис</a>
                     <a href="2048.php">🔢 2048</a>
@@ -48,18 +63,49 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div><
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
-<div class="container"><div class="game-wrapper">
-<h1>?? ���������</h1>
-<div class="game-info-bar"><div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div><div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div><div class="game-info-item"><span class="lbl">�����</span><span class="val" id="waveDisplay">1</span></div></div>
-<div class="game-area"><canvas id="gameCanvas" width="500" height="500"></canvas></div>
-<div class="controls-hint">
-<span class="key">W / ^</span><span class="key">A / <</span><span class="key">S / v</span><span class="key">D / ></span><span class="key">������ � �����</span>
+                    <a href="pacman.php">👾 Пакман</a>
+                </div>
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
+            </div>
+            <a href="donate.php" class="btn btn-sm">💰 Донат</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+        </nav>
+    </div>
+</header>
+<div class="container">
+    <div class="game-wrapper animate-in">
+        <h1>☄️ Астероиды</h1>
+        <p style="color:#888;margin-bottom:16px;">Уничтожай астероиды и зарабатывай очки!</p>
+
+        <div class="game-info-bar">
+            <div class="game-info-item"><span class="lbl">Счёт</span><span class="val" id="scoreDisplay">0</span></div>
+            <div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
+            <div class="game-info-item"><span class="lbl">Волна</span><span class="val" id="waveDisplay">1</span></div>
+        </div>
+
+        <div class="game-area">
+            <canvas id="gameCanvas" width="500" height="500"></canvas>
+        </div>
+
+        <div class="controls-hint">
+            <span class="key">W / ↑</span>
+            <span class="key">A / ←</span>
+            <span class="key">S / ↓</span>
+            <span class="key">D / →</span>
+            <span class="key">Пробел — стрельба</span>
+        </div>
+
+        <div class="game-controls">
+            <button class="btn" onclick="resetGame()" style="min-width:140px;">🔄 Новая игра</button>
+            <a href="profile.php" class="btn btn-outline">Выйти</a>
+        </div>
+
+        <div style="margin-top:16px;background:rgba(22,33,62,0.5);border-radius:10px;padding:16px;text-align:left;font-size:13px;color:#888;">
+            <strong style="color:#aaa;">Правила:</strong> Управляй кораблём WASD/стрелками. Стреляй пробелом. Маленькие астероиды = +100, средние = +50, большие = +20 очков. Не врежься! Удачи!
+        </div>
+    </div>
 </div>
-<div class="game-controls"><button class="btn" onclick="resetGame()">?? ����� ����</button></div>
-</div></div>
-<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
+
 <script>
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
@@ -138,7 +184,6 @@ function splitAsteroid(a) {
 function update() {
     if (gameOver) return;
 
-    // Ship rotation/thrust
     if (keys['ArrowLeft'] || keys['KeyA']) ship.angle -= 0.05;
     if (keys['ArrowRight'] || keys['KeyD']) ship.angle += 0.05;
     if (keys['ArrowUp'] || keys['KeyW']) {
@@ -150,13 +195,11 @@ function update() {
         ship.vy -= Math.sin(ship.angle) * 0.08;
     }
 
-    // Ship wrap
     ship.x += ship.vx; ship.y += ship.vy;
     ship.vx *= 0.99; ship.vy *= 0.99;
     if (ship.x < 0) ship.x += W; if (ship.x > W) ship.x -= W;
     if (ship.y < 0) ship.y += H; if (ship.y > H) ship.y -= H;
 
-    // Bullets
     for (let i = bullets.length - 1; i >= 0; i--) {
         const b = bullets[i];
         b.x += b.vx; b.y += b.vy;
@@ -177,14 +220,12 @@ function update() {
         }
     }
 
-    // Asteroids wrap
     for (const a of asteroids) {
         a.x += a.vx; a.y += a.vy;
         if (a.x < -50) a.x += W + 100; if (a.x > W + 50) a.x -= W + 100;
         if (a.y < -50) a.y += H + 100; if (a.y > H + 50) a.y -= H + 100;
     }
 
-    // Ship hit
     for (const a of asteroids) {
         const dx = ship.x - a.x, dy = ship.y - a.y;
         if (dx * dx + dy * dy < (ship.radius + a.radius) ** 2) {
@@ -194,7 +235,6 @@ function update() {
         }
     }
 
-    // Next wave
     if (asteroids.length === 0) spawnWave();
 }
 
@@ -212,7 +252,6 @@ function submitScore() {
 function draw() {
     ctx.fillStyle = '#050a10'; ctx.fillRect(0, 0, W, H);
 
-    // Asteroids
     for (const a of asteroids) {
         ctx.strokeStyle = 'rgba(200,180,150,0.8)';
         ctx.lineWidth = 2;
@@ -228,13 +267,11 @@ function draw() {
         ctx.closePath(); ctx.stroke();
     }
 
-    // Bullets
     ctx.fillStyle = '#ffcc33';
     for (const b of bullets) {
         ctx.beginPath(); ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2); ctx.fill();
     }
 
-    // Ship
     ctx.save();
     ctx.translate(ship.x, ship.y);
     ctx.rotate(ship.angle);
@@ -255,10 +292,10 @@ function draw() {
         ctx.fillStyle = '#ff4444';
         ctx.font = 'bold 36px Inter, sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('?? ���� ��������!', W/2, H/2 - 20);
+        ctx.fillText('💥 Игра окончена!', W/2, H/2 - 20);
         ctx.fillStyle = '#ffaa33';
         ctx.font = '20px Inter, sans-serif';
-        ctx.fillText('����: ' + score, W/2, H/2 + 30);
+        ctx.fillText('Счёт: ' + score, W/2, H/2 + 30);
     }
 }
 
@@ -276,4 +313,6 @@ document.addEventListener('keyup', e => { keys[e.code] = false; });
 
 resetGame();
 gameLoop();
-</script></body></html>
+</script>
+</body>
+</html>

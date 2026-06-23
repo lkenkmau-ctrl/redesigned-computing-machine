@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['score'])) {
 $bestData = supabaseSelect('game_scores', ['select' => 'score', 'where' => "user_id=eq.$user_id&game=eq.rps", 'order' => 'score.desc', 'limit' => 1]);
 $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['score'] : 0;
 ?>
-<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>������-�������-������ � DonateCraft</title><link rel="stylesheet" href="style.css"><style>
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Камень-Ножницы-Бумага | DonateCraft</title><link rel="stylesheet" href="style.css"><style>
 .rps-score { display: flex; gap: 30px; justify-content: center; align-items: center; margin: 16px 0; }
 .rps-score-item { text-align: center; }
 .rps-score-item .lbl { font-size: 13px; color: #6b5a40; }
@@ -65,37 +65,44 @@ $bestScore = !empty($bestData) && !isset($bestData['error']) ? $bestData[0]['sco
                     <a href="math.php">🧮 Математика</a>
                     <a href="fifteen.php">🧩 Пятнашки</a>
                     <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div><
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>/div><a href="donate.php" class="btn btn-sm">💰 Донат</a><a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a></nav></div></header>
+                    <a href="pacman.php">👾 Пакман</a></div>
+
+                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
+            </div>
+            <a href="donate.php" class="btn btn-sm">💰 Донат</a>
+            <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
+        </nav>
+    </div>
+</header>
 <div class="container"><div class="game-wrapper">
-<h1>? ������-�������-������</h1>
+<h1>✊ Камень-Ножницы-Бумага</h1>
 <div class="game-info-bar">
-<div class="game-info-item"><span class="lbl">����</span><span class="val" id="scoreDisplay">0</span></div>
-<div class="game-info-item"><span class="lbl">������</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
+<div class="game-info-item"><span class="lbl">Счет</span><span class="val" id="scoreDisplay">0</span></div>
+<div class="game-info-item"><span class="lbl">Рекорд</span><span class="val" id="bestDisplay"><?= $bestScore ?></span></div>
 </div>
 <div class="rps-score">
-<div class="rps-score-item player"><span class="lbl">��</span><span class="val" id="playerScore">0</span></div>
-<div class="rps-score-item"><span class="lbl">�����</span><span class="val" id="roundDisplay">1</span></div>
-<div class="rps-score-item computer"><span class="lbl">���������</span><span class="val" id="computerScore">0</span></div>
+<div class="rps-score-item player"><span class="lbl">Ты</span><span class="val" id="playerScore">0</span></div>
+<div class="rps-score-item"><span class="lbl">Раунд</span><span class="val" id="roundDisplay">1</span></div>
+<div class="rps-score-item computer"><span class="lbl">Компьютер</span><span class="val" id="computerScore">0</span></div>
 </div>
 <div class="rps-choices">
-<div class="rps-choice" id="playerChoice">?</div>
+<div class="rps-choice" id="playerChoice">❓</div>
 <div class="rps-vs">VS</div>
-<div class="rps-choice" id="computerChoice">?</div>
+<div class="rps-choice" id="computerChoice">❓</div>
 </div>
-<div class="rps-result" id="resultDisplay">������� ������, ����� ������� ���</div>
+<div class="rps-result" id="resultDisplay">Нажми кнопку, чтобы начать игру</div>
 <div class="rps-buttons">
-<button class="btn rps-btn" onclick="play('������')">? ������</button>
-<button class="btn rps-btn" onclick="play('������')">? ������</button>
-<button class="btn rps-btn" onclick="play('�������')">?? �������</button>
+<button class="btn rps-btn" onclick="play('Камень')">✊ Камень</button>
+<button class="btn rps-btn" onclick="play('Бумага')">✋ Бумага</button>
+<button class="btn rps-btn" onclick="play('Ножницы')">✌ Ножницы</button>
 </div>
 <div id="statusMsg"></div>
-<div class="game-controls"><button class="btn" onclick="resetGame()">?? ����� ����</button></div>
+<div class="game-controls"><button class="btn" onclick="resetGame()">🔄 Новая игра</button></div>
 </div></div>
-<footer><p>DonateCraft � ����������� �������� ������ �� ����-����</p></footer>
+<footer><p>DonateCraft | Наслаждайся классической игрой про птичку</p></footer>
 <script>
-const icons = { '������': '?', '������': '?', '�������': '??' };
-const beats = { '������': '�������', '������': '������', '�������': '������' };
+const icons = { 'Камень': '✊', 'Бумага': '✋', 'Ножницы': '✌' };
+const beats = { 'Камень': 'Ножницы', 'Бумага': 'Камень', 'Ножницы': 'Бумага' };
 
 let playerWins = 0;
 let computerWins = 0;
@@ -112,21 +119,21 @@ function resetGame() {
     document.getElementById('computerScore').textContent = '0';
     document.getElementById('roundDisplay').textContent = '1';
     document.getElementById('scoreDisplay').textContent = '0';
-    document.getElementById('resultDisplay').textContent = '������� ������, ����� ������� ���';
+    document.getElementById('resultDisplay').textContent = 'Нажми кнопку, чтобы начать игру';
     document.getElementById('statusMsg').textContent = '';
-    document.getElementById('playerChoice').textContent = '?';
+    document.getElementById('playerChoice').textContent = '❓';
     document.getElementById('playerChoice').className = 'rps-choice';
-    document.getElementById('computerChoice').textContent = '?';
+    document.getElementById('computerChoice').textContent = '❓';
     document.getElementById('computerChoice').className = 'rps-choice';
 }
 
 function play(player) {
     if (gameFinished) {
-        document.getElementById('statusMsg').textContent = '?? ���� ���������. ������� �����.';
+        document.getElementById('statusMsg').textContent = '⛔ Игра окончена. Начни новую.';
         return;
     }
 
-    const choices = ['������', '������', '�������'];
+    const choices = ['Камень', 'Бумага', 'Ножницы'];
     const computer = choices[Math.floor(Math.random() * 3)];
 
     document.getElementById('playerChoice').textContent = icons[player];
@@ -150,16 +157,16 @@ function play(player) {
         pEl.classList.add('win');
         cEl.classList.add('lose');
         playerWins++;
-        document.getElementById('resultDisplay').textContent = '? �� �������� �����! ' + icons[player] + ' ���� ' + icons[computer];
+        document.getElementById('resultDisplay').textContent = '🎉 Ты выиграл раунд! ' + icons[player] + ' бьёт ' + icons[computer];
     } else if (result === 'lose') {
         pEl.classList.add('lose');
         cEl.classList.add('win');
         computerWins++;
-        document.getElementById('resultDisplay').textContent = '? �� ��������� �����! ' + icons[computer] + ' ���� ' + icons[player];
+        document.getElementById('resultDisplay').textContent = '💀 Ты проиграл раунд! ' + icons[computer] + ' бьёт ' + icons[player];
     } else {
         pEl.classList.add('draw');
         cEl.classList.add('draw');
-        document.getElementById('resultDisplay').textContent = '?? �����!';
+        document.getElementById('resultDisplay').textContent = '🤝 Ничья!';
     }
 
     roundsPlayed++;
@@ -172,9 +179,9 @@ function play(player) {
         const score = playerWins * 100;
         document.getElementById('scoreDisplay').textContent = score;
         if (playerWins > computerWins) {
-            document.getElementById('resultDisplay').textContent = '?? ������! ' + playerWins + ':' + computerWins + ' � +' + score + ' �����';
+            document.getElementById('resultDisplay').textContent = '🏆 Победа! ' + playerWins + ':' + computerWins + ' и +' + score + ' поинтов';
         } else {
-            document.getElementById('resultDisplay').textContent = '?? ��������� ' + playerWins + ':' + computerWins;
+            document.getElementById('resultDisplay').textContent = '💀 Поражение ' + playerWins + ':' + computerWins;
         }
         const formData = new FormData();
         formData.append('score', score);
