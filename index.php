@@ -12,7 +12,7 @@ $total_donations = count($dons_resp);
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title><?= $site_name ?> - Игровой сервер и донат-магазин!</title>
+<title><?= $site_name ?> - Добро пожаловать на  DonateCraft</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,41 +21,12 @@ $total_donations = count($dons_resp);
         <a href="index.php" class="logo-link"><?= $site_name ?></a>
         <nav class="nav">
             <div class="dropdown">
-                <button class="btn btn-sm dropdown-btn">🎮 Игры ▾</button>
+                <button class="btn btn-sm dropdown-btn">🎮 Популярные игры ▾</button>
                 <div class="dropdown-content">
-                    <a href="snake.php">🐍 Змейка</a>
-                    <a href="tetris.php">🧊 Тетрис</a>
-                    <a href="2048.php">🔢 2048</a>
-                    <a href="tictactoe.php">⭕ Крестики-нолики</a>
-                    <a href="guess.php">❓ Угадай число</a>
-                    <a href="memory.php">🃏 Память</a>
-                    <a href="clicker.php">👆 Кликер</a>
-                    <a href="quiz.php">📝 Викторина</a>
-                    <a href="flappy.php">🐦 Flappy Bird</a>
-                    <a href="reaction.php">⚡ Reaction Test</a>
-                    <a href="minesweeper.php">💣 Сапёр</a>
-                    <a href="hangman.php">👻 Виселица</a>
-                    <a href="simon.php">🔴 Саймон</a>
-                    <a href="pong.php">🏓 Понг</a>
-                    <a href="invaders.php">👾 Инвейдеры</a>
-                    <a href="breakout.php">🧱 Арканоид</a>
-                    <a href="sudoku.php">🧩 Судоку</a>
-                    <a href="wordle.php">🔤 Вордли</a>
-                    <a href="dino.php">🦖 Динозаврик</a>
-                    <a href="rps.php">✊ Камень-Ножницы</a>
-                    <a href="typing.php">⌨️ Печать</a>
-                    <a href="color_match.php">🎨 Цвет</a>
-                    <a href="balloon.php">🎈 Шарики</a>
-                    <a href="whack.php">🔨 Крот</a>
-                    <a href="hanoi.php">🗼 Ханой</a>
-                    <a href="connect4.php">🔴 4 в ряд</a>
-                    <a href="math.php">🧮 Математика</a>
-                    <a href="fifteen.php">🧩 Пятнашки</a>
-                    <a href="asteroids.php">☄️ Астероиды</a>
-                    <a href="pacman.php">👾 Пакман</a></div>
-                <a href="games.php" class="btn btn-sm">🎮 Играть</a>
+                    
+                </div>
             </div>
-            <?php if (isAuth()): ?>
+            <a href="games.php" class="btn btn-sm">🎮 Играть</a>            <?php if (isAuth()): ?>
             <a href="donate.php" class="btn btn-sm">💰 Донат</a>
             <a href="profile.php" class="btn btn-sm btn-outline">👤 Профиль</a>
             <?php else: ?>
@@ -66,348 +37,153 @@ $total_donations = count($dons_resp);
     </div>
 </header>
 <div class="container">
-    <section class="hero animate-in">
-        <h1>����� ���������� �� DonateCraft</h1>
-        <p>����������� ����, ����� � ������������ ����-����, � ��������� �� �� �����, ����������, ������ � ��������� �� ����� ������� Minecraft 1.16.5!</p>
+    <section class="hero">
+        <h1>Добро пожаловать на  DonateCraft</h1>
+        <p>Играй, зарабатывай монеты и получай привилегии на лучшем Сервере!</p>
         <div class="hero-buttons">
             <?php if (!isAuth()): ?>
-                <a href="register.php" class="btn" style="font-size:18px;padding:14px 36px;">������ ������</a>
-                <a href="login.php" class="btn btn-outline" style="font-size:18px;padding:14px 36px;">��� ���� �������</a>
+                <a href="register.php" class="btn btn-lg">Начать играть</a>
+                <a href="login.php" class="btn btn-lg btn-outline">Уже есть аккаунт? Войти</a>
             <?php else: ?>
-                <a href="snake.php" class="btn" style="font-size:18px;padding:14px 36px;">������ � ������</a>
-                <a href="tetris.php" class="btn btn-outline" style="font-size:18px;padding:14px 36px;">������ � ������</a>
+                <a href="games.php" class="btn btn-lg">Играть сейчас</a>
             <?php endif; ?>
         </div>
-        <div style="margin-top:20px;display:flex;gap:24px;justify-content:center;color:#666;font-size:14px;">
-            <span>?? <?= $user_count ?> �������</span>
-            <span>?? <?= $total_donations ?> ������ �������</span>
+        <div class="stats-bar">
+            <div class="stat-item"><span class="num"><?= $user_count ?></span><div class="lbl">игроков</div></div>
+            <div class="stat-item"><span class="num"><?= $total_donations ?></span><div class="lbl">донатов</div></div>
         </div>
     </section>
 
-    <section class="features">
-        <div class="feature-card animate-in delay-1">
-            <div class="feature-icon">??</div>
-            <h3>����-����</h3>
-            <p>������������ ������ � ������ ����� � ��������. ������� ������ � ����������� ����!</p>
+    <section>
+        <div class="section-header">
+            <div class="section-tag">ПРЕИМУЩЕСТВА</div>
+            <h2 class="section-title">Всё для комфортной игры</h2>
+            <p class="section-subtitle">Играй, зарабатывай и покупай привилегии</p>
         </div>
-        <div class="feature-card animate-in delay-2">
-            <div class="feature-icon">??</div>
-            <h3>������� ������</h3>
-            <p>����� ���� �� ����������, ������, �����, ������, ������� � ��������� ��� Minecraft.</p>
-        </div>
-        <div class="feature-card animate-in delay-3">
-            <div class="feature-icon">?</div>
-            <h3>���������� ������</h3>
-            <p>������ �� ������� ������������� ��������� ����� ������� � ����� �������� � ����.</p>
-        </div>
-        <div class="feature-card animate-in delay-4">
-            <div class="feature-icon">??</div>
-            <h3>������������</h3>
-            <p>���������� � ������� �������� � ������� �������. ����� ������!</p>
+        <div class="features-grid">
+            <div class="feature-card"><span class="feature-icon">🛒</span><h3>Донат-магазин</h3><p>Покупай привилегии, валюту и наборы. Поддержи сервер и получи бонусы!</p></div>
+            <div class="feature-card"><span class="feature-icon">🎮</span><h3>Игры с наградами</h3><p>Играй в мини-игры и зарабатывай монеты. Соревнуйся с друзьями!</p></div>
+            <div class="feature-card"><span class="feature-icon">👑</span><h3>Привилегии</h3><p>Выделяйся уникальными рангами, цветом ника и особыми возможностями.</p></div>
+            <div class="feature-card"><span class="feature-icon">💬</span><h3>Сообщество</h3><p>Присоединяйся к нашему дружному сообществу. Вместе веселее!</p></div>
         </div>
     </section>
 
-    <h2 class="animate-in">��� ��� ��������?</h2>
-    <div class="steps animate-in">
-        <div class="step"><div class="step-num">1</div><p>��������������� � ����� ���� Minecraft ���</p></div>
-        <div class="step"><div class="step-num">2</div><p>����� � ������ ��� ������, ������� ������</p></div>
-        <div class="step"><div class="step-num">3</div><p>������� ���� �� ������ ���������� �������</p></div>
-        <div class="step"><div class="step-num">4</div><p>������� �����-�������� � ��������</p></div>
-        <div class="step"><div class="step-num">5</div><p>������������� ������ �� �� �������!</p></div>
-    </div>
+    <section>
+        <h2 class="section-title" style="text-align:center;margin-bottom:32px">Как это работает?</h2>
+        <div class="steps-grid">
+            <div class="step-card"><div class="step-num">1</div><p>Зарегистрируйся на сайте</p></div>
+            <div class="step-card"><div class="step-num">2</div><p>Зарабатывай монеты в играх</p></div>
+            <div class="step-card"><div class="step-num">3</div><p>Покупай привилегии</p></div>
+            <div class="step-card"><div class="step-num">4</div><p>Активируй команды</p></div>
+            <div class="step-card"><div class="step-num">5</div><p>Играй с комфортом!</p></div>
+        </div>
+    </section>
 
-    <h2 class="animate-in">?? ����</h2>
-    <div class="games-grid">
-        <div class="game-card animate-in delay-1">
-            <div class="game-preview game-snake">??</div>
-            <div class="game-body">
-                <h3>������</h3>
-                <p>�������� �������, ������� ��� � ��������� �������. ������ 5 ��������� �������� � ����� �������!</p>
-                <div class="game-stats"><span>?? +100 ����� �� �������</span></div>
-                <?php if (isAuth()): ?><a href="snake.php" class="btn">������</a><?php endif; ?>
-            </div>
+    <section>
+        <div class="section-header">
+            <div class="section-tag">🎮</div>
+            <h2 class="section-title">Популярные игры</h2>
+            <p class="section-subtitle">Играй и зарабатывай монеты в любой игре!</p>
         </div>
-        <div class="game-card animate-in delay-2">
-            <div class="game-preview game-tetris">??</div>
-            <div class="game-body">
-                <h3>������</h3>
-                <p>��������� �������� �����, ������� �����. ����� �������� ������ �����! ������ 10 ����� � ����� �������.</p>
-                <div class="game-stats"><span>?? +100 ����� �� �������</span></div>
-                <?php if (isAuth()): ?><a href="tetris.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-3">
-            <div class="game-preview" style="background:linear-gradient(135deg,#3a1a00,#5a2a00);">??</div>
-            <div class="game-body">
-                <h3>������ �������</h3>
-                <p>����� ������ � ��������� �� 1000 �����! <strong style="color:#ffd700;">5 �������</strong> � ����.</p>
-                <div class="game-stats"><span>?? �� 1000 �����</span></div>
-                <?php if (isAuth()): ?><a href="wheel.php" class="btn btn-gold">�������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-4">
-            <div class="game-preview" style="background:linear-gradient(135deg,#2a003a,#4a005a);">??</div>
-            <div class="game-body">
-                <h3>������ �����</h3>
-                <p>������ �������� ������ � ������ ����! <strong style="color:#ffd700;">10 ����</strong> � ����. �� 500 �����.</p>
-                <div class="game-stats"><span>?? �� 500 �����</span></div>
-                <?php if (isAuth()): ?><a href="scratch.php" class="btn btn-purple">�������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-1">
-            <div class="game-preview" style="background:linear-gradient(135deg,#1a3a1a,#2a5a2a);">??</div>
-            <div class="game-body">
-                <h3>2048</h3>
-                <p>��������� ������ � ����������� �������, ����� �������� 2048! ������������ �����������.</p>
-                <div class="game-stats"><span>?? ���� �� �������</span></div>
-                <?php if (isAuth()): ?><a href="2048.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-2">
-            <div class="game-preview" style="background:linear-gradient(135deg,#1a1a3a,#2a2a5a);">?</div>
-            <div class="game-body">
-                <h3>��������-������</h3>
-                <p>�������� ������ �� � ������������ ����. ������ = 100 �����!</p>
-                <div class="game-stats"><span>?? +100 �� ������</span></div>
-                <?php if (isAuth()): ?><a href="tictactoe.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-3">
-            <div class="game-preview" style="background:linear-gradient(135deg,#3a2a1a,#5a3a2a);">?</div>
-            <div class="game-body">
-                <h3>������ �����</h3>
-                <p>��������� ������� ����� �� 1 �� 100. ������ ���! ������ ������� � ������ �����.</p>
-                <div class="game-stats"><span>?? �� 100 �����</span></div>
-                <?php if (isAuth()): ?><a href="guess.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-4">
-            <div class="game-preview" style="background:linear-gradient(135deg,#1a2a3a,#2a3a5a);">??</div>
-            <div class="game-body">
-                <h3>������</h3>
-                <p>����� ��� ���� ��������. ��� ������ ����� � ��� ������ �����!</p>
-                <div class="game-stats"><span>?? ���� �� ����</span></div>
-                <?php if (isAuth()): ?><a href="memory.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-1">
-            <div class="game-preview" style="background:linear-gradient(135deg,#3a1a1a,#5a2a2a);">???</div>
-            <div class="game-body">
-                <h3>������</h3>
-                <p>������ ��� ����� ������ ��� �� 10 ������! 1 ���� = 10 �����.</p>
-                <div class="game-stats"><span>?? �� 500+ �����</span></div>
-                <?php if (isAuth()): ?><a href="clicker.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-2">
-            <div class="game-preview" style="background:linear-gradient(135deg,#2a2a1a,#4a4a2a);">??</div>
-            <div class="game-body">
-                <h3>���������</h3>
-                <p>������ �� 10 �������� �� ������ ���������. ������ ���������� ����� = 10 �����!</p>
-                <div class="game-stats"><span>?? �� 100 �����</span></div>
-                <?php if (isAuth()): ?><a href="quiz.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-3">
-            <div class="game-preview" style="background:linear-gradient(135deg,#1a3a2a,#2a5a3a);">??</div>
-            <div class="game-body">
-                <h3>Flappy Bird</h3>
-                <p>������� ������ ����� ��� �����! ���������� � ������ ��� ����.</p>
-                <div class="game-stats"><span>?? �� �����</span></div>
-                <?php if (isAuth()): ?><a href="flappy.php" class="btn btn-blue">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-4">
-            <div class="game-preview" style="background:linear-gradient(135deg,#2a1a3a,#3a2a5a);">?</div>
-            <div class="game-body">
-                <h3>Reaction Test</h3>
-                <p>������� �������� �������! ����� �� ������ ������� ��� ����� �������.</p>
-                <div class="game-stats"><span>?? ����� � ms</span></div>
-                <?php if (isAuth()): ?><a href="reaction.php" class="btn btn-purple">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-1">
-            <div class="game-preview" style="background:linear-gradient(135deg,#3a2a1a,#5a3a2a);">??</div>
-            <div class="game-body">
-                <h3>����</h3>
-                <p>����� ��� ���� �� ���� 9?9. ��� � �������, ��� � ����.</p>
-                <div class="game-stats"><span>?? +10 �� ������</span></div>
-                <?php if (isAuth()): ?><a href="minesweeper.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-2">
-            <div class="game-preview" style="background:linear-gradient(135deg,#2a1a3a,#4a2a5a);">??</div>
-            <div class="game-body">
-                <h3>��������</h3>
-                <p>������ ����� �� ������, ���� ��������� �� ��������!</p>
-                <div class="game-stats"><span>?? �� ��������� �����</span></div>
-                <?php if (isAuth()): ?><a href="hangman.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-3">
-            <div class="game-preview" style="background:linear-gradient(135deg,#3a1a1a,#5a2a2a);">??</div>
-            <div class="game-body">
-                <h3>������ �������</h3>
-                <p>������� ������������������ ������ � ������� �!</p>
-                <div class="game-stats"><span>?? +50 �� �����</span></div>
-                <?php if (isAuth()): ?><a href="simon.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-4">
-            <div class="game-preview" style="background:linear-gradient(135deg,#1a2a3a,#2a3a5a);">??</div>
-            <div class="game-body">
-                <h3>����</h3>
-                <p>������������ ������. �������� �������� ������!</p>
-                <div class="game-stats"><span>?? +100 �� ������</span></div>
-                <?php if (isAuth()): ?><a href="pong.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-1">
-            <div class="game-preview" style="background:linear-gradient(135deg,#0a0a2e,#1a1a4a);">??</div>
-            <div class="game-body">
-                <h3>����������� ����������</h3>
-                <p>������� ����� ���������� � �������!</p>
-                <div class="game-stats"><span>?? +10 �� ��������</span></div>
-                <?php if (isAuth()): ?><a href="invaders.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-2">
-            <div class="game-preview" style="background:linear-gradient(135deg,#2a1a00,#4a2a00);">??</div>
-            <div class="game-body">
-                <h3>��������</h3>
-                <p>������ ��� ��������� �����! 3 �����.</p>
-                <div class="game-stats"><span>?? +10 �� ������</span></div>
-                <?php if (isAuth()): ?><a href="breakout.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-3">
-            <div class="game-preview" style="background:linear-gradient(135deg,#1a2a1a,#2a4a2a);">??</div>
-            <div class="game-body">
-                <h3>������</h3>
-                <p>������� ����� 9?9 ������� �� 1 �� 9.</p>
-                <div class="game-stats"><span>?? �� 500 �����</span></div>
-                <?php if (isAuth()): ?><a href="sudoku.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-4">
-            <div class="game-preview" style="background:linear-gradient(135deg,#2a2a00,#4a4a00);">??</div>
-            <div class="game-body">
-                <h3>������</h3>
-                <p>������ ����� �� 5 ���� �� 6 �������!</p>
-                <div class="game-stats"><span>?? �� 600 �����</span></div>
-                <?php if (isAuth()): ?><a href="wordle.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-1">
-            <div class="game-preview" style="background:linear-gradient(135deg,#1a2a00,#2a4a00);">??</div>
-            <div class="game-body">
-                <h3>����������</h3>
-                <p>������ ����� �������, ��� Chrome Dino!</p>
-                <div class="game-stats"><span>?? �� �����������</span></div>
-                <?php if (isAuth()): ?><a href="dino.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-2">
-            <div class="game-preview" style="background:linear-gradient(135deg,#2a1a2a,#4a2a4a);">?</div>
-            <div class="game-body">
-                <h3>������-�������-������</h3>
-                <p>������ ������ ���������� �� 3 �����!</p>
-                <div class="game-stats"><span>?? +100 �� ������</span></div>
-                <?php if (isAuth()): ?><a href="rps.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-3">
-            <div class="game-preview" style="background:linear-gradient(135deg,#1a1a2a,#2a2a4a);">??</div>
-            <div class="game-body">
-                <h3>���� ������</h3>
-                <p>������� ����� ������ � ��������� �� 30 ���!</p>
-                <div class="game-stats"><span>?? �� �������</span></div>
-                <?php if (isAuth()): ?><a href="typing.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-4">
-            <div class="game-preview" style="background:linear-gradient(135deg,#2a2a1a,#4a4a2a);">??</div>
-            <div class="game-body">
-                <h3>�������� �������</h3>
-                <p>������� �� ���� ������, � �� �� �����!</p>
-                <div class="game-stats"><span>?? +50 �� �����</span></div>
-                <?php if (isAuth()): ?><a href="color_match.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-1">
-            <div class="game-preview" style="background:linear-gradient(135deg,#3a1a2a,#5a2a4a);">??</div>
-            <div class="game-body">
-                <h3>����� �����</h3>
-                <p>����� ������ ������ ������ �� 30 ������!</p>
-                <div class="game-stats"><span>?? ������ �����</span></div>
-                <?php if (isAuth()): ?><a href="balloon.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-2">
-            <div class="game-preview" style="background:linear-gradient(135deg,#2a3a1a,#3a5a2a);">??</div>
-            <div class="game-body">
-                <h3>����� �����</h3>
-                <p>��� ������, �� ������� ����! 30 ������.</p>
-                <div class="game-stats"><span>?? +10 �� �����</span></div>
-                <?php if (isAuth()): ?><a href="whack.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-3">
-            <div class="game-preview" style="background:linear-gradient(135deg,#1a2a2a,#2a4a4a);">??</div>
-            <div class="game-body">
-                <h3>��������� �����</h3>
-                <p>�������� ��� ����� � ����� ����� �� ������!</p>
-                <div class="game-stats"><span>?? �� 500 �����</span></div>
-                <?php if (isAuth()): ?><a href="hanoi.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-4">
-            <div class="game-preview" style="background:linear-gradient(135deg,#2a1a1a,#4a2a2a);">??</div>
-            <div class="game-body">
-                <h3>������ � ���</h3>
-                <p>������ 4 ����� � ��� ������ ��!</p>
-                <div class="game-stats"><span>?? +200 �� ������</span></div>
-                <?php if (isAuth()): ?><a href="connect4.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-1">
-            <div class="game-preview" style="background:linear-gradient(135deg,#1a1a00,#2a2a00);">??</div>
-            <div class="game-body">
-                <h3>����������</h3>
-                <p>���� 20 �������� �� ������������ �����!</p>
-                <div class="game-stats"><span>?? +25 �� ������</span></div>
-                <?php if (isAuth()): ?><a href="math.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-2">
-            <div class="game-preview" style="background:linear-gradient(135deg,#001a2a,#002a4a);">??</div>
-            <div class="game-body">
-                <h3>��������</h3>
-                <p>������ ����� �� 1 �� 15 � ���������� �������!</p>
-                <div class="game-stats"><span>?? �� 500 �����</span></div>
-                <?php if (isAuth()): ?><a href="fifteen.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-3">
-            <div class="game-preview" style="background:linear-gradient(135deg,#0a001a,#1a002a);">??</div>
-            <div class="game-body">
-                <h3>���������</h3>
-                <p>��������� ��������� � ������� �� �����!</p>
-                <div class="game-stats"><span>?? �� �����������</span></div>
-                <?php if (isAuth()): ?><a href="asteroids.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-        <div class="game-card animate-in delay-4">
-            <div class="game-preview" style="background:linear-gradient(135deg,#1a1a0a,#2a2a1a);">??</div>
-            <div class="game-body">
-                <h3>������</h3>
-                <p>����� ��� ����� � ������ �� ����������!</p>
-                <div class="game-stats"><span>?? +10 �� �����</span></div>
-                <?php if (isAuth()): ?><a href="pacman.php" class="btn">������</a><?php endif; ?>
-            </div>
-        </div>
-    </div>
+        <div class="games-grid">            <div class="game-card animate-in delay-1">
+                <div class="game-preview game-snake">🐍</div>
+                <div class="game-body">
+                    <h3>Змейка</h3>
+                    <p>Классическая змейка. Собирай яблоки, расти и не врежайся в стены!</p>
+                    <div class="game-stats"><span>+100 за уровень</span></div>
+                    <?php if (isAuth()): ?><a href="snake.php" class="btn">Играть</a><?php endif; ?>
+                </div>
+            </div>            <div class="game-card animate-in delay-2">
+                <div class="game-preview game-tetris">🧊</div>
+                <div class="game-body">
+                    <h3>Тетрис</h3>
+                    <p>Легендарная головоломка. Складывай падающие блоки в ряды и набирай очки!</p>
+                    <div class="game-stats"><span>+100 за уровень</span></div>
+                    <?php if (isAuth()): ?><a href="tetris.php" class="btn">Играть</a><?php endif; ?>
+                </div>
+            </div>            <div class="game-card animate-in delay-3">
+                <div class="game-preview" style="background:linear-gradient(135deg,#161820,#1e2230)">🎡</div>
+                <div class="game-body">
+                    <h3>Колесо</h3>
+                    <p>Крути колесо фортуны и выигрывай до 1000 монет! 5 попыток в день.</p>
+                    <div class="game-stats"><span>до 1000</span></div>
+                    <?php if (isAuth()): ?><a href="wheel.php" class="btn">Играть</a><?php endif; ?>
+                </div>
+            </div>            <div class="game-card animate-in delay-4">
+                <div class="game-preview" style="background:linear-gradient(135deg,#161820,#1e2230)">🪩</div>
+                <div class="game-body">
+                    <h3>Скретч</h3>
+                    <p>Стирай билеты и выигрывай до 500 монет! 10 билетов в день.</p>
+                    <div class="game-stats"><span>до 500</span></div>
+                    <?php if (isAuth()): ?><a href="scratch.php" class="btn">Играть</a><?php endif; ?>
+                </div>
+            </div>            <div class="game-card animate-in delay-1">
+                <div class="game-preview" style="background:linear-gradient(135deg,#161820,#1e2230)">🔢</div>
+                <div class="game-body">
+                    <h3>2048</h3>
+                    <p>Соединяй плитки с одинаковыми числами, чтобы получить 2048!</p>
+                    <div class="game-stats"><span>2048!</span></div>
+                    <?php if (isAuth()): ?><a href="2048.php" class="btn">Играть</a><?php endif; ?>
+                </div>
+            </div>            <div class="game-card animate-in delay-2">
+                <div class="game-preview" style="background:linear-gradient(135deg,#161820,#1e2230)">⭕</div>
+                <div class="game-body">
+                    <h3>Крестики</h3>
+                    <p>Сыграй партию в классические крестики-нолики. Победа = 100 монет!</p>
+                    <div class="game-stats"><span>+100 за победу</span></div>
+                    <?php if (isAuth()): ?><a href="tictactoe.php" class="btn">Играть</a><?php endif; ?>
+                </div>
+            </div>            <div class="game-card animate-in delay-3">
+                <div class="game-preview" style="background:linear-gradient(135deg,#161820,#1e2230)">❓</div>
+                <div class="game-body">
+                    <h3>Угадайка</h3>
+                    <p>Угадай загаданное число от 1 до 100. Чем меньше попыток, тем лучше!</p>
+                    <div class="game-stats"><span>+50 монет</span></div>
+                    <?php if (isAuth()): ?><a href="guess.php" class="btn">Играть</a><?php endif; ?>
+                </div>
+            </div>            <div class="game-card animate-in delay-4">
+                <div class="game-preview" style="background:linear-gradient(135deg,#161820,#1e2230)">🃏</div>
+                <div class="game-body">
+                    <h3>Мемори</h3>
+                    <p>Найди все пары карточек. Тренируй память и зарабатывай монеты!</p>
+                    <div class="game-stats"><span>+50 за пару</span></div>
+                    <?php if (isAuth()): ?><a href="memory.php" class="btn">Играть</a><?php endif; ?>
+                </div>
+            </div>            <div class="game-card animate-in delay-1">
+                <div class="game-preview" style="background:linear-gradient(135deg,#161820,#1e2230)">👆</div>
+                <div class="game-body">
+                    <h3>Кликер</h3>
+                    <p>Кликай как можно быстрее за 10 секунд! 1 клик = 10 монет.</p>
+                    <div class="game-stats"><span>1 клик = 10</span></div>
+                    <?php if (isAuth()): ?><a href="clicker.php" class="btn">Играть</a><?php endif; ?>
+                </div>
+            </div>            <div class="game-card animate-in delay-2">
+                <div class="game-preview" style="background:linear-gradient(135deg,#161820,#1e2230)">📝</div>
+                <div class="game-body">
+                    <h3>Викторина</h3>
+                    <p>Ответь на 10 вопросов из разных категорий. Правильный ответ = 10 монет!</p>
+                    <div class="game-stats"><span>+10 за ответ</span></div>
+                    <?php if (isAuth()): ?><a href="quiz.php" class="btn">Играть</a><?php endif; ?>
+                </div>
+            </div>            <div class="game-card animate-in delay-3">
+                <div class="game-preview" style="background:linear-gradient(135deg,#161820,#1e2230)">🐦</div>
+                <div class="game-body">
+                    <h3>Flappy Bird</h3>
+                    <p>Управляй птичкой и пролетай через препятствия. Сколько очков наберёшь?</p>
+                    <div class="game-stats"><span>за пролёт</span></div>
+                    <?php if (isAuth()): ?><a href="flappy.php" class="btn">Играть</a><?php endif; ?>
+                </div>
+            </div>            <div class="game-card animate-in delay-4">
+                <div class="game-preview" style="background:linear-gradient(135deg,#161820,#1e2230)">⚡</div>
+                <div class="game-body">
+                    <h3>Reaction Test</h3>
+                    <p>Проверь свою реакцию! Нажми как можно быстрее, когда увидишь сигнал!</p>
+                    <div class="game-stats"><span>время в мс</span></div>
+                    <?php if (isAuth()): ?><a href="reaction.php" class="btn">Играть</a><?php endif; ?>
+                </div>
+            </div>        </div>
+    </section>
 </div>
-<footer><p><?= $site_name ?> &copy; 2026 � ������ Minecraft 1.16.5</p></footer>
+<footer><p>DonateCraft &copy; 2026 © Играем на Майнкрафт 1.16.5</p></footer>
 </body>
 </html>

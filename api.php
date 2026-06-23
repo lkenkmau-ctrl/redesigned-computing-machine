@@ -34,17 +34,23 @@ if ($_GET['action'] === 'save_score' && isAuth()) {
 }
 
 if ($_GET['action'] === 'get_pending' && isset($_GET['key']) && $_GET['key'] === 'supersecret123') {
-    $pending = supabaseSelect('donations', [
-        'select' => '*',
-        'where' => 'status=eq.pending',
-        'order' => 'created_at.asc'
-    ]);
-    echo json_encode($pending, JSON_UNESCAPED_UNICODE);
+    // Re-queue stale processing items (older than 5 min) back to pending
+    $staleCutoff = gmdate('Y-m-d\TH:i:s\Z', time() - 300);
+    supabaseUpdate('donations', ['status' => 'pending'],
+        "status=eq.processing&created_at=lt.$staleCutoff");
+
+    // Atomically mark pending as processing and return them
+    $processed = supabaseUpdate('donations', ['status' => 'processing'], 'status=eq.pending');
+    if (isset($processed['error'])) {
+        echo 'error:' . $processed['error'];
+        exit;
+    }
+    echo json_encode($processed, JSON_UNESCAPED_UNICODE);
     exit;
 }
 
 if ($_GET['action'] === 'mark_done' && isset($_GET['key']) && $_GET['key'] === 'supersecret123' && isset($_GET['id'])) {
-    supabaseUpdate('donations', ['status' => 'completed'], 'id=eq.' . (int)$_GET['id'] . '&status=eq.pending');
+    supabaseUpdate('donations', ['status' => 'completed'], 'id=eq.' . (int)$_GET['id'] . '&status=eq.processing');
     echo 'ok';
     exit;
 }

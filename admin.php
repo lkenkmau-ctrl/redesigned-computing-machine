@@ -10,7 +10,8 @@ if (!isset($_SESSION['admin']) && (!isset($_POST['apass']) || $_POST['apass'] !=
 $_SESSION['admin'] = true;
 
 if (isset($_GET['complete'])) {
-    $result = supabaseUpdate('donations', ['status' => 'completed'], 'id=eq.' . (int)$_GET['complete']);
+    $result = supabaseUpdate('donations', ['status' => 'completed'],
+        'id=eq.' . (int)$_GET['complete'] . '&status=in.(pending,processing)');
     if (isset($result['error'])) {
         error_log('supabaseUpdate complete error: ' . $result['error']);
     }
@@ -19,7 +20,7 @@ if (isset($_GET['complete'])) {
 if (isset($_GET['cancel'])) {
     $dons = supabaseSelect('donations', [
         'select' => 'user_id,item_key,cost',
-        'where' => 'id=eq.' . (int)$_GET['cancel'] . '&status=eq.pending'
+        'where' => 'id=eq.' . (int)$_GET['cancel'] . '&status=in.(pending,processing)'
     ]);
     $don = $dons[0] ?? null;
     if ($don) {
@@ -53,7 +54,7 @@ if (isset($_POST['add_points'])) {
 
 $pending = supabaseSelect('donations', [
     'select' => '*',
-    'where' => 'status=eq.pending',
+    'where' => 'status=in.(pending,processing)',
     'order' => 'created_at.desc'
 ]);
 $allDons = supabaseSelect('donations', [
@@ -145,7 +146,8 @@ $pending_count = count($pending);
             <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
                 <div>
                     <strong style="color:#00ff00;"><?= htmlspecialchars($d['minecraft_nick']) ?></strong>
-                    <span style="color:#ffd700;"> � <?= htmlspecialchars($d['item_name']) ?></span>
+                    <?php if ($d['status'] === 'processing'): ?><span style='color:#ffaa00;'>⚙</span><?php endif; ?>
+                    <span style='color:#ffd700;'> � <?= htmlspecialchars($d['item_name']) ?></span>
                 </div>
                 <div style="display:flex;gap:6px;">
                     <a href="?complete=<?= $d['id'] ?>" class="btn btn-sm">? ������</a>

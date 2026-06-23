@@ -39,6 +39,42 @@ foreach ($all_dons as $d) {
 }
 
 $donations = array_slice($all_dons, 0, 10);
+
+$cancelMsg = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_order'])) {
+    $don_id = (int)$_POST['order_id'];
+    $don_resp = supabaseSelect('donations', [
+        'select' => 'id,cost,status',
+        'where' => 'id=eq.' . $don_id . '&user_id=eq.' . $user_id . '&status=in.(pending,processing)'
+    ]);
+    $don = $don_resp[0] ?? null;
+    if ($don) {
+        $result = supabaseUpdate('donations', ['status' => 'cancelled'], 'id=eq.' . $don_id);
+        if (!isset($result['error'])) {
+            $user_resp2 = supabaseSelect('users', [
+                'select' => 'points',
+                'where' => 'id=eq.' . $user_id
+            ]);
+            $current = !empty($user_resp2) ? (int)$user_resp2[0]['points'] : 0;
+            supabaseUpdate('users', ['points' => $current + (int)$don['cost']], 'id=eq.' . $user_id);
+            $userData['points'] = $current + (int)$don['cost'];
+            $cancelMsg = '? ';
+
+            // Refresh donations list
+            $all_dons = supabaseSelect('donations', [
+                'select' => '*',
+                'where' => 'user_id=eq.' . $user_id
+            ]);
+            $total_spent = 0;
+            foreach ($all_dons as $d) {
+                if (in_array($d['status'], ['completed', 'pending'])) {
+                    $total_spent += (int)$d['cost'];
+                }
+            }
+            $donations = array_slice($all_dons, 0, 10);
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -149,19 +185,21 @@ $donations = array_slice($all_dons, 0, 10);
         </div>
     </div>
 
-    <?php if (count($donations) > 0): ?>
+    <?php if ($cancelMsg): ?><div class="msg msg-success">✅ Заказ отменён. Средства возвращены.</div><?php endif; ?>
+<?php if (count($donations) > 0): ?>
     <div class="card animate-in">
-        <h2>��������� �������</h2>
-        <div class="table-wrap">
+        <h2>🛒 Заказы</h2>
+    <div class="table-wrap">
             <table>
-                <tr><th>�������</th><th>������</th><th>����</th></tr>
+                <tr><th>Предмет</th><th>Статус</th><th>Цена</th><th style='color:#ff6b6b;'>❌ Действие</th></tr>
                 <?php foreach ($donations as $d): ?>
                 <tr>
                     <td><?= htmlspecialchars($d['item_name']) ?></td>
                     <td class="status-<?= $d['status'] ?>">
                         <?= $d['status'] === 'pending' ? '? �������' : ($d['status'] === 'completed' ? '? ������' : '? ��������') ?>
                     </td>
-                    <td><?= $d['created_at'] ?></td>
+                    <td><?= (int)$d['cost'] ?> pts</td>
+                    <td><?php if (in_array($d['status'], ['pending','processing'])): ?><form method='post' style='display:inline;'><input type='hidden' name='order_id' value='<?= $d['id'] ?>'><button type='submit' name='cancel_order' class='btn btn-sm btn-red'>❌ Отменить</button></form><?php endif; ?></td>
                 </tr>
                 <?php endforeach; ?>
             </table>
